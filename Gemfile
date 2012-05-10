@@ -37,5 +37,5 @@ gem "guard-rspec", ">= 0.4.3", :group => :development
 gem "guard-cucumber", ">= 0.7.5", :group => :development
 gem "devise", ">= 2.1.0.rc"
 gem "will_paginate", ">= 3.0.3"
-gem 'therubyracer'
+gem 'execjs'
 gem 'thin'

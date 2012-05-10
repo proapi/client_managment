@@ -1,0 +1,2 @@
+unset BASH_ENV
+. .rvmrc

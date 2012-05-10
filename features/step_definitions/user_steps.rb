@@ -1,8 +1,10 @@
+# encoding: utf-8
+
 ### UTILITY METHODS ###
 
 def create_visitor
-  @visitor ||= { :name => "Testy McUserton", :email => "example@example.com",
-    :password => "please", :password_confirmation => "please" }
+  @visitor ||= {:name => "Testy McUserton", :email => "example@example.com",
+                :password => "please", :password_confirmation => "please"}
 end
 
 def find_user
@@ -19,7 +21,7 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, email: @visitor[:email])
+  @user = FactoryGirl.create(:user, name: @visitor[:name], email: @visitor[:email])
 end
 
 def delete_user
@@ -128,8 +130,14 @@ When /^I edit my account details$/ do
   click_button "Update"
 end
 
-When /^I look at the list of users$/ do
+When /^I go to the list of users$/ do
   visit '/'
+  page.should have_content "Lista użytkowników"
+end
+
+When /^I click on my name$/ do
+  page.should have_content @visitor[:name]
+  click_link @visitor[:name]
 end
 
 ### THEN ###
@@ -188,4 +196,9 @@ end
 Then /^I should see my name$/ do
   create_user
   page.should have_content @user[:name]
+end
+
+Then /^I should see my accounts detailsI$/ do
+  page.should have_content @user[:name]
+  page.should have_content @user[:email]
 end

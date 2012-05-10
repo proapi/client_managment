@@ -267,7 +267,7 @@ ul.nav li:last-child {
   width: 603px;
   border-left: 2px solid #f70;
   padding: 0 0 0 9px;
-  margin: 0 0 4px 0;
+  margin: 0;
 }
 
 /* text page header */
@@ -298,15 +298,14 @@ ul.nav li:last-child {
 /* bar with select */
 .select-bar {
   clear: both;
-  border-top: 2px solid #f70;
   border-bottom: 2px solid #f70;
-  padding: 5px 0 3px 0;
-  margin: 0 0 17px 0;
+  border-left: 2px solid #f70;
+  padding: 0 0 9px 9px;
+  margin: 0 0 6px 0;
 }
 
 .select-bar select {
   width: 145px;
-  margin: 0 2px;
 }
 
 /* table container */

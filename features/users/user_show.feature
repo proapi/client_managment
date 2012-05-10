@@ -5,5 +5,11 @@ Feature: Show Users
 
     Scenario: Viewing users
       Given I exist as a user
-      When I look at the list of users
+      When I go to the list of users
       Then I should see my name
+
+    Scenario: Viewing single user
+      Given I am logged in
+      When I go to the list of users
+      And I click on my name
+      Then I should see my accounts detailsI

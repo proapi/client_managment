@@ -14,7 +14,6 @@
 <body>
 <header>
   <%= render 'layouts/navigation' %>
-  <%= render 'layouts/messages' %>
 </header>
 <section>
   <div id="middle">
@@ -33,25 +32,22 @@
     </div>
     <div id="center-column">
       <div class="top-bar">
-        <h1>Contents</h1>
+        <h1><%= yield :section_header %></h1>
+
+        <div class="breadcrumbs"><a href="#">Homepage</a> / <a href="#">Contents</a></div>
       </div>
-      <!--
-        <div class="top-bar">
-          <a href="#" class="button">ADD NEW </a>
 
-          <h1>Contents</h1>
+      <div class="select-bar">
+        <label>
+          <input type="text" name="textfield"/>
+        </label>
+        <label>
+          <input type="submit" name="Submit" value="Wyszukaj"/>
+        </label>
+      </div>
 
-          <div class="breadcrumbs"><a href="#">Homepage</a> / <a href="#">Contents</a></div>
-        </div>
-        <div class="select-bar">
-          <label>
-            <input type="text" name="textfield"/>
-          </label>
-          <label>
-            <input type="submit" name="Submit" value="Search"/>
-          </label>
-        </div>
-      -->
+      <%= render 'layouts/messages' %>
+
       <%= yield %>
 
       <!--
