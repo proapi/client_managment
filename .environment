@@ -1,4 +1,1 @@
-source $HOME/.rvm/environments/ruby-1.9.3-p0@europodatki
-
-unset BASH_ENV
-. .rvmrc
+source $HOME/.rvm/environments/ruby-1.9.3-p194@europodatki
