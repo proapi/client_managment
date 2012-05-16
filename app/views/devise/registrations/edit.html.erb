@@ -1,27 +1,58 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-<p><%= f.label :name %><br />
-<%= f.text_field :name %></p>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
-
-  <div><%= f.submit "Update" %></div>
+<% content_for :section_header do %>
+    Edycja danych konta
 <% end %>
 
-<h3>Cancel my account</h3>
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja konta", user_path(current_user) %>
+<% end %>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+<% content_for :help do %>
+    <strong class="h">Szybka pomoc</strong>
 
-<%= link_to "Back", :back %>
+    <div class="box">
+      W tej części można zmienić dane podane przy rejestracji.
+    </div>
+
+    <strong class="h">Szybka pomoc</strong>
+
+    <div class="box">
+      Jeżeli nie chcesz zmieniać hasła, pozostaw pole "Nowe hasło" puste.
+    </div>
+<% end %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz edycji danych</th>
+        </tr>
+        <tr>
+          <td width="172"><strong><%= f.label :name, 'Nazwisko' %></strong></td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :email %></strong></td>
+          <td><%= f.email_field :email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :password, 'Nowe hasło' %></strong></td>
+          <td><%= f.password_field :password, :autocomplete => "off" %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :password_confirmation, 'Nowe hasło' %></strong></td>
+          <td><%= f.password_field :password_confirmation %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :current_password, 'Stare hasło' %></strong></td>
+          <td><%= f.password_field :current_password %></td>
+        </tr>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
+        </tr>
+      </table>
+    </div>
+<% end %>
+
+<%= link_to "Usuń konto", registration_path(resource_name), :confirm => "Czy jesteś pewien?", :method => :delete %>
+<%= link_to "Wstecz", :back %>

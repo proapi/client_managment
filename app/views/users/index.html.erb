@@ -1,12 +1,34 @@
 <% content_for :section_header do %>
-    <h1>Lista użytkowników</h1>
+    Lista użytkowników
 <% end %>
-<ul class="users">
-  <% @users.each do |user| %>
-      <li>
-        <%= link_to user.name, user %> signed up <%= user.created_at.to_date %>
-      </li>
-  <% end %>
-</ul>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Lista użytkowników", users_url %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Tutaj znajduje się lista użytkowników systemu.' %>
+<% end %>
+
+<%= content_tag :div, class: 'table' do %>
+    <%= content_tag :table, class: 'listing', cellpadding: '0', cellspacing: '0' do %>
+        <%= content_tag :tr do %>
+            <%= content_tag :th, 'Nazwisko' %>
+            <%= content_tag :th, 'Imię' %>
+            <%= content_tag :th, 'E-mail' %>
+            <%= content_tag :th, 'Akcje' %>
+        <% end %>
+        <%= content_tag_for(:tr, @users) do |user| %>
+            <%= content_tag :td, (link_to user.name, user_path(user)), class: 'style1' %>
+            <%= content_tag :td, user.name %>
+            <%= content_tag :td, user.email %>
+            <%= content_tag :td do %>
+                <%= link_to image_tag('info.png'), user_path(user) %>
+                <%= link_to image_tag('modify.png'), edit_user_registration_path %>
+                <%= link_to image_tag('delete.png'), registration_path(user), :confirm => "Czy jesteś pewien?", :method => :delete %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
 
 <%= will_paginate %>

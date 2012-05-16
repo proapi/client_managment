@@ -131,7 +131,7 @@ When /^I edit my account details$/ do
 end
 
 When /^I go to the list of users$/ do
-  visit '/'
+  visit users_path
   page.should have_content "Lista użytkowników"
 end
 

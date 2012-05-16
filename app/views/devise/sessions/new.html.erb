@@ -1,17 +1,45 @@
-<h2>Sign in</h2>
+<% content_for :section_header do %>
+    Logowanie
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Logowanie", root_url %>
+<% end %>
+
+<% content_for :help do %>
+    <strong class="h">Szybka pomoc</strong>
+
+    <div class="box">
+      Aby uzyskać dostęp do dalszej części aplikacji, konieczna jest weryfikacja użytkownika za pomocą loginu oraz hasła
+      podanego przy rejestracji.
+    </div>
+<% end %>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" %></div>
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz logowania</th>
+        </tr>
+        <tr>
+          <td width="172"><strong><%= f.label :email, 'E-mail / login' %></strong></td>
+          <td><%= f.email_field :email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :password, 'Hasło' %></strong></td>
+          <td><%= f.password_field :password %></td>
+        </tr>
+        <% if devise_mapping.rememberable? -%>
+            <tr>
+              <td><strong><%= f.label :remember_me, 'Zapamiętaj mnie' %></strong></td>
+              <td><%= f.check_box :remember_me %></td>
+            </tr>
+        <% end -%>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Zaloguj" %></td>
+        </tr>
+      </table>
+    </div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

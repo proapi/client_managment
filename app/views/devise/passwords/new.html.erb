@@ -1,12 +1,37 @@
-<h2>Forgot your password?</h2>
+<% content_for :section_header do %>
+    Odzyskiwanie hasła
+<% end %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<% content_for :history do %>
+    <%= link_to "Odzyskiwanie hasła", root_url %>
+<% end %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+<% content_for :help do %>
+    <strong class="h">Szybka pomoc</strong>
 
-  <div><%= f.submit "Send me reset password instructions" %></div>
+    <div class="box">
+      Jeżeli zapomniałeś hasła, podająć prawidłowy adres e-mail przy rejestracji system wyśle informację o dalszych
+      krokach.
+    </div>
+<% end %>
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post}) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz odzyskiwania hasła</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :email %></strong></td>
+          <td><%= f.email_field :email %></td>
+        </tr>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Wyślij informacje o odzyskaniu hasła" %></td>
+        </tr>
+      </table>
+    </div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

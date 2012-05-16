@@ -9,7 +9,7 @@ Feature: Show Users
       Then I should see my name
 
     Scenario: Viewing single user
-      Given I am logged in
+      Given I sign up with valid user data
       When I go to the list of users
       And I click on my name
       Then I should see my accounts detailsI

@@ -1,20 +1,47 @@
-<h2>Sign up</h2>
+<% content_for :section_header do %>
+    Rejestracja nowego konta
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Rejestracja", root_url %>
+<% end %>
+
+<% content_for :help do %>
+    <strong class="h">Szybka pomoc</strong>
+
+    <div class="box">
+      W tej części można utworzyć nowe konto użytkownika systemu.
+    </div>
+<% end %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-<p><%= f.label :name %><br />
-<%= f.text_field :name %></p>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up" %></div>
+    <%= devise_error_messages! %>
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz rejestracji</th>
+        </tr>
+        <tr>
+          <td width="172"><strong><%= f.label :name, 'Nazwisko' %></strong></td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :email %></strong></td>
+          <td><%= f.email_field :email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :password, 'Hasło' %></strong></td>
+          <td><%= f.password_field :password %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :password_confirmation, 'Hasło' %></strong></td>
+          <td><%= f.password_field :password_confirmation %></td>
+        </tr>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Rejestruj" %></td>
+        </tr>
+      </table>
+    </div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
