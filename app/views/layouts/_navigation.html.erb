@@ -12,6 +12,15 @@
           <%= link_to 'Strona główna', root_url %>
         </li>
         <li>
+          <%= link_to 'Klienci', clients_path, class: 'link' %>
+        </li>
+        <li>
+          <%= link_to 'Wiadomości', messages_path, class: 'link' %>
+        </li>
+        <li>
+          <%= link_to 'Użytkownicy', users_path, class: 'link' %>
+        </li>
+        <li>
           <%= link_to('Wyloguj', destroy_user_session_path, :method => 'delete') %>
         </li>
         <li>

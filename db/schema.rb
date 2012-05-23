@@ -11,7 +11,67 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508095205) do
+ActiveRecord::Schema.define(:version => 20120523010113) do
+
+  create_table "addresses", :force => true do |t|
+    t.string   "street"
+    t.string   "code"
+    t.string   "city"
+    t.integer  "client_id"
+    t.string   "kind"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "addresses", ["client_id"], :name => "index_addresses_on_client_id"
+
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         :default => 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
+
+  create_table "clients", :force => true do |t|
+    t.string   "lastname"
+    t.string   "firstname"
+    t.datetime "birthdate"
+    t.string   "telephone"
+    t.string   "mobile"
+    t.string   "email"
+    t.string   "identifier"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "source"
+    t.string   "origin"
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "client_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "messages", ["client_id"], :name => "index_messages_on_client_id"
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -27,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120508095205) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

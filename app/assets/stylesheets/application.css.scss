@@ -15,7 +15,8 @@
 /* main styles */
 body {
   margin: 0 auto;
-  width: 992px;
+  //width: 992px;
+  width: 1200px;
   padding: 0;
   background: #BBD9EE;
   color: #000;
@@ -87,7 +88,7 @@ input.text {
 /* header */
 #header {
   position: relative;
-  width: 992px;
+  width: 1200px;
   height: 38px;
 }
 
@@ -122,13 +123,13 @@ input.text {
   -webkit-border-top-left-radius: 4px;
   -webkit-border-top-right-radius: 4px;
   background: #e7f1f8;
+  border: 1px #ff7300 solid;
+  border-bottom: none;
 }
 
 #top-navigation li a:hover {
-  border: 1px #ff7300 solid;
-  border-bottom: none;
   background: #fff;
-  margin: 8px -1px;
+  //margin: 8px -1px;
 }
 
 #top-navigation li a.active {
@@ -143,7 +144,8 @@ input.text {
 /* middle */
 #middle {
   float: left;
-  width: 973px;
+  width: 1181px;
+  //width: 973px;
   background: #fff;
   border: 1px solid #ff6f00;
   border-radius: 7px;
@@ -172,7 +174,7 @@ input.text {
 /* center column */
 #center-column {
   float: left;
-  width: 614px;
+  width: 822px;
   background: url(image-path('bg-center-column.jpg')) top left no-repeat;
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0, rgb(221, 221, 221)), color-stop(0.5, rgb(255, 255, 255)));
   background: -moz-linear-gradient(left top, rgb(221, 221, 221) 0%, rgb(255, 255, 255) 50%);
@@ -312,14 +314,14 @@ ul.nav li:last-child {
 div.table {
   float: left;
   position: relative;
-  width: 614px;
+  width: 822px;
   margin: 0 0 37px 0;
 }
 
 table.listing {
   border-bottom: 1px solid #9097A9;
   background: #9097A9;
-  width: 613px;
+  width: 821px;
   padding: 0;
   margin: 0;
   border: 1px solid #9097A9;
@@ -493,4 +495,33 @@ div.table .select select {
 #flash_alert {
   background-color: #FCC;
   border: solid 1px #C66;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
 }

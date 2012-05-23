@@ -1,0 +1,20 @@
+<% content_for :section_header do %>
+    Edycja klienta
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja klienta", edit_client_path(@client) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tym miejscu aplikacji możliwa jest edycja danych klienta.' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'form' %>
+
+<%= link_to 'Pokaż szczegóły', @client %> |
+<%= link_to 'Lista klientów', clients_path %>

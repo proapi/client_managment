@@ -1,0 +1,16 @@
+<% if @client && !@client.new_record? %>
+    <h3><%= @client.lastname %></h3>
+    <ul class="nav">
+      <li><%= link_to 'Szczegóły', @client %></li>
+      <li><%= link_to 'Edycja', edit_client_path(@client) %></li>
+      <li><%= link_to 'Historia', history_client_path(@client) %></li>
+      <li><%= link_to 'Usuń', @client, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
+      <li></li>
+    </ul>
+<% end %>
+<h3>Klienci</h3>
+<ul class="nav">
+  <li><%= link_to 'Dodaj nowego klienta', new_client_path %></li>
+  <li><%= link_to 'Lista klientów', clients_path %></li>
+  <li></li>
+</ul>

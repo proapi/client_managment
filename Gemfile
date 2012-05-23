@@ -1,6 +1,8 @@
 require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
+
 source 'https://rubygems.org'
+
 gem 'rails', '3.2.3'
 gem 'sqlite3'
 group :assets do
@@ -39,3 +41,4 @@ gem "devise", ">= 2.1.0.rc"
 gem "will_paginate", ">= 3.0.3"
 gem 'execjs'
 gem 'thin'
+gem "audited-activerecord"
