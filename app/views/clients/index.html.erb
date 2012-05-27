@@ -15,30 +15,34 @@
 <% end %>
 
 <%= content_tag :div, class: 'table' do %>
-    <%= content_tag :table, class: 'listing', cellpadding: '0', cellspacing: '0' do %>
-        <%= content_tag :tr do %>
-            <%= content_tag :th, 'Identyfikator' %>
-            <%= content_tag :th, 'Nazwisko' %>
-            <%= content_tag :th, 'Imię' %>
-            <%= content_tag :th, 'Miasto' %>
-            <%= content_tag :th, 'Telefon kom' %>
-            <%= content_tag :th, 'E-mail' %>
-            <%= content_tag :th, 'Akcje' %>
-        <% end %>
-        <%= content_tag_for(:tr, @clients) do |client| %>
-            <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
-            <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
-            <%= content_tag :td, client.firstname %>
-            <%= content_tag :td, client.address.city %>
-            <%= content_tag :td, client.mobile %>
-            <%= content_tag :td, client.email %>
-            <%= content_tag :td do %>
-                <%= link_to image_tag('info.png'), client %>
-                <%= link_to image_tag('modify.png'), edit_client_path(client) %>
-                <%= link_to image_tag('delete.png'), client, :confirm => "Czy jesteś pewien?", :method => :delete %>
-            <% end %>
-        <% end %>
-    <% end %>
+    <table id="clients" class="listing" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Identyfikator' %>
+          <%= content_tag :th, 'Nazwisko' %>
+          <%= content_tag :th, 'Imię' %>
+          <%= content_tag :th, 'Miasto' %>
+          <%= content_tag :th, 'Telefon kom' %>
+          <%= content_tag :th, 'E-mail' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @clients) do |client| %>
+          <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, client.firstname %>
+          <%= content_tag :td, client.address.city %>
+          <%= content_tag :td, client.mobile %>
+          <%= content_tag :td, client.email %>
+          <%= content_tag :td do %>
+              <%= link_to image_tag('info.png'), client %>
+              <%= link_to image_tag('modify.png'), edit_client_path(client) %>
+              <%= link_to image_tag('delete.png'), client, :confirm => "Czy jesteś pewien?", :method => :delete %>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
 <% end %>
 
 <%= will_paginate %>

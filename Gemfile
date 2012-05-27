@@ -42,3 +42,5 @@ gem "will_paginate", ">= 3.0.3"
 gem 'execjs'
 gem 'thin'
 gem "audited-activerecord"
+gem 'jquery-datatables-rails'
+gem 'therubyracer'

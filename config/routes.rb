@@ -3,7 +3,7 @@ Europodatki::Application.routes.draw do
 
   resources :clients do
     member do
-      get 'history'
+          get 'history'
     end
   end
 
