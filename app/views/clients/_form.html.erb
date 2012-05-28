@@ -87,7 +87,7 @@
               <td><strong><%= mailing_address_form.label :code, "Kod pocztowy" %></strong></td>
               <td><%= mailing_address_form.text_field :code %></td>
             </tr>
-            <%= address_form.hidden_field :kind, value: 'mailing_address' %>
+            <%= mailing_address_form.hidden_field :kind, value: 'mailing_address' %>
             <!--
             <% unless mailing_address_form.object.new_record? %>
                 <tr>
