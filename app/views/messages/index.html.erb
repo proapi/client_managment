@@ -1,31 +1,36 @@
-<h1>Listing messages</h1>
-
-<table>
-  <tr>
-    <th>Source</th>
-    <th>Origin</th>
-    <th>Body</th>
-    <th>User</th>
-    <th>Client</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @messages.each do |message| %>
-  <tr>
-    <td><%= message.source %></td>
-    <td><%= message.origin %></td>
-    <td><%= message.body %></td>
-    <td><%= message.user %></td>
-    <td><%= message.client %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
-    <td><%= link_to 'Destroy', message, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% content_for :section_header do %>
+    Lista wiadomości
 <% end %>
-</table>
 
-<br />
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Wstecz', :back %>
+<% end %>
 
-<%= link_to 'New Message', new_message_path %>
+<% content_for :help do %>
+    <% help_block 'Listing wszystkich wiadomości utworzonych w systemie dla klientów' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= content_tag :div, class: 'table' do %>
+    <table id="messages" class="listing" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Klient' %>
+          <%= content_tag :th, 'Źródło' %>
+          <%= content_tag :th, 'Pochodzenie' %>
+          <%= content_tag :th, 'Treść' %>
+          <%= content_tag :th, 'Użytkownik' %>
+          <%= content_tag :th, 'Data utworzenia' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @messages) do |message| %>
+         <%= render message %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

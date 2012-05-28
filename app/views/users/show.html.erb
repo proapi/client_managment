@@ -15,13 +15,69 @@
     <tr>
       <th class="full" colspan="2">Szczegóły konta użytkownika</th>
     </tr>
+    <%= check_blank 'Nazwisko', @user.name %>
+    <%= check_blank 'E-mail', @user.email %>
     <tr>
-      <td>Nazwisko</td>
-      <td><strong><%= @user.name %></strong></td>
+      <td>Administrator</td>
+      <td><strong><%= @user.admin? ? 'Tak' : 'Nie' %></strong></td>
     </tr>
     <tr>
-      <td>E-mail / login</td>
-      <td><strong><%= @user.email if @user.email %></strong></td>
+      <td>Data rejestracji</td>
+      <td><strong><%= l @user.created_at %></strong></td>
     </tr>
   </table>
 </div>
+
+<h3>Wiadomości stworzone przez użytkownika</h3>
+<%= content_tag :div, class: 'table' do %>
+    <table id="messages" class="listing" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Klient' %>
+          <%= content_tag :th, 'Źródło' %>
+          <%= content_tag :th, 'Pochodzenie' %>
+          <%= content_tag :th, 'Treść' %>
+          <%= content_tag :th, 'Użytkownik' %>
+          <%= content_tag :th, 'Data utworzenia' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @user.messages) do |message| %>
+          <%= render message %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+<h3>Klienci stworzeni przez użytkownika</h3>
+<%= content_tag :div, class: 'table' do %>
+    <table id="clients" class="listing" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Identyfikator' %>
+          <%= content_tag :th, 'Nazwisko' %>
+          <%= content_tag :th, 'Imię' %>
+          <%= content_tag :th, 'Miasto' %>
+          <%= content_tag :th, 'Telefon kom' %>
+          <%= content_tag :th, 'E-mail' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @user.clients) do |client| %>
+          <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, client.firstname %>
+          <%= content_tag :td, client.address.city %>
+          <%= content_tag :td, client.mobile %>
+          <%= content_tag :td, client.email %>
+          <%= content_tag :td do %>
+              <%= link_to image_tag('info.png'), client %>
+              <%= link_to image_tag('modify.png'), edit_client_path(client) %>
+              <%= link_to image_tag('delete.png'), client, :confirm => "Czy jesteś pewien?", :method => :delete %>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

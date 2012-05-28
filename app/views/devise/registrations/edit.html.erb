@@ -47,6 +47,12 @@
           <td><strong><%= f.label :current_password, 'Stare hasło' %></strong></td>
           <td><%= f.password_field :current_password %></td>
         </tr>
+        <% if current_user.admin? %>
+            <tr>
+              <td><strong><%= f.label :admin, 'Administrator' %></strong></td>
+              <td><%= f.check_box :admin %></td>
+            </tr>
+        <% end %>
         <tr>
           <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
         </tr>

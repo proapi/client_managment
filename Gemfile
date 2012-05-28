@@ -44,3 +44,4 @@ gem 'thin'
 gem "audited-activerecord"
 gem 'jquery-datatables-rails'
 gem 'therubyracer'
+gem 'jquery_datepicker'

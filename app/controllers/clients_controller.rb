@@ -28,6 +28,7 @@ class ClientsController < ApplicationController
   def new
     @client = Client.new
     @client.address = Address.new
+    @client.mailing_address = Address.new
 
     respond_to do |format|
       format.html # new.html.erb

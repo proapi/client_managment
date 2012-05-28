@@ -14,47 +14,60 @@
     <% render 'main_menu' %>
 <% end %>
 
-
 <div class="table">
   <table class="listing form" cellpadding="0" cellspacing="0">
     <tr>
       <th class="full" colspan="2">Szczegóły rekordu klienta</th>
     </tr>
+    <%= check_blank 'Identyfikator', @client.identifier %>
+    <%= check_blank 'Nazwisko', @client.lastname %>
+    <%= check_blank 'Imię', @client.firstname %>
+    <%= check_blank 'Telefon stacjonarny', @client.telephone %>
+    <%= check_blank 'Telefon komórkowy', @client.mobile %>
+    <%= check_blank 'E-mail', @client.email %>
     <tr>
-      <td>Identyfikator</td>
-      <td><strong><%= @client.identifier %></strong></td>
+      <td>Data urodzenia</td>
+      <td><strong><%= l @client.birthdate, format: :default %></strong></td>
     </tr>
     <tr>
-      <td>Nazwisko</td>
-      <td><strong><%= @client.lastname %></strong></td>
+      <th class="full" colspan="2">Adres zameldowania</th>
+    </tr>
+    <%= check_blank 'Miasto', @client.address.city %>
+    <%= check_blank 'Ulica nr domu/mieszkania', @client.address.street %>
+    <%= check_blank 'Kod pocztowy', @client.address.code %>
+    <tr>
+      <th class="full" colspan="2">Adres korespondencyjny</th>
+    </tr>
+    <%= check_blank 'Miasto', @client.mailing_address.city %>
+    <%= check_blank 'Ulica nr domu/mieszkania', @client.mailing_address.street %>
+    <%= check_blank 'Kod pocztowy', @client.mailing_address.code %>
+    <tr>
+      <th class="full" colspan="2">Opis / uwagi</th>
     </tr>
     <tr>
-      <td>Imię</td>
-      <td><strong><%= @client.firstname %></strong></td>
-    </tr>
-    <tr>
-      <td>Miasto</td>
-      <td><strong><%= @client.address.city %></strong></td>
-    </tr>
-    <tr>
-      <td>Kod pocztowy</td>
-      <td><strong><%= @client.address.code %></strong></td>
-    </tr>
-    <tr>
-      <td>Ulica</td>
-      <td><strong><%= @client.address.street %></strong></td>
-    </tr>
-    <tr>
-      <td>Telefon stacjonarny</td>
-      <td><strong><%= @client.telephone %></strong></td>
-    </tr>
-    <tr>
-      <td>Telefon komórkowy</td>
-      <td><strong><%= @client.mobile %></strong></td>
-    </tr>
-    <tr>
-      <td>E-mail</td>
-      <td><strong><%= @client.email %></strong></td>
+      <td colspan="2"><%= @client.description.blank? ? "Brak" : @client.description %></td>
     </tr>
   </table>
 </div>
+
+<h3>Wiadomości klienta</h3>
+<%= content_tag :div, class: 'table' do %>
+    <table id="messages" class="listing" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Klient' %>
+          <%= content_tag :th, 'Źródło' %>
+          <%= content_tag :th, 'Pochodzenie' %>
+          <%= content_tag :th, 'Treść' %>
+          <%= content_tag :th, 'Użytkownik' %>
+          <%= content_tag :th, 'Data utworzenia' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @client.messages) do |message| %>
+          <%= render message %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

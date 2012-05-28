@@ -17,6 +17,7 @@
           <%= content_tag :th, 'Nazwisko' %>
           <%= content_tag :th, 'Imię' %>
           <%= content_tag :th, 'E-mail' %>
+          <%= content_tag :th, 'Administrator' %>
           <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
@@ -25,6 +26,7 @@
           <%= content_tag :td, (link_to user.name, user_path(user)), class: 'style1' %>
           <%= content_tag :td, user.name %>
           <%= content_tag :td, user.email %>
+          <%= content_tag :td, user.admin? ? 'Tak' : 'Nie' %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), user_path(user) %>
               <%= link_to image_tag('modify.png'), edit_user_registration_path %>
@@ -34,5 +36,3 @@
       </tbody>
     </table>
 <% end %>
-
-<%= will_paginate %>

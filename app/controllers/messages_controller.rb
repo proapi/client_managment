@@ -26,7 +26,14 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    @message = Message.new
+    if params[:client_id]
+      @client = Client.find(params[:client_id])
+      @message = @client.messages.build
+    else
+      @message = Message.new
+    end
+      @user = current_user
+      @user.messages << @message
 
     respond_to do |format|
       format.html # new.html.erb

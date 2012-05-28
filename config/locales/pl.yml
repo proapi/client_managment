@@ -31,7 +31,7 @@ pl:
     - piątek
     - sobota
     formats:
-      default: ! '%Y-%m-%d'
+      default: ! '%d-%m-%Y'
       long: ! '%B %d, %Y'
       short: ! '%d %b'
     month_names:
@@ -208,7 +208,7 @@ pl:
   time:
     am: przed południem
     formats:
-      default: ! '%Y-%m-%d %H:%M:%S'
+      default: ! '%d-%m-%Y %H:%M:%S'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: po południu

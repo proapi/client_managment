@@ -11,7 +11,6 @@
         </div>
     <% end %>
 
-
     <div class="table">
       <table class="listing form" cellpadding="0" cellspacing="0">
         <tr>
@@ -30,8 +29,8 @@
           <td> <%= f.text_field :firstname %></td>
         </tr>
         <tr>
-          <td><strong>  <%= f.label :birthdate, 'Data urodzenia' %></strong></td>
-          <td> <%= f.date_select :birthdate %></td>
+          <td><strong><%= f.label :birthdate, 'Data urodzenia' %></strong></td>
+          <td> <%= f.datepicker :birthdate %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :telephone, 'Telefon stacjonarny' %></strong></td>
@@ -45,6 +44,10 @@
           <td><strong><%= f.label :email, 'E-mail' %></strong></td>
           <td><%= f.email_field :email %></td>
         </tr>
+        <tr>
+          <th class="full" colspan="2">Adres zameldowania</th>
+        </tr>
+
         <%= f.fields_for :address do |address_form| %>
             <tr>
               <td><strong><%= address_form.label :street, "Ulica, nr domu/mieszkania" %></strong></td>
@@ -58,12 +61,41 @@
               <td><strong><%= address_form.label :code, "Kod pocztowy" %></strong></td>
               <td><%= address_form.text_field :code %></td>
             </tr>
+            <%= address_form.hidden_field :kind, value: 'address' %>
+            <!--
             <% unless address_form.object.new_record? %>
                 <tr>
                   <td><strong><%= address_form.label :_destroy, 'Usuń' %></strong></td>
                   <td><%= address_form.check_box :_destroy %></td>
                 </tr>
             <% end %>
+            -->
+        <% end %>
+        <tr>
+          <th class="full" colspan="2">Adres korespondencyjny</th>
+        </tr>
+        <%= f.fields_for :mailing_address do |mailing_address_form| %>
+            <tr>
+              <td><strong><%= mailing_address_form.label :street, "Ulica, nr domu/mieszkania" %></strong></td>
+              <td><%= mailing_address_form.text_field :street %></td>
+            </tr>
+            <tr>
+              <td><strong><%= mailing_address_form.label :city, "Miasto" %></strong></td>
+              <td><%= mailing_address_form.text_field :city %></td>
+            </tr>
+            <tr>
+              <td><strong><%= mailing_address_form.label :code, "Kod pocztowy" %></strong></td>
+              <td><%= mailing_address_form.text_field :code %></td>
+            </tr>
+            <%= address_form.hidden_field :kind, value: 'mailing_address' %>
+            <!--
+            <% unless mailing_address_form.object.new_record? %>
+                <tr>
+                  <td><strong><%= mailing_address_form.label :_destroy, 'Usuń' %></strong></td>
+                  <td><%= mailing_address_form.check_box :_destroy %></td>
+                </tr>
+            <% end %>
+            -->
         <% end %>
         <tr>
           <td><strong><%= f.label :description, 'Opis / uwagi' %></strong></td>

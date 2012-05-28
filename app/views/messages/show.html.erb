@@ -1,30 +1,43 @@
-<p id="notice"><%= notice %></p>
+<% content_for :section_header do %>
+    Szczegóły wiadomości
+<% end %>
 
-<p>
-  <b>Source:</b>
-  <%= @message.source %>
-</p>
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Szczegóły wiadomości", message_path(@message) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
 
-<p>
-  <b>Origin:</b>
-  <%= @message.origin %>
-</p>
+<% content_for :help do %>
+    <% help_block 'Podgląd danych wiadomości' %>
+<% end %>
 
-<p>
-  <b>Body:</b>
-  <%= @message.body %>
-</p>
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
 
-<p>
-  <b>User:</b>
-  <%= @message.user %>
-</p>
-
-<p>
-  <b>Client:</b>
-  <%= @message.client %>
-</p>
-
-
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+<div class="table">
+  <table class="listing form" cellpadding="0" cellspacing="0">
+    <tr>
+      <th class="full" colspan="2">Szczegóły rekordu wiadomości</th>
+    </tr>
+    <tr>
+      <td>Klient</td>
+      <td><strong><%= link_to @message.client.lastname, client_path(@message.client) %></strong></td>
+    </tr>
+    <%= check_blank 'Źródło', @message.source %>
+    <%= check_blank 'Pochodzenie', @message.origin %>
+    <tr>
+      <td>Data utworzenia</td>
+      <td><strong><%= l @message.created_at %></strong></td>
+    </tr>
+    <tr>
+      <td>Użytkownik</td>
+      <td><strong><%= link_to @message.user.name, user_path(@message.user) %></strong></td>
+    </tr>
+    <tr>
+      <th class="full" colspan="2">Treść wiadomości</th>
+    </tr>
+    <tr>
+      <td colspan="2"><%= @message.body.blank? ? "Brak" : @message.body %></td>
+    </tr>
+  </table>
+</div>

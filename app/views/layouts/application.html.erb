@@ -7,6 +7,7 @@
   <title>Europodatki</title>
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="robots" content="noindex,nofollow"/>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -49,12 +50,14 @@
 
       <div class="select-bar">
         <% if current_user %>
+            <!--
             <label>
               <input type="text" name="textfield"/>
             </label>
             <label>
               <input type="submit" name="Submit" value="Wyszukaj"/>
             </label>
+            -->
         <% end %>
       </div>
 
