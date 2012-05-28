@@ -43,5 +43,5 @@ gem 'execjs'
 gem 'thin'
 gem "audited-activerecord"
 gem 'jquery-datatables-rails'
-gem 'therubyracer'
+gem 'therubyrhino'
 gem 'jquery_datepicker'
