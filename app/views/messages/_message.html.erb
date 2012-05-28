@@ -1,7 +1,7 @@
 <%= content_tag :td, (link_to message.client.lastname, client_path(message.client)), class: 'style1' %>
 <%= content_tag :td, (link_to message.source, message_path(message)), class: 'style1' %>
 <%= content_tag :td, (link_to message.origin, message_path(message)), class: 'style1' %>
-<%= content_tag :td, (message.body[0...25]) %>
+<%= content_tag :td, truncate(message.body, length: 25) %>
 <%= content_tag :td, message.user.name %>
 <%= content_tag :td, l(message.created_at) %>
 <%= content_tag :td do %>

@@ -4,7 +4,12 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    if params[:client_id]
+      @client = Client.find params[:client_id]
+      @messages = @client.messages
+    else
+      @messages = Message.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,8 +37,8 @@ class MessagesController < ApplicationController
     else
       @message = Message.new
     end
-      @user = current_user
-      @user.messages << @message
+    @user = current_user
+    @user.messages << @message
 
     respond_to do |format|
       format.html # new.html.erb
