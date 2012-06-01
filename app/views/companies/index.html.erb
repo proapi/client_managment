@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Lista firm
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> /<%= link_to "Lista firm", companies_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Listing wszystkich zdefiniowanych rekordów firm' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'companies_table' %>

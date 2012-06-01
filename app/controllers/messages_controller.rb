@@ -5,8 +5,8 @@ class MessagesController < ApplicationController
   # GET /messages.json
   def index
     if params[:client_id]
-      @client = Client.find params[:client_id]
-      @messages = @client.messages
+      client = Client.find params[:client_id]
+      @messages = client.messages
     else
       @messages = Message.all
     end

@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Dodawanie nowy rekord kraju
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> /<%= link_to "Dodawanie kraju", new_country_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Dodawanie nowego rekordu kraju do bazy danych' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'form' %>

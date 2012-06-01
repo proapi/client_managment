@@ -21,7 +21,7 @@
     <div id="left-column">
       <% if current_user %>
           <% unless content_for?(:main_menu) %>
-              <%= render 'layouts/main_menu' %>
+              <%= render partial: "users/main_menu", locals: {user: current_user} %>
           <% else %>
               <%= yield :main_menu %>
           <% end %>

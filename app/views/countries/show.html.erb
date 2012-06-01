@@ -1,0 +1,29 @@
+<% content_for :section_header do %>
+    Szczegóły kraju
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Szczegóły kraju", @country %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Podgląd danych kraju' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<div class="table">
+  <table class="listing form" cellpadding="0" cellspacing="0">
+    <tr>
+      <th class="full" colspan="2">Szczegóły rekordu kraju</th>
+    </tr>
+    <%= check_blank 'Nazwa kraju', @country.name %>
+    <%= check_blank 'Skrócony identyfikator kraju', @country.short %>
+    <%= check_blank 'Waluta', @country.currency %>
+  </table>
+</div>
+
+<h3>Dokumenty kraju</h3>
+<%= render 'documents/documents_table' %>

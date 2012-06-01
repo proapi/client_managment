@@ -1,0 +1,63 @@
+<%= form_for(@company) do |f| %>
+    <% if @company.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+          <ul>
+            <% @company.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz danych firmy</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :name, 'Nazwa firmy' %></strong></td>
+          <td> <%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :short, 'Nazwa skrócona firmy' %></strong></td>
+          <td> <%= f.text_field :short %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :tax_number, 'Numer identyfikacji podatkowej(NIP)' %></strong></td>
+          <td> <%= f.text_field :tax_number %></td>
+        </tr>
+        <tr>
+          <th class="full" colspan="2">Adres firmy</th>
+        </tr>
+
+        <%= f.fields_for :addresses do |address_form| %>
+            <tr>
+              <td><strong><%= address_form.label :street, "Ulica, nr domu/mieszkania" %></strong></td>
+              <td><%= address_form.text_field :street %></td>
+            </tr>
+            <tr>
+              <td><strong><%= address_form.label :city, "Miasto" %></strong></td>
+              <td><%= address_form.text_field :city %></td>
+            </tr>
+            <tr>
+              <td><strong><%= address_form.label :code, "Kod pocztowy" %></strong></td>
+              <td><%= address_form.text_field :code %></td>
+            </tr>
+            <%= address_form.hidden_field :kind, value: 'address' %>
+            <!--
+                <% unless address_form.object.new_record? %>
+                    <tr>
+                      <td><strong><%= address_form.label :_destroy, 'Usuń' %></strong></td>
+                      <td><%= address_form.check_box :_destroy %></td>
+                    </tr>
+                <% end %>
+                -->
+        <% end %>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
+        </tr>
+      </table>
+    </div>
+<% end %>

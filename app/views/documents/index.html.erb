@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Lista dokumentów
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> /<%= link_to "Lista dokumentów", documents_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Lista wszystkich dokumentów w bazie danych' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'documents_table' %>

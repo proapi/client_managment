@@ -1,0 +1,16 @@
+<% if @document && !@document.new_record? %>
+    <h3><%= @document.title %></h3>
+    <ul class="nav">
+      <li><%= link_to 'Szczegóły', @document %></li>
+      <li><%= link_to 'Edycja', edit_document_path(@document) %></li>
+      <li><%= link_to 'Usuń', @document, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
+      <li></li>
+    </ul>
+<% end %>
+
+<h3>Rekordy documentu</h3>
+<ul class="nav">
+  <li><%= link_to 'Dodaj nowy dokument', new_document_path %></li>
+  <li><%= link_to 'Lista dokomentów', documents_path %></li>
+  <li></li>
+</ul>

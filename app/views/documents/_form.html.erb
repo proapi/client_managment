@@ -1,0 +1,37 @@
+<%= form_for(@document) do |f| %>
+    <% if @document.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+
+          <ul>
+            <% @document.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz danych dokumentu</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :title, 'Nazwa dokumentu' %></strong></td>
+          <td> <%= f.text_field :title %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :body, 'Treść dokumentu' %></strong></td>
+          <td> <%= f.text_area :body %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :country_id, "Kraj" %></strong></td>
+          <td>
+            <%= f.collection_select :country_id, Country.all, :id, :name %>
+          </td>
+        </tr>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
+        </tr>
+      </table>
+    </div>
+<% end %>

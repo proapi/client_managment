@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Lista krajów
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Lista krajów", countries_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Lista wszystkich krajów zdefiniowanych w bazie danych' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'countries_table' %>

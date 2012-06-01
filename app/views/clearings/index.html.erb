@@ -1,0 +1,57 @@
+<h1>Listing clearings</h1>
+
+<table>
+  <tr>
+    <th>Client</th>
+    <th>Country</th>
+    <th>Tax number</th>
+    <th>Year</th>
+    <th>Application date</th>
+    <th>Commission percent</th>
+    <th>Commission min</th>
+    <th>Commission currency</th>
+    <th>Rebate calc</th>
+    <th>Office send date</th>
+    <th>Rebate final</th>
+    <th>Decision date</th>
+    <th>Commission final</th>
+    <th>Commission date</th>
+    <th>Exchange rate</th>
+    <th>Maturity date</th>
+    <th>Payment date</th>
+    <th>Account number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clearings.each do |clearing| %>
+  <tr>
+    <td><%= clearing.client %></td>
+    <td><%= clearing.country %></td>
+    <td><%= clearing.tax_number %></td>
+    <td><%= clearing.year %></td>
+    <td><%= clearing.application_date %></td>
+    <td><%= clearing.commission_percent %></td>
+    <td><%= clearing.commission_min %></td>
+    <td><%= clearing.commission_currency %></td>
+    <td><%= clearing.rebate_calc %></td>
+    <td><%= clearing.office_send_date %></td>
+    <td><%= clearing.rebate_final %></td>
+    <td><%= clearing.decision_date %></td>
+    <td><%= clearing.commission_final %></td>
+    <td><%= clearing.commission_date %></td>
+    <td><%= clearing.exchange_rate %></td>
+    <td><%= clearing.maturity_date %></td>
+    <td><%= clearing.payment_date %></td>
+    <td><%= clearing.account_number %></td>
+    <td><%= link_to 'Show', clearing %></td>
+    <td><%= link_to 'Edit', edit_clearing_path(clearing) %></td>
+    <td><%= link_to 'Destroy', clearing, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clearing', new_clearing_path %>

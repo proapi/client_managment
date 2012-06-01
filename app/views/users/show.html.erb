@@ -30,7 +30,7 @@
 
 <h3>Wiadomości stworzone przez użytkownika</h3>
 <%= content_tag :div, class: 'table' do %>
-    <table id="messages" class="listing" cellpadding="0" cellspacing="0">
+    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
           <%= content_tag :th, 'Klient' %>
@@ -52,7 +52,7 @@
 
 <h3>Klienci stworzeni przez użytkownika</h3>
 <%= content_tag :div, class: 'table' do %>
-    <table id="clients" class="listing" cellpadding="0" cellspacing="0">
+    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
           <%= content_tag :th, 'Identyfikator' %>

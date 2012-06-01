@@ -80,6 +80,11 @@ textarea {
   vertical-align: middle;
 }
 
+textarea {
+  width: 262px;
+  height: 150px;
+}
+
 input.text {
   padding: 1px 0 0 4px;
   height: 14px;
@@ -100,6 +105,7 @@ input.text {
   left: 20px;
   margin: 0;
   padding: 0;
+  width: 1150px;
   list-style: none;
 }
 
@@ -140,6 +146,10 @@ input.text {
   border-bottom: none;
   margin: 0;
   background: white;
+}
+
+#top-navigation .logout_button {
+float: right;
 }
 
 /* middle */
@@ -415,7 +425,7 @@ table.form td {
 }
 
 table.form input.text {
-  width: 262px
+  width: 262px;
 }
 
 /* table select */

@@ -1,0 +1,20 @@
+<% content_for :section_header do %>
+    Edycja danych firmy
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja firmy", edit_company_path(@company) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Ta strona umożliwia zmianę danych firmy już istniejącej w systemie.' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'form' %>
+
+<%= link_to 'Pokaż szczegóły', @company %> |
+<%= link_to 'Lista firm', companies_path %>

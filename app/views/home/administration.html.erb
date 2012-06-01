@@ -1,0 +1,23 @@
+<% content_for :section_header do %>
+    Administracja
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Administracja', {controller: 'home', action: 'administration'} %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Tutaj znajdują się listy pomocnicze w administracji systemem' %>
+<% end %>
+
+<h3>Kraje</h3>
+<p><%= link_to 'Dodaj nowy kraj', new_country_path %></p>
+<%= render 'countries/countries_table' %>
+
+<h3>Firmy</h3>
+<p><%= link_to 'Dodaj nową firmę', new_company_path %></p>
+<%= render 'companies/companies_table' %>
+
+<h3>Dokumenty</h3>
+<p><%= link_to 'Dodaj nowy dokument', new_document_path %></p>
+<%= render 'documents/documents_table' %>

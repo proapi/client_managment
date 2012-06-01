@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120528193651) do
+ActiveRecord::Schema.define(:version => 20120601051949) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(:version => 20120528193651) do
   end
 
   add_index "addresses", ["client_id"], :name => "index_addresses_on_client_id"
+
+  create_table "addresses_companies", :id => false, :force => true do |t|
+    t.integer "address_id"
+    t.integer "company_id"
+  end
+
+  add_index "addresses_companies", ["address_id"], :name => "index_addresses_companies_on_address_id"
+  add_index "addresses_companies", ["company_id"], :name => "index_addresses_companies_on_company_id"
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -46,6 +54,43 @@ ActiveRecord::Schema.define(:version => 20120528193651) do
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
+  create_table "bills", :force => true do |t|
+    t.integer  "clearing_id"
+    t.integer  "company_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
+  add_index "bills", ["company_id"], :name => "index_bills_on_company_id"
+
+  create_table "clearings", :force => true do |t|
+    t.integer  "client_id"
+    t.integer  "country_id"
+    t.string   "tax_number"
+    t.string   "year"
+    t.date     "application_date"
+    t.string   "commission_percent"
+    t.decimal  "commission_min"
+    t.decimal  "commission_currency"
+    t.decimal  "rebate_calc"
+    t.date     "office_send_date"
+    t.decimal  "rebate_final"
+    t.date     "decision_date"
+    t.decimal  "commission_final"
+    t.date     "commission_date"
+    t.decimal  "exchange_rate"
+    t.date     "maturity_date"
+    t.date     "payment_date"
+    t.string   "account_number"
+    t.text     "description"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "clearings", ["client_id"], :name => "index_clearings_on_client_id"
+  add_index "clearings", ["country_id"], :name => "index_clearings_on_country_id"
+
   create_table "clients", :force => true do |t|
     t.string   "lastname"
     t.string   "firstname"
@@ -59,6 +104,33 @@ ActiveRecord::Schema.define(:version => 20120528193651) do
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
   end
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.string   "short"
+    t.string   "tax_number"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "bill_number"
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.string   "short"
+    t.string   "currency"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "documents", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "country_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "documents", ["country_id"], :name => "index_documents_on_country_id"
 
   create_table "messages", :force => true do |t|
     t.string   "source"

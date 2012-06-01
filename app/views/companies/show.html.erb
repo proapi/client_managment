@@ -1,0 +1,32 @@
+<% content_for :section_header do %>
+    Szczegóły firmy
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Szczegóły firmy", company_path(@company) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Podgląd danych firmy' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<div class="table">
+  <table class="listing form" cellpadding="0" cellspacing="0">
+    <tr>
+      <th class="full" colspan="2">Szczegóły rekordu firmy</th>
+    </tr>
+    <%= check_blank 'Nazwa firmy', @company.name %>
+    <%= check_blank 'Nazwa skrócona firmy', @company.short %>
+    <%= check_blank 'Numer identyfikacji podatkowej(NIP)', @company.tax_number %>
+    <tr>
+      <th class="full" colspan="2">Adres firmy</th>
+    </tr>
+    <%= check_blank 'Miasto', @company.address.city %>
+    <%= check_blank 'Ulica nr domu/mieszkania', @company.address.street %>
+    <%= check_blank 'Kod pocztowy', @company.address.code %>
+  </table>
+</div>
