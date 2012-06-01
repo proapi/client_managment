@@ -6,4 +6,8 @@ module ApplicationHelper
   def check_blank(label, value)
     render partial: "shared/field", locals: {label: label, value: value}
   end
+
+  def check_blank_value(value)
+    value.nil? ? "Brak" : value
+  end
 end

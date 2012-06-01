@@ -1,89 +1,144 @@
 <%= form_for(@clearing) do |f| %>
-  <% if @clearing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@clearing.errors.count, "error") %> prohibited this clearing from being saved:</h2>
+    <% if @clearing.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@clearing.errors.count, "error") %> prohibited this clearing from being saved:</h2>
 
-      <ul>
-      <% @clearing.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @clearing.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz nowej wiadomości</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :client_id, "Klient powiązany z rozliczeniem" %></strong></td>
+          <td>
+            <%= f.collection_select :client_id, Client.all, :id, :lastname %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :country_id, "Kraj rozliczenia" %></strong></td>
+          <td>
+            <%= f.collection_select :country_id, Country.all, :id, :name %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :tax_number, "Numer podatkowy" %></strong></td>
+          <td>
+            <%= f.text_field :tax_number %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :year, "Rok rozliczenia" %></strong></td>
+          <td>
+            <%= f.text_field :year %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :application_date, "Data złożenia wniosku" %></strong></td>
+          <td>
+            <%= f.datepicker :application_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_percent, "Prowizja %" %></strong></td>
+          <td>
+            <%= f.text_field :commission_percent %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_min, "Prowizja min" %></strong></td>
+          <td>
+            <%= f.text_field :commission_min %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :rebate_calc, "Wyliczona kwota zwrotu" %></strong></td>
+          <td>
+            <%= f.text_field :rebate_calc %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :office_send_date, "Data wysłania do urzędu" %></strong></td>
+          <td>
+            <%= f.datepicker :office_send_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :rebate_final, "Kwota zwrotu" %></strong></td>
+          <td>
+            <%= f.text_field :rebate_final %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :decision_date, "Data wydania decyzji" %></strong></td>
+          <td>
+            <%= f.datepicker :decision_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_final, "Prowizja" %></strong></td>
+          <td>
+            <%= f.text_field :commission_final %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
+          <td>
+            <%= f.datepicker :commission_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
+          <td>
+            <%= f.text_field :commission_currency %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
+          <td>
+            <%= f.text_field :exchange_rate %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
+          <td>
+            <%= f.datepicker :maturity_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :payment_date, "Data wpłaty" %></strong></td>
+          <td>
+            <%= f.datepicker :payment_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :account_number, "Numer konta" %></strong></td>
+          <td>
+            <%= f.text_field :account_number %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :description, "Opis / uwagi" %></strong></td>
+          <td>
+            <%= f.text_area :description %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :user_id, "Użytkownik tworzący rozliczenie" %></strong></td>
+          <td>
+            <%= f.collection_select :user_id, User.all, :id, :name, {}, {disabled: "disabled"} %>
+          </td>
+        </tr>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
+        </tr>
+      </table>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :client %><br />
-    <%= f.text_field :client %>
-  </div>
-  <div class="field">
-    <%= f.label :country %><br />
-    <%= f.text_field :country %>
-  </div>
-  <div class="field">
-    <%= f.label :tax_number %><br />
-    <%= f.text_field :tax_number %>
-  </div>
-  <div class="field">
-    <%= f.label :year %><br />
-    <%= f.text_field :year %>
-  </div>
-  <div class="field">
-    <%= f.label :application_date %><br />
-    <%= f.date_select :application_date %>
-  </div>
-  <div class="field">
-    <%= f.label :commission_percent %><br />
-    <%= f.text_field :commission_percent %>
-  </div>
-  <div class="field">
-    <%= f.label :commission_min %><br />
-    <%= f.text_field :commission_min %>
-  </div>
-  <div class="field">
-    <%= f.label :commission_currency %><br />
-    <%= f.text_field :commission_currency %>
-  </div>
-  <div class="field">
-    <%= f.label :rebate_calc %><br />
-    <%= f.text_field :rebate_calc %>
-  </div>
-  <div class="field">
-    <%= f.label :office_send_date %><br />
-    <%= f.date_select :office_send_date %>
-  </div>
-  <div class="field">
-    <%= f.label :rebate_final %><br />
-    <%= f.text_field :rebate_final %>
-  </div>
-  <div class="field">
-    <%= f.label :decision_date %><br />
-    <%= f.date_select :decision_date %>
-  </div>
-  <div class="field">
-    <%= f.label :commission_final %><br />
-    <%= f.text_field :commission_final %>
-  </div>
-  <div class="field">
-    <%= f.label :commission_date %><br />
-    <%= f.date_select :commission_date %>
-  </div>
-  <div class="field">
-    <%= f.label :exchange_rate %><br />
-    <%= f.text_field :exchange_rate %>
-  </div>
-  <div class="field">
-    <%= f.label :maturity_date %><br />
-    <%= f.date_select :maturity_date %>
-  </div>
-  <div class="field">
-    <%= f.label :payment_date %><br />
-    <%= f.date_select :payment_date %>
-  </div>
-  <div class="field">
-    <%= f.label :account_number %><br />
-    <%= f.text_field :account_number %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

@@ -5,6 +5,7 @@ class Client < ActiveRecord::Base
   has_one :mailing_address, class_name: 'Address'
   belongs_to :user
   has_many :messages
+  has_many :clearings
 
   attr_accessible :birthdate, :description, :email, :firstname, :identifier, :lastname, :mobile, :telephone, :user_id, :address_attributes, :mailing_address_attributes
 

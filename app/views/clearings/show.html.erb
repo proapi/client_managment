@@ -1,95 +1,47 @@
-<p id="notice"><%= notice %></p>
+<% content_for :section_header do %>
+    Szczegóły rozliczenia
+<% end %>
 
-<p>
-  <b>Client:</b>
-  <%= @clearing.client %>
-</p>
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Szczegóły rozliczenia", clearing_path(@clearing) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
 
-<p>
-  <b>Country:</b>
-  <%= @clearing.country %>
-</p>
+<% content_for :help do %>
+    <% help_block 'Podgląd danych rozliczenia' %>
+<% end %>
 
-<p>
-  <b>Tax number:</b>
-  <%= @clearing.tax_number %>
-</p>
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
 
-<p>
-  <b>Year:</b>
-  <%= @clearing.year %>
-</p>
-
-<p>
-  <b>Application date:</b>
-  <%= @clearing.application_date %>
-</p>
-
-<p>
-  <b>Commission percent:</b>
-  <%= @clearing.commission_percent %>
-</p>
-
-<p>
-  <b>Commission min:</b>
-  <%= @clearing.commission_min %>
-</p>
-
-<p>
-  <b>Commission currency:</b>
-  <%= @clearing.commission_currency %>
-</p>
-
-<p>
-  <b>Rebate calc:</b>
-  <%= @clearing.rebate_calc %>
-</p>
-
-<p>
-  <b>Office send date:</b>
-  <%= @clearing.office_send_date %>
-</p>
-
-<p>
-  <b>Rebate final:</b>
-  <%= @clearing.rebate_final %>
-</p>
-
-<p>
-  <b>Decision date:</b>
-  <%= @clearing.decision_date %>
-</p>
-
-<p>
-  <b>Commission final:</b>
-  <%= @clearing.commission_final %>
-</p>
-
-<p>
-  <b>Commission date:</b>
-  <%= @clearing.commission_date %>
-</p>
-
-<p>
-  <b>Exchange rate:</b>
-  <%= @clearing.exchange_rate %>
-</p>
-
-<p>
-  <b>Maturity date:</b>
-  <%= @clearing.maturity_date %>
-</p>
-
-<p>
-  <b>Payment date:</b>
-  <%= @clearing.payment_date %>
-</p>
-
-<p>
-  <b>Account number:</b>
-  <%= @clearing.account_number %>
-</p>
-
-
-<%= link_to 'Edit', edit_clearing_path(@clearing) %> |
-<%= link_to 'Back', clearings_path %>
+<div class="table">
+  <table class="listing form" cellpadding="0" cellspacing="0">
+    <tr>
+      <th class="full" colspan="2">Szczegóły rekordu rozliczenia</th>
+    </tr>
+    <%= check_blank('Klient', @clearing.client.lastname) unless @clearing.client.nil? %>
+    <%= check_blank('Kraj', @clearing.country.name) unless @clearing.country.nil? %>
+    <%= check_blank 'Numer podatkowy', @clearing.tax_number %>
+    <%= check_blank 'Rok rozliczenia', @clearing.year %>
+    <%= check_blank('Data złożenia wniosku', l(@clearing.application_date)) unless @clearing.application_date.nil? %>
+    <%= check_blank 'Prowizja %', @clearing.commission_percent %>
+    <%= check_blank 'Prowizja min', @clearing.commission_min %>
+    <%= check_blank 'Wyliczona kwota zwrotu', @clearing.rebate_calc %>
+    <%= check_blank('Data wysłania do urzędu', l(@clearing.office_send_date)) unless @clearing.office_send_date.nil? %>
+    <%= check_blank 'Kwota zwrotu', @clearing.rebate_final %>
+    <%= check_blank('Data decyzji', l(@clearing.decision_date)) unless @clearing.decision_date.nil? %>
+    <%= check_blank 'Prowizja', @clearing.commission_final %>
+    <%= check_blank 'Prowizja %', @clearing.commission_percent %>
+    <%= check_blank('Data wyliczenia prowizji', l(@clearing.commission_date)) unless @clearing.commission_date.nil? %>
+    <%= check_blank 'Kurs', @clearing.exchange_rate %>
+    <%= check_blank('Termin płatności', l(@clearing.maturity_date)) unless @clearing.maturity_date.nil? %>
+    <%= check_blank('Data wpłaty', l(@clearing.payment_date)) unless @clearing.payment_date.nil? %>
+    <%= check_blank 'Numer rachunku', @clearing.account_number %>
+    <tr>
+      <th class="full" colspan="2">Opis / uwagi</th>
+    </tr>
+    <tr>
+      <td colspan="2"><%= @clearing.description.blank? ? "Brak" : @clearing.description %></td>
+    </tr>
+  </table>
+</div>

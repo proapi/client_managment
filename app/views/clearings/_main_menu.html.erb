@@ -1,0 +1,15 @@
+<% if @clearing && !@clearing.new_record? %>
+    <h3><%= @clearing.tax_number %></h3>
+    <ul class="nav">
+      <li><%= link_to 'Szczegóły', @clearing %></li>
+      <li><%= link_to 'Edycja', edit_clearing_path(@clearing) %></li>
+      <li><%= link_to 'Usuń', @clearing, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
+      <li></li>
+    </ul>
+<% end %>
+<h3>Rozliczenia</h3>
+<ul class="nav">
+  <li><%= link_to 'Dodaj nowe rozliczenie', new_clearing_path %></li>
+  <li><%= link_to 'Lista rozliczeń', clearings_path %></li>
+  <li></li>
+</ul>

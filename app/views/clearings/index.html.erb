@@ -1,57 +1,55 @@
-<h1>Listing clearings</h1>
-
-<table>
-  <tr>
-    <th>Client</th>
-    <th>Country</th>
-    <th>Tax number</th>
-    <th>Year</th>
-    <th>Application date</th>
-    <th>Commission percent</th>
-    <th>Commission min</th>
-    <th>Commission currency</th>
-    <th>Rebate calc</th>
-    <th>Office send date</th>
-    <th>Rebate final</th>
-    <th>Decision date</th>
-    <th>Commission final</th>
-    <th>Commission date</th>
-    <th>Exchange rate</th>
-    <th>Maturity date</th>
-    <th>Payment date</th>
-    <th>Account number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @clearings.each do |clearing| %>
-  <tr>
-    <td><%= clearing.client %></td>
-    <td><%= clearing.country %></td>
-    <td><%= clearing.tax_number %></td>
-    <td><%= clearing.year %></td>
-    <td><%= clearing.application_date %></td>
-    <td><%= clearing.commission_percent %></td>
-    <td><%= clearing.commission_min %></td>
-    <td><%= clearing.commission_currency %></td>
-    <td><%= clearing.rebate_calc %></td>
-    <td><%= clearing.office_send_date %></td>
-    <td><%= clearing.rebate_final %></td>
-    <td><%= clearing.decision_date %></td>
-    <td><%= clearing.commission_final %></td>
-    <td><%= clearing.commission_date %></td>
-    <td><%= clearing.exchange_rate %></td>
-    <td><%= clearing.maturity_date %></td>
-    <td><%= clearing.payment_date %></td>
-    <td><%= clearing.account_number %></td>
-    <td><%= link_to 'Show', clearing %></td>
-    <td><%= link_to 'Edit', edit_clearing_path(clearing) %></td>
-    <td><%= link_to 'Destroy', clearing, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% content_for :section_header do %>
+    Lista rozliczeń
 <% end %>
-</table>
 
-<br />
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> /<%= link_to "Lista rozliczeń", clearings_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
 
-<%= link_to 'New Clearing', new_clearing_path %>
+<% content_for :help do %>
+    <% help_block 'Lista wszystkich rekordów rozliczeń z bazy danych' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= content_tag :div, class: 'table' do %>
+    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Klient' %>
+          <%= content_tag :th, 'Kraj' %>
+          <%= content_tag :th, 'Rok rozliczenia' %>
+          <%= content_tag :th, 'Data złożenia wniosku' %>
+          <%= content_tag :th, 'Data wysłania do urzędu' %>
+          <%= content_tag :th, 'Zwrot' %>
+          <%= content_tag :th, 'Data decyzji' %>
+          <%= content_tag :th, 'Prowizja' %>
+          <%= content_tag :th, 'Termin płatności' %>
+          <%= content_tag :th, 'Data wpłaty' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @clearings) do |clearing| %>
+          <%= content_tag :td, (link_to(clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
+          <%= content_tag :td, (link_to(clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
+          <%= content_tag :td, check_blank_value(clearing.year) %>
+          <%= content_tag :td, check_blank_value(clearing.application_date) %>
+          <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
+          <%= content_tag :td, check_blank_value(clearing.rebate_final) %>
+          <%= content_tag :td, check_blank_value(clearing.decision_date) %>
+          <%= content_tag :td, check_blank_value(clearing.commission_final) %>
+          <%= content_tag :td, check_blank_value(clearing.maturity_date) %>
+          <%= content_tag :td, check_blank_value(clearing.payment_date) %>
+
+          <%= content_tag :td do %>
+              <%= link_to image_tag('info.png'), clearing %>
+              <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
+              <%= link_to image_tag('delete.png'), clearing, :confirm => "Czy jesteś pewien?", :method => :delete %>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

@@ -1,6 +1,17 @@
-<h1>Editing clearing</h1>
+<% content_for :section_header do %>
+    Edycja rozliczenia
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja rozliczenia", edit_clearing_path(@clearing) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tym miejscu aplikacji możliwa jest edycja danych rozliczenia.' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @clearing %> |
-<%= link_to 'Back', clearings_path %>

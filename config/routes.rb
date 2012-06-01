@@ -18,6 +18,7 @@ Europodatki::Application.routes.draw do
       get 'history'
     end
     resources :messages, only: [:new, :index]
+    resources :clearings, only: [:new, :index]
   end
 
   authenticated :user do

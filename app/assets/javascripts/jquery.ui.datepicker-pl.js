@@ -16,6 +16,8 @@ jQuery(function($){
 		weekHeader: 'Tydz',
 		dateFormat: 'dd-mm-yy',
 		firstDay: 1,
+        changeYear: true,
+        showButtonPanel: true,
 		isRTL: false,
 		showMonthAfterYear: false,
 		yearSuffix: ''};

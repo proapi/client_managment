@@ -6,8 +6,8 @@
       <li><%= link_to 'Historia', history_client_path(@client) %></li>
       <li><%= link_to 'Wiadomości', client_messages_path(@client) %></li>
       <li><%= link_to 'Nowa wiadomości', new_client_message_path(@client) %></li>
-      <li><%= link_to 'Rozliczenia', "#" %></li>
-      <li><%= link_to 'Nowe rozliczenie', "#" %></li>
+      <li><%= link_to 'Rozliczenia', client_clearings_path(@client) %></li>
+      <li><%= link_to 'Nowe rozliczenie', new_client_clearing_path(@client) %></li>
       <li><%= link_to 'Usuń', @client, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
       <li></li>
     </ul>

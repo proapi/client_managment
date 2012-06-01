@@ -2,7 +2,12 @@ class ClearingsController < ApplicationController
   # GET /clearings
   # GET /clearings.json
   def index
-    @clearings = Clearing.all
+    if params[:client_id]
+      client = Client.find params[:client_id]
+      @clearings = client.clearings
+    else
+      @clearings = Clearing.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +29,14 @@ class ClearingsController < ApplicationController
   # GET /clearings/new
   # GET /clearings/new.json
   def new
-    @clearing = Clearing.new
+    if params[:client_id]
+      @client = Client.find(params[:client_id])
+      @clearing = @client.clearings.build
+    else
+      @clearing = Clearing.new
+    end
+    @user = current_user
+    @user.clearings << @clearing
 
     respond_to do |format|
       format.html # new.html.erb
