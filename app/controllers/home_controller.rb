@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @clients = Client.all
+    @clearings = Clearing.where("payment_date is not null")
   end
 
   def administration

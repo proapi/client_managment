@@ -23,13 +23,13 @@
       <% end %>
       </thead>
       <tbody>
-      <%= content_tag_for(:tr, @clients) do |client| %>
-          <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
-          <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
-          <%= content_tag :td, (link_to client.firstname, client_path(client)), class: 'style1' %>
-          <%= content_tag :td, "Brak" %>
-          <%= content_tag :td, 'Brak' %>
-          <%= content_tag :td, 'Brak' %>
+      <%= content_tag_for(:tr, @clearings) do |clearing| %>
+          <%= content_tag :td, (link_to clearing.client.identifier, client_path(clearing.client)), class: 'style1' %>
+          <%= content_tag :td, (link_to clearing.client.lastname, client_path(clearing.client)), class: 'style1' %>
+          <%= content_tag :td, (link_to clearing.client.firstname, client_path(clearing.client)), class: 'style1' %>
+          <%= content_tag :td, (link_to clearing.country.name, country_path(clearing.country)) %>
+          <%= content_tag :td, clearing.tax_number %>
+          <%= content_tag :td, clearing.year %>
       <% end %>
     </table>
 <% end %>
