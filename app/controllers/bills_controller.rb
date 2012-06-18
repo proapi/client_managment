@@ -2,7 +2,7 @@ class BillsController < ApplicationController
   # GET /bills
   # GET /bills.json
   def index
-    @bills = Bill.all
+    @bills = Bill.all_cached
 
     respond_to do |format|
       format.html # index.html.erb

@@ -2,7 +2,7 @@ class CountriesController < ApplicationController
   # GET /countries
   # GET /countries.json
   def index
-    @countries = Country.all
+    @countries = Country.all_cached
 
     respond_to do |format|
       format.html # index.html.erb

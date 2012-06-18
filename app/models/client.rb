@@ -19,6 +19,17 @@ class Client < ActiveRecord::Base
 
   before_validation :check_addresses
 
+  def self.all_cached
+    Rails.cache.fetch('Client.all') { all }
+  end
+
+  after_save    :expire_all_cache
+  after_destroy :expire_all_cache
+
+  def expire_all_cache
+    Rails.cache.delete('Client.all')
+  end
+
   private
   def check_addresses
     if mailing_address.city.blank? && !address.city.blank?

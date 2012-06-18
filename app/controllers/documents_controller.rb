@@ -6,7 +6,7 @@ class DocumentsController < ApplicationController
         country = Country.find params[:country_id]
         @documents = country.documents
       else
-        @documents = Document.all
+        @documents = Document.all_cached
       end
 
     respond_to do |format|

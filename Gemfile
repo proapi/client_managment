@@ -3,7 +3,7 @@ HOST_OS = RbConfig::CONFIG['host_os']
 
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.6'
 gem 'sqlite3'
 group :assets do
   gem 'sass-rails', '~> 3.2.3'
@@ -43,6 +43,8 @@ gem 'execjs'
 gem 'thin'
 gem "audited-activerecord"
 gem 'jquery-datatables-rails'
-gem 'therubyrhino', group: :production
-gem 'therubyracer', group: :development
+gem 'therubyracer'
 gem 'jquery_datepicker'
+gem 'guard-brakeman', group: :development
+gem 'brakeman', group: :development
+gem 'dalli', group: :production

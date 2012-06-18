@@ -10,4 +10,15 @@ class Clearing < ActiveRecord::Base
   #validates :client_id, presence: true
   #validates :user_id, presence: true
   #validates :country_id, presence: true
+
+  def self.all_cached
+    Rails.cache.fetch('Clearing.all') { all }
+  end
+
+  after_save    :expire_all_cache
+  after_destroy :expire_all_cache
+
+  def expire_all_cache
+    Rails.cache.delete('Clearing.all')
+  end
 end

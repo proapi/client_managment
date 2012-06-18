@@ -10,4 +10,15 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :clients
   has_many :clearings
+
+  def self.all_cached
+    Rails.cache.fetch('User.all') { all }
+  end
+
+  after_save    :expire_all_cache
+  after_destroy :expire_all_cache
+
+  def expire_all_cache
+    Rails.cache.delete('User.all')
+  end
 end

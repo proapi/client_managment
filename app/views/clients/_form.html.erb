@@ -108,7 +108,7 @@
         <tr>
           <td><strong><%= f.label :user_id, "Użytkownik tworzący rekord" %></strong></td>
           <td>
-            <%= f.collection_select :user_id, User.all, :id, :name, {selected: current_user.id}, {disabled: "disabled"} %>
+            <%= f.collection_select :user_id, User.all_cached, :id, :name, {selected: current_user.id}, {disabled: "disabled"} %>
           </td>
         </tr>
         <tr>

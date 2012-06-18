@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
       client = Client.find params[:client_id]
       @messages = client.messages
     else
-      @messages = Message.all
+      @messages = Message.all_cached
     end
 
     respond_to do |format|

@@ -8,4 +8,15 @@ class Company < ActiveRecord::Base
   def address
     addresses.first
   end
+
+  def self.all_cached
+    Rails.cache.fetch('Company.all') { all }
+  end
+
+  after_save    :expire_all_cache
+  after_destroy :expire_all_cache
+
+  def expire_all_cache
+    Rails.cache.delete('Company.all')
+  end
 end

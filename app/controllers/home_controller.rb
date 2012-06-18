@@ -6,8 +6,8 @@ class HomeController < ApplicationController
   end
 
   def administration
-    @countries = Country.all
-    @companies = Company.all
-    @documents = Document.all
+    @countries = Country.all_cached
+    @companies = Company.all_cached
+    @documents = Document.all_cached
   end
 end

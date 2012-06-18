@@ -6,4 +6,16 @@ class Address < ActiveRecord::Base
   validates :city, :presence => true
   validates :code, :presence => true
   validates :street, :presence => true
+
+  def self.all_cached
+    Rails.cache.fetch('Address.all') { all }
+  end
+
+  after_save    :expire_all_cache
+  after_destroy :expire_all_cache
+
+  def expire_all_cache
+    Rails.cache.delete('Address.all')
+  end
+
 end

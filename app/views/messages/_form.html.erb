@@ -31,13 +31,13 @@
         <tr>
           <td><strong><%= f.label :client_id, "Klient powiązany z wiadomością" %></strong></td>
           <td>
-            <%= f.collection_select :client_id, Client.all, :id, :lastname %>
+            <%= f.collection_select :client_id, Client.all_cached, :id, :lastname %>
           </td>
         </tr>
         <tr>
           <td><strong><%= f.label :user_id, "Użytkownik tworzący wiadomość" %></strong></td>
           <td>
-            <%= f.collection_select :user_id, User.all, :id, :name, {}, {disabled: "disabled"} %>
+            <%= f.collection_select :user_id, User.all_cached, :id, :name, {}, {disabled: "disabled"} %>
           </td>
         </tr>
         <tr>
