@@ -49,3 +49,5 @@ gem 'guard-brakeman', group: :development
 gem 'brakeman', group: :development
 gem 'dalli', group: :production
 gem 'newrelic_rpm', group: :production
+gem 'capistrano'
+gem 'rvm-capistrano'
