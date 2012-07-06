@@ -19,6 +19,48 @@
     <%= f.label :company %><br />
     <%= f.text_field :company %>
   </div>
+    <tr>
+            <td><strong><%= f.label :commission_final, "Prowizja" %></strong></td>
+            <td>
+              <%= f.text_field :commission_final %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
+            <td>
+              <%= f.datepicker :commission_date %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
+            <td>
+              <%= f.text_field :commission_currency %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
+            <td>
+              <%= f.text_field :exchange_rate %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
+            <td>
+              <%= f.datepicker :maturity_date %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= f.label :payment_date, "Data wpłaty" %></strong></td>
+            <td>
+              <%= f.datepicker :payment_date %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= f.label :account_number, "Numer konta" %></strong></td>
+            <td>
+              <%= f.text_field :account_number %>
+            </td>
+          </tr>
   <div class="actions">
     <%= f.submit %>
   </div>

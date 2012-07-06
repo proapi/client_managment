@@ -20,6 +20,9 @@
           <%= content_tag :th, 'Kraj' %>
           <%= content_tag :th, 'Numer podatkowy' %>
           <%= content_tag :th, 'Rok rozliczenia' %>
+          <%= content_tag :th, 'Kwota zwrotu' %>
+          <%= content_tag :th, 'Data wysłania do urzędu' %>
+          <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
       <tbody>
@@ -28,8 +31,14 @@
           <%= content_tag :td, ((link_to clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
           <%= content_tag :td, ((link_to clearing.client.firstname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
           <%= content_tag :td, ((link_to clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
-          <%= content_tag :td, clearing.tax_number %>
-          <%= content_tag :td, clearing.year %>
+          <%= content_tag :td, clearing.tax_number.nil? ? "Brak" : clearing.tax_number %>
+          <%= content_tag :td, clearing.year.nil? ? "Brak" : clearing.year %>
+          <%= content_tag :td, clearing.rebate_calc.nil? ? "Brak" : number_to_currency(clearing.rebate_calc) %>
+          <%= content_tag :td, clearing.office_send_date.nil? ? "Brak" : l(clearing.office_send_date, format: :default) %>
+          <%= content_tag :td do %>
+              <%= link_to image_tag('info.png'), clearing %>
+              <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
+          <% end %>
       <% end %>
     </table>
 <% end %>

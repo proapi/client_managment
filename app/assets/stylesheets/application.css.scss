@@ -392,7 +392,12 @@ table.listing th:last-child, table.listing td:last-child {
 }
 
 table.listing th:first-child {
-  width: 177px;
+  //width: 177px;
+  border-left: 0;
+}
+
+table.listing th:last-child {
+  width: 77px;
   border-left: 0;
 }
 

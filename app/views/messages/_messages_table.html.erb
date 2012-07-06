@@ -1,0 +1,19 @@
+<%= content_tag :div, class: 'table' do %>
+    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Źródło' %>
+          <%= content_tag :th, 'Pochodzenie' %>
+          <%= content_tag :th, 'Treść' %>
+          <%= content_tag :th, 'Użytkownik' %>
+          <%= content_tag :th, 'Data utworzenia' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, messages) do |message| %>
+          <%= render message %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120601053021) do
+ActiveRecord::Schema.define(:version => 20120706105403) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -57,8 +57,13 @@ ActiveRecord::Schema.define(:version => 20120601053021) do
   create_table "bills", :force => true do |t|
     t.integer  "clearing_id"
     t.integer  "company_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.decimal  "commission_final"
+    t.date     "commission_date"
+    t.decimal  "exchange_rate"
+    t.date     "maturity_date"
+    t.date     "payment_date"
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
@@ -77,12 +82,6 @@ ActiveRecord::Schema.define(:version => 20120601053021) do
     t.date     "office_send_date"
     t.decimal  "rebate_final"
     t.date     "decision_date"
-    t.decimal  "commission_final"
-    t.date     "commission_date"
-    t.decimal  "exchange_rate"
-    t.date     "maturity_date"
-    t.date     "payment_date"
-    t.string   "account_number"
     t.text     "description"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
@@ -110,9 +109,11 @@ ActiveRecord::Schema.define(:version => 20120601053021) do
     t.string   "name"
     t.string   "short"
     t.string   "tax_number"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "bill_number"
+    t.string   "account_number"
+    t.string   "bank_name"
   end
 
   create_table "countries", :force => true do |t|

@@ -1,4 +1,7 @@
 class ClearingsController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # GET /clearings
   # GET /clearings.json
   def index
@@ -35,8 +38,6 @@ class ClearingsController < ApplicationController
     else
       @clearing = Clearing.new
     end
-    @user = current_user
-    @user.clearings << @clearing
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,6 +54,7 @@ class ClearingsController < ApplicationController
   # POST /clearings.json
   def create
     @clearing = Clearing.new(params[:clearing])
+    @clearing.user_id = current_user.id
 
     respond_to do |format|
       if @clearing.save

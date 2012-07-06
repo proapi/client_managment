@@ -51,53 +51,7 @@
 </div>
 
 <h3>Rozliczenia klienta</h3>
-<%= content_tag :div, class: 'table' do %>
-    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
-      <thead>
-      <%= content_tag :tr do %>
-          <%= content_tag :th, 'Kraj' %>
-          <%= content_tag :th, 'Rok rozliczenia' %>
-          <%= content_tag :th, 'Data złożenia wniosku' %>
-          <%= content_tag :th, 'Data wysłania do urzędu' %>
-          <%= content_tag :th, 'Zwrot' %>
-          <%= content_tag :th, 'Data decyzji' %>
-          <%= content_tag :th, 'Prowizja' %>
-          <%= content_tag :th, 'Termin płatności' %>
-          <%= content_tag :th, 'Data wpłaty' %>
-      <% end %>
-      </thead>
-      <tbody>
-      <%= content_tag_for(:tr, @client.clearings) do |clearing| %>
-          <%= content_tag :td, (link_to(clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(clearing.year) %>
-          <%= content_tag :td, check_blank_value(clearing.application_date) %>
-          <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
-          <%= content_tag :td, check_blank_value(clearing.rebate_final) %>
-          <%= content_tag :td, check_blank_value(clearing.decision_date) %>
-          <%= content_tag :td, check_blank_value(clearing.commission_final) %>
-          <%= content_tag :td, check_blank_value(clearing.maturity_date) %>
-          <%= content_tag :td, check_blank_value(clearing.payment_date) %>
-      <% end %>
-      </tbody>
-    </table>
-<% end %>
+<%= render partial: 'clearings/clearings_table', locals: {clearings: @client.clearings } %>
 
 <h3>Wiadomości klienta</h3>
-<%= content_tag :div, class: 'table' do %>
-    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
-      <thead>
-      <%= content_tag :tr do %>
-          <%= content_tag :th, 'Źródło' %>
-          <%= content_tag :th, 'Pochodzenie' %>
-          <%= content_tag :th, 'Treść' %>
-          <%= content_tag :th, 'Użytkownik' %>
-          <%= content_tag :th, 'Data utworzenia' %>
-      <% end %>
-      </thead>
-      <tbody>
-      <%= content_tag_for(:tr, @client.messages) do |message| %>
-          <%= render message %>
-      <% end %>
-      </tbody>
-    </table>
-<% end %>
+<%= render partial: 'messages/messages_table', locals: {messages: @client.messages } %>

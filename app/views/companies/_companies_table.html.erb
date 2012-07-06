@@ -8,6 +8,7 @@
           <%= content_tag :th, 'Miasto' %>
           <%= content_tag :th, 'Kod' %>
           <%= content_tag :th, 'NIP' %>
+          <%= content_tag :th, 'Nr rachunku' %>
           <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
@@ -19,6 +20,7 @@
           <%= content_tag :td, company.address.city %>
           <%= content_tag :td, company.address.code %>
           <%= content_tag :td, company.tax_number %>
+          <%= content_tag :td, company.bill_number %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), company %>
               <%= link_to image_tag('modify.png'), edit_company_path(company) %>

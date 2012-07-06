@@ -10,6 +10,13 @@
   <%= @bill.company %>
 </p>
 
+<%= check_blank 'Prowizja', @clearing.commission_final %>
+<%= check_blank 'Prowizja %', @clearing.commission_percent %>
+<%= check_blank('Data wyliczenia prowizji', l(@clearing.commission_date)) unless @clearing.commission_date.nil? %>
+<%= check_blank 'Kurs', @clearing.exchange_rate %>
+<%= check_blank('Termin płatności', l(@clearing.maturity_date)) unless @clearing.maturity_date.nil? %>
+<%= check_blank('Data wpłaty', l(@clearing.payment_date)) unless @clearing.payment_date.nil? %>
+<%= check_blank 'Numer rachunku', @clearing.account_number %>
 
 <%= link_to 'Edit', edit_bill_path(@bill) %> |
 <%= link_to 'Back', bills_path %>
