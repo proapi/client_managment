@@ -40,7 +40,8 @@ gem "guard-cucumber", ">= 0.7.5", :group => :development
 gem "devise", ">= 2.1.0.rc"
 gem "will_paginate", ">= 3.0.3"
 gem 'execjs'
-gem 'thin'
+gem 'thin', group: :development
+gem 'unicorn', group: :production
 gem "audited-activerecord"
 gem 'jquery-datatables-rails'
 gem 'therubyracer'
