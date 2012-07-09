@@ -25,9 +25,6 @@
           <%= content_tag :th, 'Data wysłania do urzędu' %>
           <%= content_tag :th, 'Zwrot' %>
           <%= content_tag :th, 'Data decyzji' %>
-          <%= content_tag :th, 'Prowizja' %>
-          <%= content_tag :th, 'Termin płatności' %>
-          <%= content_tag :th, 'Data wpłaty' %>
           <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
@@ -40,10 +37,6 @@
           <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
           <%= content_tag :td, check_blank_value(clearing.rebate_final) %>
           <%= content_tag :td, check_blank_value(clearing.decision_date) %>
-          <%= content_tag :td, check_blank_value(clearing.commission_final) %>
-          <%= content_tag :td, check_blank_value(clearing.maturity_date) %>
-          <%= content_tag :td, check_blank_value(clearing.payment_date) %>
-
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), clearing %>
               <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
