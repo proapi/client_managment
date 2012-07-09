@@ -58,7 +58,7 @@ class ClearingsController < ApplicationController
 
     respond_to do |format|
       if @clearing.save
-        format.html { redirect_to @clearing, notice: 'Clearing was successfully created.' }
+        format.html { redirect_to @clearing, notice: t('flash.notice') }
         format.json { render json: @clearing, status: :created, location: @clearing }
       else
         format.html { render action: "new" }
@@ -74,7 +74,7 @@ class ClearingsController < ApplicationController
 
     respond_to do |format|
       if @clearing.update_attributes(params[:clearing])
-        format.html { redirect_to @clearing, notice: 'Clearing was successfully updated.' }
+        format.html { redirect_to @clearing, notice: t('flash.notice') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -90,7 +90,7 @@ class ClearingsController < ApplicationController
     @clearing.destroy
 
     respond_to do |format|
-      format.html { redirect_to clearings_url }
+      format.html { redirect_to clearings_url, notice: t('flash.notice') if @clearing.destroyed? }
       format.json { head :no_content }
     end
   end

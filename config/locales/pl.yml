@@ -155,12 +155,12 @@ pl:
     currency:
       format:
         delimiter: ! ' '
-        format: ! '%u %n'
+        format: ! '%n %u'
         precision: 2
         separator: ! ','
         significant: false
         strip_insignificant_zeros: true
-        unit: PLN
+        unit: ''
     format:
       delimiter: ! ' '
       precision: 3
@@ -217,3 +217,6 @@ pl:
   activerecord:
     errors:
       <<: *errors
+  flash:
+    alert: 'Akcja nie została wykonana poprawnie!'
+    notice: 'Akcja została wykonana poprawnie.'

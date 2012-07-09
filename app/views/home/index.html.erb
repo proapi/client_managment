@@ -11,7 +11,7 @@
 <% end %>
 
 <%= content_tag :div, class: 'table' do %>
-    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
+    <table id="home_clearings_table" class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
           <%= content_tag :th, 'Identyfikator' %>
@@ -34,11 +34,12 @@
           <%= content_tag :td, clearing.tax_number.nil? ? "Brak" : clearing.tax_number %>
           <%= content_tag :td, clearing.year.nil? ? "Brak" : clearing.year %>
           <%= content_tag :td, clearing.rebate_calc.nil? ? "Brak" : number_to_currency(clearing.rebate_calc) %>
-          <%= content_tag :td, clearing.office_send_date.nil? ? "Brak" : l(clearing.office_send_date, format: :default) %>
+          <%= content_tag :td, clearing.office_send_date.nil? ? "Brak" : l(clearing.office_send_date) %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), clearing %>
               <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
           <% end %>
       <% end %>
+      </tbody>
     </table>
 <% end %>

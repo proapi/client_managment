@@ -47,7 +47,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
+        format.html { redirect_to @bill, notice: t('flash.notice') }
         format.json { render json: @bill, status: :created, location: @bill }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.update_attributes(params[:bill])
-        format.html { redirect_to @bill, notice: 'Bill was successfully updated.' }
+        format.html { redirect_to @bill, notice: t('flash.notice') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,7 +79,7 @@ class BillsController < ApplicationController
     @bill.destroy
 
     respond_to do |format|
-      format.html { redirect_to bills_url }
+      format.html { redirect_to bills_url, notice: t('flash.notice') if @clearing.destroyed? }
       format.json { head :no_content }
     end
   end
