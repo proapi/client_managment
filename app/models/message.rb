@@ -1,7 +1,7 @@
 class Message < ActiveRecord::Base
   belongs_to :user
-  belongs_to :client
-  attr_accessible :body, :origin, :source, :client_id, :user_id
+  belongs_to :clearing
+  attr_accessible :body, :origin, :source, :clearing_id, :user_id
 
   def self.all_cached
     Rails.cache.fetch('Message.all') { all }

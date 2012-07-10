@@ -29,9 +29,9 @@
           <td> <%= f.text_area :body %></td>
         </tr>
         <tr>
-          <td><strong><%= f.label :client_id, "Klient powiązany z wiadomością" %></strong></td>
+          <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z tą wiadomością" %></strong></td>
           <td>
-            <%= f.collection_select :client_id, Client.all_cached, :id, :lastname %>
+            <%= f.collection_select :clearing_id, Clearing.all_cached, :id, :title %>
           </td>
         </tr>
         <tr>

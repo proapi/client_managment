@@ -2,6 +2,7 @@ class Clearing < ActiveRecord::Base
   belongs_to :client
   belongs_to :country
   belongs_to :user
+  has_many :messages
 
   attr_accessible :country_id, :user_id, :client_id, :description, :application_date, :commission_currency, :commission_date, :commission_final, :commission_min, :commission_percent, :decision_date, :office_send_date, :rebate_calc, :rebate_final, :tax_number, :year
 
@@ -20,5 +21,9 @@ class Clearing < ActiveRecord::Base
 
   def expire_all_cache
     Rails.cache.delete('Clearing.all')
+  end
+
+  def title
+    "#{self.client.lastname} #{self.client.firstname} / #{self.country.short} / #{self.year}"
   end
 end

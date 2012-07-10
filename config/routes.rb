@@ -1,7 +1,9 @@
 Europodatki::Application.routes.draw do
   resources :bills
 
-  resources :clearings
+  resources :clearings do
+    resources :messages, only: [:new, :index]
+  end
 
   resources :companies
 
@@ -17,7 +19,6 @@ Europodatki::Application.routes.draw do
     member do
       get 'history'
     end
-    resources :messages, only: [:new, :index]
     resources :clearings, only: [:new, :index]
   end
 

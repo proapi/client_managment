@@ -20,8 +20,12 @@
       <th class="full" colspan="2">Szczegóły rekordu wiadomości</th>
     </tr>
     <tr>
+      <td>Rozliczenie</td>
+      <td><strong><%= link_to @message.clearing.title, client_path(@message.clearing) %></strong></td>
+    </tr>
+    <tr>
       <td>Klient</td>
-      <td><strong><%= link_to @message.client.lastname, client_path(@message.client) %></strong></td>
+      <td><strong><%= link_to @message.clearing.client.lastname, client_path(@message.clearing.client) %></strong></td>
     </tr>
     <%= check_blank 'Źródło', @message.source %>
     <%= check_blank 'Pochodzenie', @message.origin %>

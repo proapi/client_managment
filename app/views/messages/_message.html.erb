@@ -1,6 +1,12 @@
-<%= content_tag :td, (link_to message.client.lastname, client_path(message.client)), class: 'style1' %>
 <%= content_tag :td, (link_to message.source, message_path(message)), class: 'style1' %>
 <%= content_tag :td, (link_to message.origin, message_path(message)), class: 'style1' %>
 <%= content_tag :td, truncate(message.body, length: 25) %>
 <%= content_tag :td, message.user.name %>
 <%= content_tag :td, l(message.created_at) %>
+<%= content_tag :td, (link_to message.clearing.title, client_path(message.clearing)), class: 'style1' %>
+<%= content_tag :td, (link_to message.clearing.client.lastname, client_path(message.clearing.client)), class: 'style1' %>
+<%= content_tag :td do %>
+    <%= link_to image_tag('info.png'), message %>
+    <%= link_to image_tag('modify.png'), edit_message_path(message) %>
+    <%= link_to image_tag('delete.png'), message, :confirm => "Czy jesteś pewien?", :method => :delete %>
+<% end %>

@@ -5,9 +5,9 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    if params[:client_id]
-      client = Client.find params[:client_id]
-      @messages = client.messages
+    if params[:clearing_id]
+      clearing = Clearing.find params[:clearing_id]
+      @messages = clearing.messages
     else
       @messages = Message.all_cached
     end
@@ -32,14 +32,12 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    if params[:client_id]
-      @client = Client.find(params[:client_id])
-      @message = @client.messages.build
+    if params[:clearing_id]
+      @clearing = Clearing.find(params[:clearing_id])
+      @message = @clearing.messages.build
     else
       @message = Message.new
     end
-    @user = current_user
-    @user.messages << @message
 
     respond_to do |format|
       format.html # new.html.erb
@@ -56,6 +54,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(params[:message])
+    @message.user_id = current_user.id
 
     respond_to do |format|
       if @message.save
