@@ -14,7 +14,7 @@
       <tbody>
       <%= content_tag_for(:tr, clearings) do |clearing| %>
           <%= content_tag :td, (link_to(clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(clearing.year) %>
+          <%= content_tag :td, (link_to(clearing.year, clearing_path(clearing)) unless clearing.year.nil?), class: 'style1' %>
           <%= content_tag :td, check_blank_value(clearing.application_date) %>
           <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
           <%= content_tag :td, check_blank_value(clearing.rebate_final) %>
@@ -22,6 +22,11 @@
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), clearing %>
               <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
+              <% if clearing.bill.nil? %>
+                  <%= link_to image_tag('invoice.png'), new_clearing_bill_path(clearing) %>
+              <% else %>
+                  <%= link_to image_tag('invoice.png'), edit_bill_path(clearing.bill) %>
+              <% end %>
               <%= link_to image_tag('delete.png'), clearing, :confirm => "Czy jesteś pewien?", :method => :delete %>
           <% end %>
       <% end %>

@@ -26,10 +26,12 @@
     <%= check_blank('Data złożenia wniosku', l(@clearing.application_date)) unless @clearing.application_date.nil? %>
     <%= check_blank 'Prowizja %', @clearing.commission_percent %>
     <%= check_blank 'Prowizja min', @clearing.commission_min %>
+    <%= check_blank 'Waluta prowizji', @clearing.commission_currency %>
     <%= check_blank 'Wyliczona kwota zwrotu', @clearing.rebate_calc %>
     <%= check_blank('Data wysłania do urzędu', l(@clearing.office_send_date)) unless @clearing.office_send_date.nil? %>
     <%= check_blank 'Kwota zwrotu', @clearing.rebate_final %>
     <%= check_blank('Data decyzji', l(@clearing.decision_date)) unless @clearing.decision_date.nil? %>
+    <%= check_blank('Agent pośredniczący', @clearing.agent.name) unless @clearing.agent.nil? %>
     <tr>
       <th class="full" colspan="2">Opis / uwagi</th>
     </tr>
@@ -38,3 +40,31 @@
     </tr>
   </table>
 </div>
+
+<h3>Rachunek do rozliczenia</h3>
+<% unless @clearing.bill.nil? %>
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Szczegóły rekordu rachunku</th>
+        </tr>
+        <%= check_blank 'Rozliczenie', @clearing.bill.clearing.title %>
+        <%= check_blank 'Numer', @clearing.bill.number %>
+        <%= check_blank 'Firma', @clearing.bill.company.name %>
+        <%= check_blank('Data wyliczenia prowizji', l(@clearing.bill.commission_date)) unless @clearing.bill.commission_date.nil? %>
+        <%= check_blank 'Kurs', @clearing.bill.exchange_rate %>
+        <%= check_blank('Termin płatności', l(@clearing.bill.maturity_date)) unless @clearing.bill.maturity_date.nil? %>
+        <%= check_blank 'Prowizja końcowa', @clearing.bill.commission_final %>
+        <%= check_blank('Data wpłaty', l(@clearing.bill.payment_date)) unless @clearing.bill.payment_date.nil? %>
+        <%= check_blank 'Użytkownik wystawiający', @clearing.bill.user.name %>
+        <tr>
+          <th class="full" colspan="2">Dodatkowe informacje</th>
+        </tr>
+        <tr>
+          <td colspan="2"><%= @clearing.bill.comment.blank? ? "Brak" : @bill.comment %></td>
+        </tr>
+      </table>
+    </div>
+<% else %>
+    <p>Brak wystawionego rachunku.</p>
+<% end %>

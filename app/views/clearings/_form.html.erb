@@ -59,6 +59,12 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
+          <td>
+            <%= f.text_field :commission_currency %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :rebate_calc, "Wyliczona kwota zwrotu" %></strong></td>
           <td>
             <%= f.text_field :rebate_calc %>
@@ -86,6 +92,12 @@
           <td><strong><%= f.label :description, "Opis / uwagi" %></strong></td>
           <td>
             <%= f.text_area :description %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :agent_id, "Agent pośredniczący" %></strong></td>
+          <td>
+            <%= f.collection_select :agent_id, Agent.all_cached, :id, :name, include_blank: "Brak" %>
           </td>
         </tr>
         <tr>

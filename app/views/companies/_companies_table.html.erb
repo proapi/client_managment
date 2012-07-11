@@ -16,11 +16,11 @@
       <%= content_tag_for(:tr, @companies) do |company| %>
           <%= content_tag :td, (link_to company.name, company_path(company)), class: 'style1' %>
           <%= content_tag :td, (link_to company.short, company_path(company)), class: 'style1' %>
-          <%= content_tag :td, company.address.street %>
-          <%= content_tag :td, company.address.city %>
-          <%= content_tag :td, company.address.code %>
-          <%= content_tag :td, company.tax_number %>
-          <%= content_tag :td, company.bill_number %>
+          <%= content_tag :td, check_blank_value(company.address.street) %>
+          <%= content_tag :td, check_blank_value(company.address.city) %>
+          <%= content_tag :td, check_blank_value(company.address.code) %>
+          <%= content_tag :td, check_blank_value(company.tax_number) %>
+          <%= content_tag :td, check_blank_value(company.bill_number) %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), company %>
               <%= link_to image_tag('modify.png'), edit_company_path(company) %>

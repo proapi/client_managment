@@ -3,6 +3,8 @@ class Message < ActiveRecord::Base
   belongs_to :clearing
   attr_accessible :body, :origin, :source, :clearing_id, :user_id
 
+  validates_presence_of :origin, :source, :clearing_id, :user_id, :body
+
   def self.all_cached
     Rails.cache.fetch('Message.all') { all }
   end
@@ -11,10 +13,6 @@ class Message < ActiveRecord::Base
   after_destroy :expire_all_cache
 
   def expire_all_cache
-    Rails.cache.delete('Message.all')
-  end
-
-  def self.expire_all_cache
     Rails.cache.delete('Message.all')
   end
 end

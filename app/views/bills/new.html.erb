@@ -1,5 +1,17 @@
-<h1>New bill</h1>
+<% content_for :section_header do %>
+    Dodawanie nowego rachunku
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> /<%= link_to "Dodawanie rachunku", new_clearing_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Dodawanie nowego rekordu rachunku' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', bills_path %>

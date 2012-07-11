@@ -6,7 +6,10 @@
       <li><%= link_to 'Usuń', @clearing, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
       <li><%= link_to 'Wiadomości', clearing_messages_path(@clearing) %></li>
       <li><%= link_to 'Nowa wiadomości', new_clearing_message_path(@clearing) %></li>
-      <li></li>
+      <li><%= link_to 'Historia', history_clearing_path(@clearing) %></li>
+      <% if @clearing.bill.nil? %>
+          <li><%= link_to 'Wystaw rachunek', new_clearing_bill_path(@clearing) %></li>
+      <% end %>
     </ul>
 <% end %>
 <h3>Rozliczenia</h3>

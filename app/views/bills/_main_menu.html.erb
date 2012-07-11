@@ -1,0 +1,14 @@
+<% if @bill && !@bill.new_record? %>
+    <h3><%= @bill.number %></h3>
+    <ul class="nav">
+      <li><%= link_to 'Szczegóły', @bill %></li>
+      <li><%= link_to 'Edycja', edit_bill_path(@bill) %></li>
+      <li><%= link_to 'Usuń', @bill, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
+    </ul>
+<% end %>
+<h3>Rachunki</h3>
+<ul class="nav">
+  <li><%= link_to 'Dodaj nowy rachunek', new_bill_path %></li>
+  <li><%= link_to 'Lista rachunków', bills_path %></li>
+  <li></li>
+</ul>

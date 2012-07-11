@@ -22,12 +22,13 @@
     <%= check_blank 'Identyfikator', @client.identifier %>
     <%= check_blank 'Nazwisko', @client.lastname %>
     <%= check_blank 'Imię', @client.firstname %>
+    <%= check_blank 'Drugie imię', @client.middlename %>
     <%= check_blank 'Telefon stacjonarny', @client.telephone %>
     <%= check_blank 'Telefon komórkowy', @client.mobile %>
     <%= check_blank 'E-mail', @client.email %>
     <tr>
       <td>Data urodzenia</td>
-      <td><strong><%= l @client.birthdate, format: :default %></strong></td>
+      <td><strong><%= l @client.birthdate %></strong></td>
     </tr>
     <tr>
       <th class="full" colspan="2">Adres zameldowania</th>
@@ -47,11 +48,21 @@
     <tr>
       <td colspan="2"><%= @client.description.blank? ? "Brak" : @client.description %></td>
     </tr>
+    <tr>
+      <th class="full" colspan="2">Stan cywilny / rodzina</th>
+    </tr>
+    <%= check_blank 'Stan cywilny', @client.get_married_description %>
+    <%= check_blank('Data ślubu/rozwodu', l(@client.married_date)) unless @client.married_date.nil? %>
+    <%= check_blank('Informacje o żonie/mężu', @client.married_data) unless @client.married_data.nil? %>
+    <%= check_blank('Informacje o dzieciach', @client.children_data) unless @client.children_data.nil? %>
   </table>
 </div>
 
 <h3>Rozliczenia klienta</h3>
-<%= render partial: 'clearings/clearings_table', locals: {clearings: @client.clearings } %>
+<%= render partial: 'clearings/clearings_table', locals: {clearings: @client.clearings} %>
+
+<h3>Rachunki klienta</h3>
+<%= render partial: 'bills/bills_table', locals: {bills: @client.bills} %>
 
 <h3>Wiadomości klienta</h3>
-<%= render partial: 'messages/messages_table', locals: {messages: @client.messages } %>
+<%= render partial: 'messages/messages_table', locals: {messages: @client.messages} %>

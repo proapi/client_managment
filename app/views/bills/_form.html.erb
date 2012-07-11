@@ -1,67 +1,78 @@
 <%= form_for(@bill) do |f| %>
-  <% if @bill.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+    <% if @bill.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
 
-      <ul>
-      <% @bill.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @bill.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="table">
+      <table class="listing form" cellpadding="0" cellspacing="0">
+        <tr>
+          <th class="full" colspan="2">Formularz nowego rachunku</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
+          <td>
+            <%= f.collection_select :clearing_id, Clearing.all, :id, :title %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :company_id, "Firma wystawiająca" %></strong></td>
+          <td>
+            <%= f.collection_select :company_id, Company.all_cached, :id, :name %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_final, "Prowizja" %></strong></td>
+          <td>
+            <%= f.text_field :commission_final %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
+          <td>
+            <%= f.datepicker :commission_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
+          <td>
+            <%= f.text_field :exchange_rate %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
+          <td>
+            <%= f.datepicker :maturity_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :payment_date, "Data wpłaty" %></strong></td>
+          <td>
+            <%= f.datepicker :payment_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :comment, "Dodatkowe informacje" %></strong></td>
+          <td>
+            <%= f.text_area :comment %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :user_id, "Użytkownik tworzący rachunek" %></strong></td>
+          <td>
+            <%= f.collection_select :user_id, User.all_cached, :id, :name, {}, {disabled: "disabled"} %>
+            </td>
+        </tr>
+        <tr>
+          <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
+        </tr>
+      </table>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :clearing %><br />
-    <%= f.text_field :clearing %>
-  </div>
-  <div class="field">
-    <%= f.label :company %><br />
-    <%= f.text_field :company %>
-  </div>
-    <tr>
-            <td><strong><%= f.label :commission_final, "Prowizja" %></strong></td>
-            <td>
-              <%= f.text_field :commission_final %>
-            </td>
-          </tr>
-          <tr>
-            <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
-            <td>
-              <%= f.datepicker :commission_date %>
-            </td>
-          </tr>
-          <tr>
-            <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
-            <td>
-              <%= f.text_field :commission_currency %>
-            </td>
-          </tr>
-          <tr>
-            <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
-            <td>
-              <%= f.text_field :exchange_rate %>
-            </td>
-          </tr>
-          <tr>
-            <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
-            <td>
-              <%= f.datepicker :maturity_date %>
-            </td>
-          </tr>
-          <tr>
-            <td><strong><%= f.label :payment_date, "Data wpłaty" %></strong></td>
-            <td>
-              <%= f.datepicker :payment_date %>
-            </td>
-          </tr>
-          <tr>
-            <td><strong><%= f.label :account_number, "Numer konta" %></strong></td>
-            <td>
-              <%= f.text_field :account_number %>
-            </td>
-          </tr>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

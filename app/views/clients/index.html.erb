@@ -31,10 +31,10 @@
       <%= content_tag_for(:tr, @clients) do |client| %>
           <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
           <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
-          <%= content_tag :td, client.firstname %>
-          <%= content_tag :td, client.address.city %>
-          <%= content_tag :td, client.mobile %>
-          <%= content_tag :td, client.email %>
+          <%= content_tag :td, check_blank_value(client.firstname) %>
+          <%= content_tag :td, check_blank_value(client.address.city) %>
+          <%= content_tag :td, check_blank_value(client.mobile) %>
+          <%= content_tag :td, check_blank_value(client.email) %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), client %>
               <%= link_to image_tag('modify.png'), edit_client_path(client) %>

@@ -17,10 +17,6 @@
           <th class="full" colspan="2">Formularz klienta</th>
         </tr>
         <tr>
-          <td><strong><%= f.label :identifier, 'Identyfikator' %></strong></td>
-          <td> <%= f.text_field :identifier %></td>
-        </tr>
-        <tr>
           <td><strong><%= f.label :lastname, 'Nazwisko' %></strong></td>
           <td> <%= f.text_field :lastname %></td>
         </tr>
@@ -28,6 +24,11 @@
           <td><strong><%= f.label :firstname, 'Imię' %></strong></td>
           <td> <%= f.text_field :firstname %></td>
         </tr>
+        <tr>
+          <td><strong><%= f.label :middlename, 'Drugie imię' %></strong></td>
+          <td> <%= f.text_field :middlename %></td>
+        </tr>
+        F
         <tr>
           <td><strong><%= f.label :birthdate, 'Data urodzenia' %></strong></td>
           <td> <%= f.datepicker :birthdate %></td>
@@ -102,8 +103,20 @@
           <td><%= f.text_area :description %></td>
         </tr>
         <tr>
-          <td><strong><%= f.label :audit_comment, 'Komentarz' %></strong></td>
-          <td><%= f.text_field :audit_comment, value: 'Tutaj wpisać komentarz do aktualnie wykonywanej akcji' %></td>
+          <td><strong><%= f.label :married, 'Stan cywilny' %></strong></td>
+          <td> <%= f.select :married, options_for_select([['Panna/Kawaler', 0], ['Mężatka/Żonaty', 1], ['Rozwodnik', 2], ['Wdowa/Wdowiec', 3]]) %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :married_date, 'Data ślubu/rozwodu' %></strong></td>
+          <td><%= f.datepicker :married_date %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :married_data, 'Informacje o żonie/mężu' %></strong></td>
+          <td><%= f.text_area :married_data %></td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :children_data, 'Informacje o dzieciach' %></strong></td>
+          <td><%= f.text_area :children_data %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :user_id, "Użytkownik tworzący rekord" %></strong></td>

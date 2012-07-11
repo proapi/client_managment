@@ -1,22 +1,38 @@
-<p id="notice"><%= notice %></p>
+<% content_for :section_header do %>
+    Szczegóły rachunku
+<% end %>
 
-<p>
-  <b>Clearing:</b>
-  <%= @bill.clearing %>
-</p>
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Szczegóły rachunku", bill_path(@bill) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
 
-<p>
-  <b>Company:</b>
-  <%= @bill.company %>
-</p>
+<% content_for :help do %>
+    <% help_block 'Podgląd danych wystawionego rachunku' %>
+<% end %>
 
-<%= check_blank 'Prowizja', @clearing.commission_final %>
-<%= check_blank 'Prowizja %', @clearing.commission_percent %>
-<%= check_blank('Data wyliczenia prowizji', l(@clearing.commission_date)) unless @clearing.commission_date.nil? %>
-<%= check_blank 'Kurs', @clearing.exchange_rate %>
-<%= check_blank('Termin płatności', l(@clearing.maturity_date)) unless @clearing.maturity_date.nil? %>
-<%= check_blank('Data wpłaty', l(@clearing.payment_date)) unless @clearing.payment_date.nil? %>
-<%= check_blank 'Numer rachunku', @clearing.account_number %>
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
 
-<%= link_to 'Edit', edit_bill_path(@bill) %> |
-<%= link_to 'Back', bills_path %>
+<div class="table">
+  <table class="listing form" cellpadding="0" cellspacing="0">
+    <tr>
+      <th class="full" colspan="2">Szczegóły rekordu rachunku</th>
+    </tr>
+    <%= check_blank 'Rozliczenie', @bill.clearing.title %>
+    <%= check_blank 'Numer', @bill.number %>
+    <%= check_blank 'Firma', @bill.company.name %>
+    <%= check_blank('Data wyliczenia prowizji', l(@bill.commission_date)) unless @bill.commission_date.nil? %>
+    <%= check_blank 'Kurs', @bill.exchange_rate %>
+    <%= check_blank('Termin płatności', l(@bill.maturity_date)) unless @bill.maturity_date.nil? %>
+    <%= check_blank 'Prowizja końcowa', @bill.commission_final %>
+    <%= check_blank('Data wpłaty', l(@bill.payment_date)) unless @bill.payment_date.nil? %>
+    <%= check_blank 'Użytkownik wystawiający', @bill.user.name %>
+    <tr>
+      <th class="full" colspan="2">Dodatkowe informacje</th>
+    </tr>
+    <tr>
+      <td colspan="2"><%= @bill.comment.blank? ? "Brak" : @bill.comment %></td>
+    </tr>
+  </table>
+</div>

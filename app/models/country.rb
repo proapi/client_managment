@@ -2,6 +2,8 @@ class Country < ActiveRecord::Base
   attr_accessible :currency, :name, :short
   has_many :documents
 
+  validates_presence_of :currency, :name, :short
+
   def self.all_cached
     Rails.cache.fetch('Country.all') { all }
   end

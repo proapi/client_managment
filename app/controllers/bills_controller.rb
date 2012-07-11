@@ -27,7 +27,12 @@ class BillsController < ApplicationController
   # GET /bills/new
   # GET /bills/new.json
   def new
-    @bill = Bill.new
+    if params[:clearing_id]
+      @clearing = Clearing.find(params[:clearing_id])
+      @bill = @clearing.build_bill
+    else
+      @bill = Bill.new
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,6 +49,7 @@ class BillsController < ApplicationController
   # POST /bills.json
   def create
     @bill = Bill.new(params[:bill])
+    @bill.user = current_user
 
     respond_to do |format|
       if @bill.save
@@ -79,7 +85,7 @@ class BillsController < ApplicationController
     @bill.destroy
 
     respond_to do |format|
-      format.html { redirect_to bills_url, notice: t('flash.notice') if @clearing.destroyed? }
+      format.html { redirect_to bills_url, notice: t('flash.notice') if @bill.destroyed? }
       format.json { head :no_content }
     end
   end

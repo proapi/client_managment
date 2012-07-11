@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :clients
   has_many :clearings
 
+  validates_presence_of :name, :email
+
   def self.all_cached
     Rails.cache.fetch('User.all') { all }
   end

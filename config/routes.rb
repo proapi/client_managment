@@ -1,7 +1,13 @@
 Europodatki::Application.routes.draw do
+  resources :agents
+
   resources :bills
 
   resources :clearings do
+    member do
+      get 'history'
+    end
+    resource :bill, only: [:new]
     resources :messages, only: [:new, :index]
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710121648) do
+ActiveRecord::Schema.define(:version => 20120711054907) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(:version => 20120710121648) do
 
   add_index "addresses_companies", ["address_id"], :name => "index_addresses_companies_on_address_id"
   add_index "addresses_companies", ["company_id"], :name => "index_addresses_companies_on_company_id"
+
+  create_table "agents", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -64,10 +70,15 @@ ActiveRecord::Schema.define(:version => 20120710121648) do
     t.decimal  "exchange_rate"
     t.date     "maturity_date"
     t.date     "payment_date"
+    t.string   "number"
+    t.integer  "user_id"
+    t.text     "comment"
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
   add_index "bills", ["company_id"], :name => "index_bills_on_company_id"
+  add_index "bills", ["number"], :name => "index_bills_on_number"
+  add_index "bills", ["user_id"], :name => "index_bills_on_user_id"
 
   create_table "clearings", :force => true do |t|
     t.integer  "client_id"
@@ -86,8 +97,10 @@ ActiveRecord::Schema.define(:version => 20120710121648) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "user_id"
+    t.integer  "agent_id"
   end
 
+  add_index "clearings", ["agent_id"], :name => "index_clearings_on_agent_id"
   add_index "clearings", ["client_id"], :name => "index_clearings_on_client_id"
   add_index "clearings", ["country_id"], :name => "index_clearings_on_country_id"
 
@@ -100,9 +113,14 @@ ActiveRecord::Schema.define(:version => 20120710121648) do
     t.string   "email"
     t.string   "identifier"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "user_id"
+    t.string   "middlename"
+    t.integer  "married"
+    t.date     "married_date"
+    t.text     "married_data"
+    t.text     "children_data"
   end
 
   create_table "companies", :force => true do |t|

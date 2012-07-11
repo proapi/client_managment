@@ -24,8 +24,8 @@
       <tbody>
       <%= content_tag_for(:tr, @users) do |user| %>
           <%= content_tag :td, (link_to user.name, user_path(user)), class: 'style1' %>
-          <%= content_tag :td, user.name %>
-          <%= content_tag :td, user.email %>
+          <%= content_tag :td, check_blank_value(user.name) %>
+          <%= content_tag :td, check_blank_value(user.email) %>
           <%= content_tag :td, user.admin? ? 'Tak' : 'Nie' %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), user_path(user) %>

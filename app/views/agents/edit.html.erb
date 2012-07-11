@@ -1,0 +1,20 @@
+<% content_for :section_header do %>
+    Edycja danych agenta
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja agenta", edit_agent_path(@agent) %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block '' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'form' %>
+
+<%= link_to 'Pokaż szczegóły', @agent %> |
+<%= link_to 'Lista agentów', agents_path %>

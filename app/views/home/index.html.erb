@@ -14,12 +14,11 @@
     <table id="home_clearings_table" class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
+          <%= content_tag :th, 'Rozliczenie' %>
           <%= content_tag :th, 'Identyfikator' %>
-          <%= content_tag :th, 'Nazwisko' %>
-          <%= content_tag :th, 'Imię' %>
           <%= content_tag :th, 'Kraj' %>
+          <%= content_tag :th, 'Rok' %>
           <%= content_tag :th, 'Numer podatkowy' %>
-          <%= content_tag :th, 'Rok rozliczenia' %>
           <%= content_tag :th, 'Kwota zwrotu' %>
           <%= content_tag :th, 'Data wysłania do urzędu' %>
           <%= content_tag :th, 'Akcje' %>
@@ -27,17 +26,17 @@
       </thead>
       <tbody>
       <%= content_tag_for(:tr, @clearings) do |clearing| %>
+          <%= content_tag :td, clearing.title.nil? ? "Brak" : link_to(clearing.title, clearing), class: 'style1' %>
           <%= content_tag :td, ((link_to clearing.client.identifier, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
-          <%= content_tag :td, ((link_to clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
-          <%= content_tag :td, ((link_to clearing.client.firstname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
           <%= content_tag :td, ((link_to clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
-          <%= content_tag :td, clearing.tax_number.nil? ? "Brak" : clearing.tax_number %>
-          <%= content_tag :td, clearing.year.nil? ? "Brak" : clearing.year %>
+          <%= content_tag :td, clearing.year.nil? ? "Brak" : link_to(clearing.year, clearing), class: 'style1' %>
+          <%= content_tag :td, clearing.tax_number.nil? ? "Brak" : link_to(clearing.tax_number, clearing), class: 'style1' %>
           <%= content_tag :td, clearing.rebate_calc.nil? ? "Brak" : number_to_currency(clearing.rebate_calc) %>
           <%= content_tag :td, clearing.office_send_date.nil? ? "Brak" : l(clearing.office_send_date) %>
           <%= content_tag :td do %>
               <%= link_to image_tag('info.png'), clearing %>
               <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
+              <%= link_to image_tag('invoice.png'), new_clearing_bill_path(clearing) %>
           <% end %>
       <% end %>
       </tbody>

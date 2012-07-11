@@ -2,6 +2,8 @@ class Document < ActiveRecord::Base
   belongs_to :country
   attr_accessible :body, :title, :country_id
 
+  validates_presence_of :title, :country_id
+
   def self.all_cached
     Rails.cache.fetch('Document.all') { all }
   end

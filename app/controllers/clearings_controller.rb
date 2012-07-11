@@ -29,6 +29,11 @@ class ClearingsController < ApplicationController
     end
   end
 
+  # GET /clearings/1/history
+  def history
+    @clearing = Clearing.find(params[:id])
+  end
+
   # GET /clearings/new
   # GET /clearings/new.json
   def new
