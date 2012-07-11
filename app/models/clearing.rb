@@ -18,10 +18,13 @@ class Clearing < ActiveRecord::Base
 
   def self.no_bill
     all(include: :bill).keep_if { |c| c.bill.nil? }
+    #Clearing.includes(:bill).where(Bill.arel_table[:id].eq(nil))
   end
 
   def self.undone
-    all(include: :bill).keep_if { |c| c.bill.payment_date.nil? }
+    all(include: :bill).keep_if do |c|
+      c.bill.nil? ? true : c.bill.payment_date.nil?
+    end
   end
 
   def self.all_cached
