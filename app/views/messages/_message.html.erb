@@ -5,8 +5,8 @@
 <%= content_tag :td, check_blank_value(message.created_at) %>
 <%= content_tag :td, (link_to message.clearing.title, client_path(message.clearing)), class: 'style1' %>
 <%= content_tag :td, (link_to message.clearing.client.lastname, client_path(message.clearing.client)), class: 'style1' %>
-<%= content_tag :td do %>
-    <%= link_to image_tag('info.png'), message %>
-    <%= link_to image_tag('modify.png'), edit_message_path(message) %>
-    <%= link_to image_tag('delete.png'), message, :confirm => "Czy jesteś pewien?", :method => :delete %>
+<%= content_tag :td, class: 'actions' do %>
+    <%= link_to image_tag('info.png'), message, title: "Szczegółowe informacje" %>
+    <%= link_to image_tag('modify.png'), edit_message_path(message), title: "Edycja" %>
+    <%= link_to image_tag('delete.png'), message, :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
 <% end %>

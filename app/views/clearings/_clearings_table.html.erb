@@ -2,6 +2,7 @@
     <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
+          <%= content_tag :th, 'Nazwisko' %>
           <%= content_tag :th, 'Kraj' %>
           <%= content_tag :th, 'Rok rozliczenia' %>
           <%= content_tag :th, 'Data złożenia wniosku' %>
@@ -12,22 +13,23 @@
       <% end %>
       </thead>
       <tbody>
-      <%= content_tag_for(:tr, clearings) do |clearing| %>
+      <%= content_tag_for(:tr, @clearings) do |clearing| %>
+          <%= content_tag :td, (link_to(clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
           <%= content_tag :td, (link_to(clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
-          <%= content_tag :td, (link_to(clearing.year, clearing_path(clearing)) unless clearing.year.nil?), class: 'style1' %>
+          <%= content_tag :td, (link_to(clearing.year, clearing) unless clearing.year.nil?), class: 'style1' %>
           <%= content_tag :td, check_blank_value(clearing.application_date) %>
           <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
           <%= content_tag :td, check_blank_value(clearing.rebate_final) %>
           <%= content_tag :td, check_blank_value(clearing.decision_date) %>
-          <%= content_tag :td do %>
-              <%= link_to image_tag('info.png'), clearing %>
+          <%= content_tag :td, class: 'actions' do %>
+              <%= link_to image_tag('info.png'), clearing, title: "Szczegółowe informacje" %>
               <%= link_to image_tag('modify.png'), edit_clearing_path(clearing) %>
               <% if clearing.bill.nil? %>
-                  <%= link_to image_tag('invoice.png'), new_clearing_bill_path(clearing) %>
+                  <%= link_to image_tag('invoice.png'), new_clearing_bill_path(clearing), title: "Nowy" %>
               <% else %>
-                  <%= link_to image_tag('invoice.png'), edit_bill_path(clearing.bill) %>
+                  <%= link_to image_tag('invoice.png'), edit_bill_path(clearing.bill), title: "Edycja" %>
               <% end %>
-              <%= link_to image_tag('delete.png'), clearing, :confirm => "Czy jesteś pewien?", :method => :delete %>
+              <%= link_to image_tag('delete.png'), clearing, :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
           <% end %>
       <% end %>
       </tbody>

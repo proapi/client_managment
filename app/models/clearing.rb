@@ -16,15 +16,16 @@ class Clearing < ActiveRecord::Base
   validates :user_id, presence: true
   validates :country_id, presence: true
 
-  def self.no_bill
-    all(include: :bill).keep_if { |c| c.bill.nil? }
-    #Clearing.includes(:bill).where(Bill.arel_table[:id].eq(nil))
-  end
+  #def self.no_bill
+  #  all(include: :bill).keep_if { |c| c.bill.nil? }
+  #  #Clearing.includes(:bill).where(Bill.arel_table[:id].eq(nil))
+  #end
 
   def self.undone
-    all(include: :bill).keep_if do |c|
-      c.bill.nil? ? true : c.bill.payment_date.nil?
-    end
+    #all(include: :bill).keep_if do |c|
+    #  c.bill.nil? ? true : c.bill.payment_date.nil?
+    #end
+    where(archive: false)
   end
 
   def self.all_cached

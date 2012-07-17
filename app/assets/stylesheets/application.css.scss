@@ -149,7 +149,7 @@ input.text {
 }
 
 #top-navigation .logout_button {
-float: right;
+  float: right;
 }
 
 /* middle */
@@ -389,7 +389,7 @@ table.listing th:first-child, table.listing td:first-child {
 
 table.listing th:last-child, table.listing td:last-child {
   border-right: 0px solid #9097A9;
-  width: 100px;
+  width: 85%;
 }
 
 table.listing th:first-child {
@@ -409,6 +409,10 @@ table.listing .style2 {
 
 table.listing .style3 {
   padding-left: 25px;
+}
+
+table.listing td.actions {
+  width: 100px;
 }
 
 table.listing .style4 {

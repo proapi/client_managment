@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711054907) do
+ActiveRecord::Schema.define(:version => 20120717102110) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -63,16 +63,19 @@ ActiveRecord::Schema.define(:version => 20120711054907) do
   create_table "bills", :force => true do |t|
     t.integer  "clearing_id"
     t.integer  "company_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.decimal  "commission_final"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.decimal  "commission_final", :precision => 6, :scale => 2
     t.date     "commission_date"
-    t.decimal  "exchange_rate"
+    t.decimal  "exchange_rate",    :precision => 6, :scale => 2
     t.date     "maturity_date"
     t.date     "payment_date"
     t.string   "number"
     t.integer  "user_id"
     t.text     "comment"
+    t.string   "payment_form"
+    t.string   "title"
+    t.string   "units"
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
@@ -86,18 +89,19 @@ ActiveRecord::Schema.define(:version => 20120711054907) do
     t.string   "tax_number"
     t.string   "year"
     t.date     "application_date"
-    t.string   "commission_percent"
-    t.decimal  "commission_min"
-    t.decimal  "commission_currency"
-    t.decimal  "rebate_calc"
+    t.integer  "commission_percent",  :limit => 255
+    t.decimal  "commission_min",                     :precision => 6, :scale => 2
+    t.string   "commission_currency"
+    t.decimal  "rebate_calc",                        :precision => 6, :scale => 2
     t.date     "office_send_date"
-    t.decimal  "rebate_final"
+    t.decimal  "rebate_final",                       :precision => 6, :scale => 2
     t.date     "decision_date"
     t.text     "description"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
     t.integer  "user_id"
     t.integer  "agent_id"
+    t.boolean  "archive",                                                          :default => false
   end
 
   add_index "clearings", ["agent_id"], :name => "index_clearings_on_agent_id"
@@ -111,10 +115,10 @@ ActiveRecord::Schema.define(:version => 20120711054907) do
     t.string   "telephone"
     t.string   "mobile"
     t.string   "email"
-    t.string   "identifier"
+    t.integer  "identifier",    :limit => 255
     t.text     "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "user_id"
     t.string   "middlename"
     t.integer  "married"

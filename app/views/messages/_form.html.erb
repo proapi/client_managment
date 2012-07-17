@@ -31,13 +31,7 @@
         <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z tą wiadomością" %></strong></td>
           <td>
-            <%= f.collection_select :clearing_id, Clearing.all_cached, :id, :title %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :user_id, "Użytkownik tworzący wiadomość" %></strong></td>
-          <td>
-            <%= f.collection_select :user_id, User.all_cached, :id, :name, {}, {disabled: "disabled"} %>
+            <%= f.collection_select :clearing_id, Clearing.all_cached, :id, :title, :include_blank => "Brak" %>
           </td>
         </tr>
         <tr>

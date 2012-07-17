@@ -43,7 +43,7 @@
         <tr>
           <td><strong><%= f.label :application_date, "Data złożenia wniosku" %></strong></td>
           <td>
-            <%= f.datepicker :application_date %>
+            <%= f.datepicker :application_date, class: 'datepicker' %>
           </td>
         </tr>
         <tr>
@@ -101,9 +101,9 @@
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :user_id, "Użytkownik tworzący rozliczenie" %></strong></td>
+          <td><strong><%= f.label :archive, "Do archiwum" %></strong></td>
           <td>
-            <%= f.collection_select :user_id, User.all_cached, :id, :name, {}, {disabled: "disabled"} %>
+            <%= f.check_box :archive, :confirm => "Czy jesteś pewien, że przenieść rozliczenie do archiwum?" %>
           </td>
         </tr>
         <tr>

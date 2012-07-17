@@ -30,6 +30,7 @@ class ClientsController < ApplicationController
     @client = Client.new
     @client.address = Address.new
     @client.mailing_address = Address.new
+    @client.user_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb

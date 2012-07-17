@@ -49,7 +49,7 @@ class BillsController < ApplicationController
   # POST /bills.json
   def create
     @bill = Bill.new(params[:bill])
-    @bill.user = current_user
+    @bill.user_id = current_user.id
 
     respond_to do |format|
       if @bill.save

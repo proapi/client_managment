@@ -28,17 +28,21 @@
   </table>
 </div>
 
+<h3>Rozliczenia stworzone przez użytkownika</h3>
+<%= render partial: 'clearings/clearings_table', locals: {clearings: @user.clearings} %>
+
 <h3>Wiadomości stworzone przez użytkownika</h3>
 <%= content_tag :div, class: 'table' do %>
     <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
-          <%= content_tag :th, 'Klient' %>
           <%= content_tag :th, 'Źródło' %>
           <%= content_tag :th, 'Pochodzenie' %>
           <%= content_tag :th, 'Treść' %>
           <%= content_tag :th, 'Użytkownik' %>
           <%= content_tag :th, 'Data utworzenia' %>
+          <%= content_tag :th, 'Rozliczenie' %>
+          <%= content_tag :th, 'Klient' %>
           <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
@@ -72,10 +76,10 @@
           <%= content_tag :td, client.address.city %>
           <%= content_tag :td, client.mobile %>
           <%= content_tag :td, client.email %>
-          <%= content_tag :td do %>
-              <%= link_to image_tag('info.png'), client %>
-              <%= link_to image_tag('modify.png'), edit_client_path(client) %>
-              <%= link_to image_tag('delete.png'), client, :confirm => "Czy jesteś pewien?", :method => :delete %>
+          <%= content_tag :td, class: 'actions' do %>
+              <%= link_to image_tag('info.png'), client, title: "Szczegółowe informacje" %>
+              <%= link_to image_tag('modify.png'), edit_client_path(client), title: "Edycja" %>
+              <%= link_to image_tag('delete.png'), client, :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
           <% end %>
       <% end %>
       </tbody>

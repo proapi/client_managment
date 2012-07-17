@@ -28,7 +28,6 @@
           <td><strong><%= f.label :middlename, 'Drugie imię' %></strong></td>
           <td> <%= f.text_field :middlename %></td>
         </tr>
-        F
         <tr>
           <td><strong><%= f.label :birthdate, 'Data urodzenia' %></strong></td>
           <td> <%= f.datepicker :birthdate %></td>
@@ -99,8 +98,7 @@
             -->
         <% end %>
         <tr>
-          <td><strong><%= f.label :description, 'Opis / uwagi' %></strong></td>
-          <td><%= f.text_area :description %></td>
+          <th class="full" colspan="2">Stan cywilny / rodzina</th>
         </tr>
         <tr>
           <td><strong><%= f.label :married, 'Stan cywilny' %></strong></td>
@@ -119,10 +117,11 @@
           <td><%= f.text_area :children_data %></td>
         </tr>
         <tr>
-          <td><strong><%= f.label :user_id, "Użytkownik tworzący rekord" %></strong></td>
-          <td>
-            <%= f.collection_select :user_id, User.all_cached, :id, :name, {selected: current_user.id}, {disabled: "disabled"} %>
-          </td>
+          <th class="full" colspan="2">Inne informacje</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :description, 'Opis / uwagi' %></strong></td>
+          <td><%= f.text_area :description %></td>
         </tr>
         <tr>
           <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>

@@ -33,6 +33,15 @@
     <%= check_blank('Data decyzji', l(@clearing.decision_date)) unless @clearing.decision_date.nil? %>
     <%= check_blank('Agent pośredniczący', @clearing.agent.name) unless @clearing.agent.nil? %>
     <tr>
+      <td>
+        Przeniesiony do archiwum
+      </td>
+      <td><strong>
+        <%= @clearing.archive? ? "Tak" : "Nie" %>
+      </strong>
+      </td>
+    </tr>
+    <tr>
       <th class="full" colspan="2">Opis / uwagi</th>
     </tr>
     <tr>
@@ -68,3 +77,6 @@
 <% else %>
     <p>Brak wystawionego rachunku.</p>
 <% end %>
+
+<h3>Wiadomości do rozliczenia</h3>
+<%= render partial: 'messages/messages_table', locals: {messages: @clearing.messages} %>

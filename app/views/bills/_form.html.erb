@@ -59,16 +59,28 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= f.label :payment_form, "Forma płatności" %></strong></td>
+          <td>
+            <%= f.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie)) %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :title, "Tytuł usługi" %></strong></td>
+          <td>
+            <%= f.text_field :title, value: "Usługi rachunkowe" %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :title, "Jednostka miary" %></strong></td>
+          <td>
+            <%= f.text_field :title, value: "szt." %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :comment, "Dodatkowe informacje" %></strong></td>
           <td>
             <%= f.text_area :comment %>
           </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :user_id, "Użytkownik tworzący rachunek" %></strong></td>
-          <td>
-            <%= f.collection_select :user_id, User.all_cached, :id, :name, {}, {disabled: "disabled"} %>
-            </td>
         </tr>
         <tr>
           <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>

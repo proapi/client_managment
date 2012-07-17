@@ -26,6 +26,9 @@
     <%= check_blank 'Kurs', @bill.exchange_rate %>
     <%= check_blank('Termin płatności', l(@bill.maturity_date)) unless @bill.maturity_date.nil? %>
     <%= check_blank 'Prowizja końcowa', @bill.commission_final %>
+    <%= check_blank 'Forma płatności', @bill.payment_form %>
+    <%= check_blank 'Tytuł usługi', @bill.title %>
+    <%= check_blank 'Jednostka miary', @bill.units %>
     <%= check_blank('Data wpłaty', l(@bill.payment_date)) unless @bill.payment_date.nil? %>
     <%= check_blank 'Użytkownik wystawiający', @bill.user.name %>
     <tr>

@@ -4,7 +4,7 @@
       <li><%= link_to 'Szczegóły', @country %></li>
       <li><%= link_to 'Edycja', edit_country_path(@country) %></li>
       <li><%= link_to 'Nowy dokument kraju', new_country_document_path(@country) %></li>
-      <li><%= link_to 'Lista dokumentów kraju', country_documents_path(@country) %></li>
+      <li><%= link_to 'Lista dokumentów', country_documents_path(@country) %></li>
       <li><%= link_to 'Usuń', @country, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
       <li></li>
     </ul>
@@ -12,7 +12,7 @@
 
 <h3>Rekordy kraju</h3>
 <ul class="nav">
-  <li><%= link_to 'Dodaj nowy kraj', new_country_path %></li>
+  <li><%= link_to 'Nowy kraj', new_country_path %></li>
   <li><%= link_to 'Lista krajów', countries_path %></li>
   <li></li>
 </ul>

@@ -43,18 +43,18 @@
     <%= check_blank 'Ulica nr domu/mieszkania', @client.mailing_address.street %>
     <%= check_blank 'Kod pocztowy', @client.mailing_address.code %>
     <tr>
-      <th class="full" colspan="2">Opis / uwagi</th>
-    </tr>
-    <tr>
-      <td colspan="2"><%= @client.description.blank? ? "Brak" : @client.description %></td>
-    </tr>
-    <tr>
       <th class="full" colspan="2">Stan cywilny / rodzina</th>
     </tr>
     <%= check_blank 'Stan cywilny', @client.get_married_description %>
     <%= check_blank('Data ślubu/rozwodu', l(@client.married_date)) unless @client.married_date.nil? %>
     <%= check_blank('Informacje o żonie/mężu', @client.married_data) unless @client.married_data.nil? %>
     <%= check_blank('Informacje o dzieciach', @client.children_data) unless @client.children_data.nil? %>
+    <tr>
+      <th class="full" colspan="2">Opis / uwagi</th>
+    </tr>
+    <tr>
+      <td colspan="2"><%= @client.description.blank? ? "Brak" : @client.description %></td>
+    </tr>
   </table>
 </div>
 
