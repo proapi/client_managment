@@ -3,10 +3,10 @@ class Bill < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
 
-  attr_accessible :clearing_id, :company_id, :commission_final, :commission_date, :exchange_rate, :maturity_date, :payment_date, :comment, :user_id
+  attr_accessible :clearing_id, :company_id, :commission_final, :commission_date, :exchange_rate, :maturity_date, :payment_date, :comment, :user_id, :payment_form, :title, :units
 
   validates_presence_of :clearing, :company_id, :commission_final, :user_id, :number
-  before_validation :set_number
+  before_validation :set_number, :check_all_decimals
 
   def self.all_cached
     Rails.cache.fetch('Bill.all') { all }
@@ -27,5 +27,9 @@ class Bill < ActiveRecord::Base
 
   def set_number_in_company
     self.company.update_attribute :bill_number, self.number.slice(/^[0-9]+/)
+  end
+
+  def check_all_decimals
+   # TODO dokończyć te numery
   end
 end

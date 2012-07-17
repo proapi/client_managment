@@ -13,7 +13,7 @@
       <% end %>
       </thead>
       <tbody>
-      <%= content_tag_for(:tr, @clearings) do |clearing| %>
+      <%= content_tag_for(:tr, clearings) do |clearing| %>
           <%= content_tag :td, (link_to(clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
           <%= content_tag :td, (link_to(clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
           <%= content_tag :td, (link_to(clearing.year, clearing) unless clearing.year.nil?), class: 'style1' %>
