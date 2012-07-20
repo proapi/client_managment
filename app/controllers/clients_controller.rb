@@ -51,7 +51,7 @@ class ClientsController < ApplicationController
   # POST /clients
   # POST /clients.json
   def create
-    @client = Client.new(params[:client])
+    @client = Client.new(check_number_with_comma(params[:client]))
 
     respond_to do |format|
       if @client.save
@@ -70,7 +70,7 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
 
     respond_to do |format|
-      if @client.update_attributes(params[:client])
+      if @client.update_attributes(check_number_with_comma(params[:client]))
         format.html { redirect_to @client, notice: t('flash.notice') }
         format.json { head :no_content }
       else

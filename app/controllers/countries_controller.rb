@@ -44,7 +44,7 @@ class CountriesController < ApplicationController
   # POST /countries
   # POST /countries.json
   def create
-    @country = Country.new(params[:country])
+    @country = Country.new(check_number_with_comma(params[:country]))
 
     respond_to do |format|
       if @country.save
@@ -63,7 +63,7 @@ class CountriesController < ApplicationController
     @country = Country.find(params[:id])
 
     respond_to do |format|
-      if @country.update_attributes(params[:country])
+      if @country.update_attributes(check_number_with_comma(params[:country]))
         format.html { redirect_to @country, notice: t('flash.notice') }
         format.json { head :no_content }
       else

@@ -29,24 +29,6 @@
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :commission_final, "Prowizja" %></strong></td>
-          <td>
-            <%= f.text_field :commission_final %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
-          <td>
-            <%= f.datepicker :commission_date %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
-          <td>
-            <%= f.text_field :exchange_rate %>
-          </td>
-        </tr>
-        <tr>
           <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
           <td>
             <%= f.datepicker :maturity_date %>
@@ -71,9 +53,15 @@
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :title, "Jednostka miary" %></strong></td>
+          <td><strong><%= f.label :units, "Jednostka miary" %></strong></td>
           <td>
-            <%= f.text_field :title, value: "szt." %>
+            <%= f.text_field :units, value: "szt." %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
+          <td>
+            <%= f.text_field :total, value: "szt." %>
           </td>
         </tr>
         <tr>

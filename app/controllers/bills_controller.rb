@@ -48,7 +48,7 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.json
   def create
-    @bill = Bill.new(params[:bill])
+    @bill = Bill.new(check_number_with_comma(params[:bill]))
     @bill.user_id = current_user.id
 
     respond_to do |format|
@@ -68,7 +68,7 @@ class BillsController < ApplicationController
     @bill = Bill.find(params[:id])
 
     respond_to do |format|
-      if @bill.update_attributes(params[:bill])
+      if @bill.update_attributes(check_number_with_comma(params[:bill]))
         format.html { redirect_to @bill, notice: t('flash.notice') }
         format.json { head :no_content }
       else

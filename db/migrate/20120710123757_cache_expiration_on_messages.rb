@@ -5,10 +5,10 @@ class CacheExpirationOnMessages < ActiveRecord::Migration
   # coś w modelach, bo może być kiszka i godzina szukania błędów!
 
   def up
-    Message.expire_all_cache
+    Message.first.expire_all_cache unless Message.first.nil?
   end
 
   def down
-    Message.expire_all_cache
+    Message.first.expire_all_cache unless Message.first.nil?
   end
 end

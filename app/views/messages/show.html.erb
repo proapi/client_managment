@@ -31,7 +31,7 @@
     <%= check_blank 'Pochodzenie', @message.origin %>
     <tr>
       <td>Data utworzenia</td>
-      <td><strong><%= l @message.created_at %></strong></td>
+      <td><strong><%= check_blank_value @message.created_at %></strong></td>
     </tr>
     <tr>
       <td>Użytkownik</td>

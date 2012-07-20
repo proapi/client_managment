@@ -44,7 +44,7 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(params[:company])
+    @company = Company.new(check_number_with_comma(params[:company]))
 
     respond_to do |format|
       if @company.save
@@ -63,7 +63,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
 
     respond_to do |format|
-      if @company.update_attributes(params[:company])
+      if @company.update_attributes(check_number_with_comma(params[:company]))
         format.html { redirect_to @company, notice: t('flash.notice') }
         format.json { head :no_content }
       else

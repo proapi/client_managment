@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717102110) do
+ActiveRecord::Schema.define(:version => 20120720092715) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -63,11 +63,8 @@ ActiveRecord::Schema.define(:version => 20120717102110) do
   create_table "bills", :force => true do |t|
     t.integer  "clearing_id"
     t.integer  "company_id"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.decimal  "commission_final", :precision => 6, :scale => 2
-    t.date     "commission_date"
-    t.decimal  "exchange_rate",    :precision => 6, :scale => 2
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.date     "maturity_date"
     t.date     "payment_date"
     t.string   "number"
@@ -76,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20120717102110) do
     t.string   "payment_form"
     t.string   "title"
     t.string   "units"
+    t.decimal  "total",         :precision => 6, :scale => 2
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
@@ -89,19 +87,26 @@ ActiveRecord::Schema.define(:version => 20120717102110) do
     t.string   "tax_number"
     t.string   "year"
     t.date     "application_date"
-    t.integer  "commission_percent",  :limit => 255
-    t.decimal  "commission_min",                     :precision => 6, :scale => 2
+    t.integer  "commission_percent",   :limit => 255
+    t.decimal  "commission_min",                      :precision => 6, :scale => 2
     t.string   "commission_currency"
-    t.decimal  "rebate_calc",                        :precision => 6, :scale => 2
+    t.decimal  "rebate_calc",                         :precision => 6, :scale => 2
     t.date     "office_send_date"
-    t.decimal  "rebate_final",                       :precision => 6, :scale => 2
+    t.decimal  "rebate_final",                        :precision => 6, :scale => 2
     t.date     "decision_date"
     t.text     "description"
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.datetime "created_at",                                                                           :null => false
+    t.datetime "updated_at",                                                                           :null => false
     t.integer  "user_id"
     t.integer  "agent_id"
-    t.boolean  "archive",                                                          :default => false
+    t.boolean  "archive",                                                           :default => false
+    t.decimal  "exchange_rate",                       :precision => 8, :scale => 4
+    t.date     "commission_date"
+    t.decimal  "commission_final",                    :precision => 6, :scale => 2
+    t.date     "income_date"
+    t.decimal  "income_total",                        :precision => 6, :scale => 2
+    t.decimal  "income_exchange_rate",                :precision => 8, :scale => 4
+    t.decimal  "total_to_client",                     :precision => 6, :scale => 2
   end
 
   add_index "clearings", ["agent_id"], :name => "index_clearings_on_agent_id"

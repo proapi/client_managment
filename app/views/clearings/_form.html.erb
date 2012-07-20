@@ -53,7 +53,7 @@
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :commission_min, "Prowizja min" %></strong></td>
+          <td><strong><%= f.label :commission_min, "Prowizja minimalna" %></strong></td>
           <td>
             <%= f.text_field :commission_min %>
           </td>
@@ -61,7 +61,7 @@
         <tr>
           <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
           <td>
-            <%= f.text_field :commission_currency %>
+            <%= f.select :commission_currency, options_for_select(%w(PLN EURO FUNT)) %>
           </td>
         </tr>
         <tr>
@@ -86,6 +86,48 @@
           <td><strong><%= f.label :decision_date, "Data wydania decyzji" %></strong></td>
           <td>
             <%= f.datepicker :decision_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_final, "Prowizja końcowa" %></strong></td>
+          <td>
+            <%= f.decimal_field :commission_final %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
+          <td>
+            <%= f.datepicker :commission_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
+          <td>
+            <%= f.decimal_field :exchange_rate %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :income_date, "Data wpływu na konto" %></strong></td>
+          <td>
+            <%= f.datepicker :income_date %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :income_total, "Kwota wpływu na konto" %></strong></td>
+          <td>
+            <%= f.decimal_field :income_total %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :income_exchange_rate, "Przelicznik bankowy(kurs)" %></strong></td>
+          <td>
+            <%= f.decimal_field :income_exchange_rate %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :total_to_client, "Kwota do przelewu dla klienta" %></strong></td>
+          <td>
+            <%= f.decimal_field :total_to_client %>
           </td>
         </tr>
         <tr>

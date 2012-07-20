@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(params[:message])
+    @message = Message.new(check_number_with_comma(params[:message]))
     @message.user_id = current_user.id
 
     respond_to do |format|
@@ -73,7 +73,7 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
 
     respond_to do |format|
-      if @message.update_attributes(params[:message])
+      if @message.update_attributes(check_number_with_comma(params[:message]))
         format.html { redirect_to @message, notice: t('flash.notice') }
         format.json { head :no_content }
       else

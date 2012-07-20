@@ -6,7 +6,7 @@ class RemoveFieldsFromClearing < ActiveRecord::Migration
     remove_column :clearings, :maturity_date
     remove_column :clearings, :payment_date
     remove_column :clearings, :account_number
-    add_column :bills, :commission_final, :decimal, precision:
+    add_column :bills, :commission_final, :decimal
     add_column :bills, :commission_date, :date
     add_column :bills, :exchange_rate, :decimal
     add_column :bills, :maturity_date, :date

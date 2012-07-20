@@ -40,7 +40,7 @@ class AgentsController < ApplicationController
   # POST /agents
   # POST /agents.json
   def create
-    @agent = Agent.new(params[:agent])
+    @agent = Agent.new(check_number_with_comma(params[:agent]))
 
     respond_to do |format|
       if @agent.save
@@ -59,7 +59,7 @@ class AgentsController < ApplicationController
     @agent = Agent.find(params[:id])
 
     respond_to do |format|
-      if @agent.update_attributes(params[:agent])
+      if @agent.update_attributes(check_number_with_comma(params[:agent]))
         format.html { redirect_to @agent, notice: t('flash.notice') }
         format.json { head :no_content }
       else

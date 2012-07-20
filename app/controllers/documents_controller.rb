@@ -53,7 +53,7 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
-    @document = Document.new(params[:document])
+    @document = Document.new(check_number_with_comma(params[:document]))
 
     respond_to do |format|
       if @document.save
@@ -72,7 +72,7 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:id])
 
     respond_to do |format|
-      if @document.update_attributes(params[:document])
+      if @document.update_attributes(check_number_with_comma(params[:document]))
         format.html { redirect_to @document, notice: t('flash.notice') }
         format.json { head :no_content }
       else

@@ -58,7 +58,7 @@ class ClearingsController < ApplicationController
   # POST /clearings
   # POST /clearings.json
   def create
-    @clearing = Clearing.new(params[:clearing])
+    @clearing = Clearing.new(check_number_with_comma(params[:clearing]))
     @clearing.user_id = current_user.id
 
     respond_to do |format|
@@ -78,7 +78,7 @@ class ClearingsController < ApplicationController
     @clearing = Clearing.find(params[:id])
 
     respond_to do |format|
-      if @clearing.update_attributes(params[:clearing])
+      if @clearing.update_attributes(check_number_with_comma(params[:clearing]))
         format.html { redirect_to @clearing, notice: t('flash.notice') }
         format.json { head :no_content }
       else

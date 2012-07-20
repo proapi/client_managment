@@ -46,9 +46,9 @@
       <th class="full" colspan="2">Stan cywilny / rodzina</th>
     </tr>
     <%= check_blank 'Stan cywilny', @client.get_married_description %>
-    <%= check_blank('Data ślubu/rozwodu', l(@client.married_date)) unless @client.married_date.nil? %>
-    <%= check_blank('Informacje o żonie/mężu', @client.married_data) unless @client.married_data.nil? %>
-    <%= check_blank('Informacje o dzieciach', @client.children_data) unless @client.children_data.nil? %>
+    <%= check_blank('Data ślubu/rozwodu', check_blank_value(@client.married_date)) %>
+    <%= check_blank('Informacje o żonie/mężu', @client.married_data) %>
+    <%= check_blank('Informacje o dzieciach', @client.children_data) %>
     <tr>
       <th class="full" colspan="2">Opis / uwagi</th>
     </tr>

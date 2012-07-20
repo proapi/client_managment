@@ -14,9 +14,9 @@
       </thead>
       <tbody>
       <%= content_tag_for(:tr, clearings) do |clearing| %>
-          <%= content_tag :td, (link_to(clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
-          <%= content_tag :td, (link_to(clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
-          <%= content_tag :td, (link_to(clearing.year, clearing) unless clearing.year.nil?), class: 'style1' %>
+          <%= content_tag :td, (clearing.client.nil? ? 'Brak' : link_to(clearing.client.lastname, client_path(clearing.client))), class: 'style1' %>
+          <%= content_tag :td, (clearing.country.nil? ? 'Brak' : link_to(clearing.country.name, country_path(clearing.country))), class: 'style1' %>
+          <%= content_tag :td, (clearing.year.nil? ? 'Brak' : link_to(clearing.year, clearing)), class: 'style1' %>
           <%= content_tag :td, check_blank_value(clearing.application_date) %>
           <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
           <%= content_tag :td, check_blank_value(clearing.rebate_final) %>

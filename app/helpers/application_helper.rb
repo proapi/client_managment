@@ -9,6 +9,6 @@ module ApplicationHelper
 
   def check_blank_value(value)
     return l(value) if value.respond_to? :beginning_of_day
-    value.nil? ? "Brak" : value
+    value.blank? ? "Brak" : value
   end
 end
