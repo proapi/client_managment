@@ -5,10 +5,14 @@ class ApplicationController < ActionController::Base
   def check_number_with_comma(params)
     hash = Hash.new
     params.each do |key, val|
-      if /[0-9]+\,[0-9]+/.match(val)
-        hash[key] = val.split(",").join(".")
+      if val.is_a? Hash
+        hash[key] = check_number_with_comma value
       else
-        hash[key] = val
+        if /[0-9]+\,[0-9]+/.match(val)
+          hash[key] = val.split(",").join(".")
+        else
+          hash[key] = val
+        end
       end
     end
     hash

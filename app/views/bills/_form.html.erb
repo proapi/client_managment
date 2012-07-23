@@ -49,7 +49,7 @@
         <tr>
           <td><strong><%= f.label :title, "Tytuł usługi" %></strong></td>
           <td>
-            <%= f.text_field :title, value: "Usługi rachunkowe" %>
+            <%= f.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa'])%>
           </td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
         <tr>
           <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
           <td>
-            <%= f.text_field :total, value: "szt." %>
+            <%= f.decimal_field :total" %>
           </td>
         </tr>
         <tr>
