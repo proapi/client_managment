@@ -41,6 +41,17 @@
     <%= check_blank 'Przelicznik bankowy', number_with_precision(@clearing.income_exchange_rate, precision: 4, delimiter: " ") %>
     <%= check_blank 'Kwota do przelania dla klienta', number_with_precision(@clearing.total_to_client, precision: 2, delimiter: " ") %>
 
+    <tr>
+      <th class="full" colspan="2">Konta bankowe</th>
+    </tr>
+    <%= check_blank 'Konto bankowe(1)', @clearing.bank_account_1 %>
+    <%= check_blank 'Konto bankowe(2)', @clearing.bank_account_2 %>
+    <%= check_blank 'Konto bankowe(3)', @clearing.bank_account_3 %>
+    <%= check_blank 'Konto do rozliczeń', @clearing.bank_account %>
+    <%= check_blank 'Przelew na konto klienta', @clearing.on_clients_account? ? "Tak" : "Nie" %>
+    <tr>
+      <th class="full" colspan="2">Inne informacje</th>
+    </tr>
     <%= check_blank('Agent pośredniczący', @clearing.agent.nil? ? 'Brak' : @clearing.agent.name) %>
     <tr>
       <td>

@@ -131,6 +131,42 @@
           </td>
         </tr>
         <tr>
+          <th class="full" colspan="2">Konta bankowe</th>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :bank_account_1, "Konto klienta(1)" %></strong></td>
+          <td>
+            <%= f.text_field :bank_account_1 %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :bank_account_2, "Konto klienta(2)" %></strong></td>
+          <td>
+            <%= f.text_field :bank_account_2 %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :bank_account_3, "Konto klienta(3)" %></strong></td>
+          <td>
+            <%= f.text_field :bank_account_3 %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :on_clients_account, "Przelew na konto klienta" %></strong></td>
+          <td>
+            <%= f.check_box :on_clients_account %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= f.label :bank_account, "Konto bankowe do rozliczeń" %></strong></td>
+          <td>
+            <%= f.text_area :bank_account %>
+          </td>
+        </tr>
+        <tr>
+          <th class="full" colspan="2">Inne informacje</th>
+        </tr>
+        <tr>
           <td><strong><%= f.label :description, "Opis / uwagi" %></strong></td>
           <td>
             <%= f.text_area :description %>

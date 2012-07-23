@@ -8,7 +8,7 @@ class Clearing < ActiveRecord::Base
   has_one :bill
   belongs_to :agent
 
-  attr_accessible :country_id, :user_id, :agent_id, :client_id, :description, :application_date, :commission_currency, :commission_date, :commission_final, :commission_min, :commission_percent, :decision_date, :office_send_date, :rebate_calc, :rebate_final, :tax_number, :year, :archive, :exchange_rate, :income_date, :income_total, :income_exchange_rate, :total_to_client
+  attr_accessible :bank_account, :bank_account_1, :bank_account_2, :bank_account_3, :on_clients_account, :country_id, :user_id, :agent_id, :client_id, :description, :application_date, :commission_currency, :commission_date, :commission_final, :commission_min, :commission_percent, :decision_date, :office_send_date, :rebate_calc, :rebate_final, :tax_number, :year, :archive, :exchange_rate, :income_date, :income_total, :income_exchange_rate, :total_to_client
 
   validates :year, presence: true
   validates :tax_number, presence: true
