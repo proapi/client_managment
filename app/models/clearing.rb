@@ -42,7 +42,7 @@ class Clearing < ActiveRecord::Base
           commission_calc = self.commission_min
         end
       end
-      if commission_calc > 0 && !self.commission_final.nil?
+      if commission_calc > 0 && self.commission_final.nil?
         self.commission_final = commission_calc
       end
     else
