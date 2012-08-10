@@ -63,7 +63,7 @@
           <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
           <td>
             <% if @bill.new_record? %>
-                <%= f.decimal_field :total, value: @clearing.commission_final.nil? ? '0' : @clearing.commission_final %>
+                <%= f.decimal_field :total %>
             <% else %>
                 <%= f.decimal_field :total %>
             <% end %>

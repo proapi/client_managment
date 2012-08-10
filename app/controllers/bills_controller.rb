@@ -30,6 +30,8 @@ class BillsController < ApplicationController
     if params[:clearing_id]
       @clearing = Clearing.find(params[:clearing_id])
       @bill = @clearing.build_bill
+      @bill.total = @clearing.commission_final unless @clearing.commission_final.nil?
+      @bill.issue_date = Date.today
     else
       @bill = Bill.new
     end
