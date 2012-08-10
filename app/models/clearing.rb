@@ -16,7 +16,7 @@ class Clearing < ActiveRecord::Base
   validates :user_id, presence: true
   validates :country_id, presence: true
 
-  validates_presence_of :exchange_rate if self.commission_currency != 'PLN'
+  #validates_presence_of :exchange_rate if self.commission_currency != 'PLN'
 
   accepts_nested_attributes_for :bill
 
