@@ -8,7 +8,7 @@ class Clearing < ActiveRecord::Base
   has_one :bill
   belongs_to :agent
 
-  attr_accessible :bank_account, :bank_account_1, :bank_account_2, :bank_account_3, :on_clients_account, :country_id, :user_id, :agent_id, :client_id, :description, :application_date, :commission_currency, :commission_date, :commission_final, :commission_min, :commission_percent, :decision_date, :office_send_date, :rebate_calc, :rebate_final, :tax_number, :year, :archive, :exchange_rate, :income_date, :income_total, :income_exchange_rate, :total_to_client
+  attr_accessible :bank_account_destination, :bank_account_data, :bank_account_number, :country_id, :user_id, :agent_id, :client_id, :description, :application_date, :commission_currency, :commission_date, :commission_final, :commission_min, :commission_percent, :decision_date, :office_send_date, :rebate_calc, :rebate_final, :tax_number, :year, :archive, :exchange_rate, :income_date, :income_total, :income_exchange_rate, :total_to_client, :agent_date, :payment_date, :bill_attributes, :bill_amount
 
   validates :year, presence: true
   validates :tax_number, presence: true
@@ -16,20 +16,38 @@ class Clearing < ActiveRecord::Base
   validates :user_id, presence: true
   validates :country_id, presence: true
 
-  #def self.no_bill
-  #  all(include: :bill).keep_if { |c| c.bill.nil? }
-  #  #Clearing.includes(:bill).where(Bill.arel_table[:id].eq(nil))
-  #end
+  accepts_nested_attributes_for :bill
 
   def self.undone
-    #all(include: :bill).keep_if do |c|
-    #  c.bill.nil? ? true : c.bill.payment_date.nil?
-    #end
     where(archive: false)
   end
 
   def self.all_cached
     Rails.cache.fetch('Clearing.all') { all }
+  end
+
+  before_save :calc_commission
+
+  def calc_commission
+    if self.rebate_final > 0
+      if self.commission_percent == 0
+        commission_calc = self.commission_min
+      else
+        if commission_currency == 'PLN'
+          commission_calc = self.commission_percent/100 * self.rebate_final
+        else
+          commission_calc = self.commission_percent/100 * self.exchange_rate * self.rebate_final
+        end
+        if commission_calc < self.commission_min
+          commission_calc = self.commission_min
+        end
+      end
+      if commission_calc > 0 && !self.commission_final.nonzero?
+        self.commission_final = commission_calc
+      end
+    else
+      self.commission_final = 0
+    end
   end
 
   after_save :expire_all_cache

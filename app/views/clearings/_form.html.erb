@@ -12,181 +12,254 @@
     <% end %>
 
     <div class="table">
-      <table class="listing form" cellpadding="0" cellspacing="0">
+    <table class="listing form" cellpadding="0" cellspacing="0">
+    <tr>
+      <th class="full" colspan="2">Podstawowe informacje</th>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :client_id, "Klient powiązany z rozliczeniem" %></strong></td>
+      <td>
+        <%= f.collection_select :client_id, Client.all_cached, :id, :lastname %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :country_id, "Kraj rozliczenia" %></strong></td>
+      <td>
+        <%= f.collection_select :country_id, Country.all_cached, :id, :name %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :tax_number, "Numer podatkowy" %></strong></td>
+      <td>
+        <%= f.text_field :tax_number %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :year, "Rok rozliczenia" %></strong></td>
+      <td>
+        <%= f.text_field :year %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :application_date, "Data złożenia wniosku" %></strong></td>
+      <td>
+        <%= f.datepicker :application_date, class: 'datepicker' %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Konto bankowe</strong></td>
+      <td>
+        <%= f.radio_button :bank_account_destination, 'Zwrot podatku na konto klienta', :class => 'bank-radio' %>
+        Zwrot podatku na konto klienta
+        <%= f.radio_button :bank_account_destination, 'Zwrot podatku na konto firmy', :class => 'bank-radio' %>
+        Zwrot podatku na konto firmy
+      </td>
+    </tr>
+    <tr id="bank_account_number" style="display:none">
+      <td><strong><%= f.label :bank_account_number, "Numer konta bankowego" %></strong></td>
+      <td>
+        <%= f.text_field :bank_account_number %>
+      </td>
+    </tr>
+    <tr id="bank_account_data" style="display:none">
+      <td><strong><%= f.label :bank_account_data, "Dane konta bankowego" %></strong></td>
+      <td>
+        <%= f.text_area :bank_account_data %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :commission_percent, "Prowizja %" %></strong></td>
+      <td>
+        <%= f.text_field :commission_percent %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :commission_min, "Prowizja minimalna" %></strong></td>
+      <td>
+        <%= f.text_field :commission_min %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
+      <td>
+        <%= f.select :commission_currency, options_for_select(%w(PLN EURO FUNT)) %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :rebate_calc, "Wyliczona kwota zwrotu" %></strong></td>
+      <td>
+        <%= f.text_field :rebate_calc %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :office_send_date, "Data wysłania do urzędu" %></strong></td>
+      <td>
+        <%= f.datepicker :office_send_date %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :rebate_final, "Kwota zwrotu z decyzji" %></strong></td>
+      <td>
+        <%= f.text_field :rebate_final %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :decision_date, "Data wydania decyzji" %></strong></td>
+      <td>
+        <%= f.datepicker :decision_date %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :commission_final, "Prowizja w walucie" %></strong></td>
+      <td>
+        <%= f.decimal_field :commission_final %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
+      <td>
+        <%= f.datepicker :commission_date %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
+      <td>
+        <%= f.decimal_field :exchange_rate %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :payment_date, "Data zapłaty" %></strong></td>
+      <td>
+        <%= f.datepicker :payment_date %>
+      </td>
+    </tr>
+
+    <%= f.fields_for :bill do |bill_form| %>
         <tr>
-          <th class="full" colspan="2">Formularz nowej wiadomości</th>
+          <th class="full" colspan="2">
+            Rachunek do rozliczenia
+          </th>
         </tr>
         <tr>
-          <td><strong><%= f.label :client_id, "Klient powiązany z rozliczeniem" %></strong></td>
+          <td><strong><%= bill_form.label :company_id, "Firma wystawiająca" %></strong></td>
           <td>
-            <%= f.collection_select :client_id, Client.all_cached, :id, :lastname %>
+            <%= bill_form.collection_select :company_id, Company.all_cached, :id, :name %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :country_id, "Kraj rozliczenia" %></strong></td>
+          <td><strong><%= bill_form.label :issue_date, "Data wystawienia rachunku" %></strong></td>
           <td>
-            <%= f.collection_select :country_id, Country.all_cached, :id, :name %>
+            <%= bill_form.datepicker :issue_date %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :tax_number, "Numer podatkowy" %></strong></td>
+          <td><strong><%= bill_form.label :maturity_date, "Termin płatności" %></strong></td>
           <td>
-            <%= f.text_field :tax_number %>
+            <%= bill_form.datepicker :maturity_date %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :year, "Rok rozliczenia" %></strong></td>
+          <td><strong><%= bill_form.label :payment_form, "Forma płatności" %></strong></td>
           <td>
-            <%= f.text_field :year %>
+            <%= bill_form.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie)) %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :application_date, "Data złożenia wniosku" %></strong></td>
+          <td><strong><%= bill_form.label :title, "Tytuł usługi" %></strong></td>
           <td>
-            <%= f.datepicker :application_date, class: 'datepicker' %>
+            <%= bill_form.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa']) %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :commission_percent, "Prowizja %" %></strong></td>
+          <td><strong><%= bill_form.label :units, "Jednostka miary" %></strong></td>
           <td>
-            <%= f.text_field :commission_percent %>
+            <%= bill_form.text_field :units, value: "szt." %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :commission_min, "Prowizja minimalna" %></strong></td>
+          <td><strong><%= bill_form.label :total, "Kwota końcowa" %></strong></td>
           <td>
-            <%= f.text_field :commission_min %>
+            <%= bill_form.decimal_field :total %>
           </td>
         </tr>
         <tr>
-          <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
+          <td><strong><%= bill_form.label :comment, "Dodatkowe informacje" %></strong></td>
           <td>
-            <%= f.select :commission_currency, options_for_select(%w(PLN EURO FUNT)) %>
+            <%= bill_form.text_area :comment %>
           </td>
         </tr>
-        <tr>
-          <td><strong><%= f.label :rebate_calc, "Wyliczona kwota zwrotu" %></strong></td>
-          <td>
-            <%= f.text_field :rebate_calc %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :office_send_date, "Data wysłania do urzędu" %></strong></td>
-          <td>
-            <%= f.datepicker :office_send_date %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :rebate_final, "Kwota zwrotu" %></strong></td>
-          <td>
-            <%= f.text_field :rebate_final %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :decision_date, "Data wydania decyzji" %></strong></td>
-          <td>
-            <%= f.datepicker :decision_date %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :commission_final, "Prowizja końcowa" %></strong></td>
-          <td>
-            <%= f.decimal_field :commission_final %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
-          <td>
-            <%= f.datepicker :commission_date %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
-          <td>
-            <%= f.decimal_field :exchange_rate %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :income_date, "Data wpływu na konto" %></strong></td>
-          <td>
-            <%= f.datepicker :income_date %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :income_total, "Kwota wpływu na konto" %></strong></td>
-          <td>
-            <%= f.decimal_field :income_total %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :income_exchange_rate, "Przelicznik bankowy(kurs)" %></strong></td>
-          <td>
-            <%= f.decimal_field :income_exchange_rate %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :total_to_client, "Kwota do przelewu dla klienta" %></strong></td>
-          <td>
-            <%= f.decimal_field :total_to_client %>
-          </td>
-        </tr>
-        <tr>
-          <th class="full" colspan="2">Konta bankowe</th>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :bank_account_1, "Konto klienta(1)" %></strong></td>
-          <td>
-            <%= f.text_field :bank_account_1 %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :bank_account_2, "Konto klienta(2)" %></strong></td>
-          <td>
-            <%= f.text_field :bank_account_2 %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :bank_account_3, "Konto klienta(3)" %></strong></td>
-          <td>
-            <%= f.text_field :bank_account_3 %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :on_clients_account, "Przelew na konto klienta" %></strong></td>
-          <td>
-            <%= f.check_box :on_clients_account %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :bank_account, "Konto bankowe do rozliczeń" %></strong></td>
-          <td>
-            <%= f.text_area :bank_account %>
-          </td>
-        </tr>
-        <tr>
-          <th class="full" colspan="2">Inne informacje</th>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :description, "Opis / uwagi" %></strong></td>
-          <td>
-            <%= f.text_area :description %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :agent_id, "Agent pośredniczący" %></strong></td>
-          <td>
-            <%= f.collection_select :agent_id, Agent.all_cached, :id, :name, include_blank: "Brak" %>
-          </td>
-        </tr>
-        <tr>
-          <td><strong><%= f.label :archive, "Do archiwum" %></strong></td>
-          <td>
-            <%= f.check_box :archive, :confirm => "Czy jesteś pewien, że przenieść rozliczenie do archiwum?" %>
-          </td>
-        </tr>
-        <tr>
+    <% end %>
+    <tr>
+      <th class="full" colspan="2">
+        Uzupełniające informacje
+      </th>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :income_date, "Data wpływu na konto" %></strong></td>
+      <td>
+        <%= f.datepicker :income_date %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :income_exchange_rate, "Przelicznik bankowy(kurs)" %></strong></td>
+      <td>
+        <%= f.decimal_field :income_exchange_rate %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :income_total, "Kwota wpływu na konto" %></strong></td>
+      <td>
+        <%= f.decimal_field :income_total %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :bill_amount, "Kwota do zapłaty z rachunku" %></strong></td>
+      <td>
+        <%= f.decimal_field :bill_amount %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :total_to_client, "Kwota do przelewu dla klienta" %></strong></td>
+      <td>
+        <%= f.decimal_field :total_to_client %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="full" colspan="2">Inne informacje</th>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :description, "Opis / uwagi" %></strong></td>
+      <td>
+        <%= f.text_area :description %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :agent_id, "Agent pośredniczący" %></strong></td>
+      <td>
+        <%= f.collection_select :agent_id, Agent.all_cached, :id, :name, include_blank: "Brak" %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :agent_date, "Data rozliczenia z agentem" %></strong></td>
+      <td>
+        <%= f.datepicker :agent_date %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :archive, "Do archiwum" %></strong></td>
+      <td>
+        <%= f.check_box :archive, :confirm => "Czy jesteś pewien, że przenieść rozliczenie do archiwum?" %>
+      </td>
+    </tr>
+    <tr>
+      <% if @clearing.bill.nil? %>
+          <td><%= f.submit "Zapisz" %></td>
+          <td><%= f.submit "Zapisz i wystaw rachunek" %></td>
+      <% else %>
           <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
-        </tr>
-      </table>
+      <% end %>
+    </tr>
+    </table>
     </div>
 <% end %>

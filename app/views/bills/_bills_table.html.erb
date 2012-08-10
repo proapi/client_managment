@@ -7,7 +7,6 @@
           <%= content_tag :th, 'Rozliczenie' %>
           <%= content_tag :th, 'Data wystawienia' %>
           <%= content_tag :th, 'Termin płatności' %>
-          <%= content_tag :th, 'Data zapłaty' %>
           <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
@@ -16,9 +15,8 @@
           <%= content_tag :td, (link_to(bill.number, bill) unless bill.number.nil?), class: 'style1' %>
           <%= content_tag :td, (link_to(bill.company.name, company_path(bill.company)) unless bill.company.nil?), class: 'style1' %>
           <%= content_tag :td, (link_to(bill.clearing.title, clearing_path(bill.clearing)) unless bill.clearing.nil?), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(bill.created_at.to_date) %>
+          <%= content_tag :td, check_blank_value(bill.issue_date) %>
           <%= content_tag :td, check_blank_value(bill.maturity_date) %>
-          <%= content_tag :td, check_blank_value(bill.payment_date) %>
           <%= content_tag :td, class: 'actions' do %>
               <%= link_to image_tag('info.png'), bill, title: "Szczegółowe informacje" %>
               <%= link_to image_tag('modify.png'), edit_bill_path(bill) %>

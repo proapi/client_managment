@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723053109) do
+ActiveRecord::Schema.define(:version => 20120810043413) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(:version => 20120723053109) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.date     "maturity_date"
-    t.date     "payment_date"
     t.string   "number"
     t.integer  "user_id"
     t.text     "comment"
@@ -74,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20120723053109) do
     t.string   "title"
     t.string   "units"
     t.decimal  "total",         :precision => 6, :scale => 2
+    t.date     "issue_date"
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
@@ -87,31 +87,32 @@ ActiveRecord::Schema.define(:version => 20120723053109) do
     t.string   "tax_number"
     t.string   "year"
     t.date     "application_date"
-    t.integer  "commission_percent",   :limit => 255
-    t.decimal  "commission_min",                      :precision => 6, :scale => 2
+    t.integer  "commission_percent",       :limit => 255
+    t.decimal  "commission_min",                          :precision => 6, :scale => 2
     t.string   "commission_currency"
-    t.decimal  "rebate_calc",                         :precision => 6, :scale => 2
+    t.decimal  "rebate_calc",                             :precision => 6, :scale => 2
     t.date     "office_send_date"
-    t.decimal  "rebate_final",                        :precision => 6, :scale => 2
+    t.decimal  "rebate_final",                            :precision => 6, :scale => 2
     t.date     "decision_date"
     t.text     "description"
-    t.datetime "created_at",                                                                           :null => false
-    t.datetime "updated_at",                                                                           :null => false
+    t.datetime "created_at",                                                                               :null => false
+    t.datetime "updated_at",                                                                               :null => false
     t.integer  "user_id"
     t.integer  "agent_id"
-    t.boolean  "archive",                                                           :default => false
-    t.decimal  "exchange_rate",                       :precision => 8, :scale => 4
+    t.boolean  "archive",                                                               :default => false
+    t.decimal  "exchange_rate",                           :precision => 8, :scale => 4
     t.date     "commission_date"
-    t.decimal  "commission_final",                    :precision => 6, :scale => 2
+    t.decimal  "commission_final",                        :precision => 6, :scale => 2
     t.date     "income_date"
-    t.decimal  "income_total",                        :precision => 6, :scale => 2
-    t.decimal  "income_exchange_rate",                :precision => 8, :scale => 4
-    t.decimal  "total_to_client",                     :precision => 6, :scale => 2
-    t.string   "bank_account_1"
-    t.string   "bank_account_2"
-    t.string   "bank_account_3"
-    t.text     "bank_account"
-    t.boolean  "on_clients_account"
+    t.decimal  "income_total",                            :precision => 6, :scale => 2
+    t.decimal  "income_exchange_rate",                    :precision => 8, :scale => 4
+    t.decimal  "total_to_client",                         :precision => 6, :scale => 2
+    t.date     "agent_date"
+    t.date     "payment_date"
+    t.decimal  "bill_amount",                             :precision => 6, :scale => 2
+    t.string   "bank_account_number"
+    t.text     "bank_account_data"
+    t.string   "bank_account_destination"
   end
 
   add_index "clearings", ["agent_id"], :name => "index_clearings_on_agent_id"

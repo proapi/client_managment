@@ -39,4 +39,5 @@ Europodatki::Application.routes.draw do
   resources :users, :only => [:show, :index]
 
   match 'home/administration' => 'home#administration'
+  match 'home/reports' => 'home#reports'
 end

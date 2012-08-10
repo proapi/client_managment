@@ -61,9 +61,12 @@ class ClearingsController < ApplicationController
     @clearing = Clearing.new(check_number_with_comma(params[:clearing]))
     @clearing.user_id = current_user.id
 
+    new_bill = false
+    new_bill = true if params[:commit].eql? 'Zapisz i wystaw rachunek'
+
     respond_to do |format|
       if @clearing.save
-        format.html { redirect_to @clearing, notice: t('flash.notice') }
+        format.html { redirect_to new_bill ? new_bill_path(:clearing_id => @clearing) : @clearing, notice: t('flash.notice') }
         format.json { render json: @clearing, status: :created, location: @clearing }
       else
         format.html { render action: "new" }
@@ -77,9 +80,12 @@ class ClearingsController < ApplicationController
   def update
     @clearing = Clearing.find(params[:id])
 
+    new_bill = false
+    new_bill = true if params[:commit].eql? 'Zapisz i wystaw rachunek'
+
     respond_to do |format|
       if @clearing.update_attributes(check_number_with_comma(params[:clearing]))
-        format.html { redirect_to @clearing, notice: t('flash.notice') }
+        format.html { redirect_to new_bill ? new_bill_path(:clearing_id => @clearing) : @clearing, notice: t('flash.notice') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

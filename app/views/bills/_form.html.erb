@@ -29,17 +29,18 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= f.label :issue_date, "Data wystawienia rachunku" %></strong></td>
+          <td>
+            <%= f.datepicker :issue_date %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
           <td>
             <%= f.datepicker :maturity_date %>
           </td>
         </tr>
-        <tr>
-          <td><strong><%= f.label :payment_date, "Data wpłaty" %></strong></td>
-          <td>
-            <%= f.datepicker :payment_date %>
-          </td>
-        </tr>
+
         <tr>
           <td><strong><%= f.label :payment_form, "Forma płatności" %></strong></td>
           <td>
@@ -49,7 +50,7 @@
         <tr>
           <td><strong><%= f.label :title, "Tytuł usługi" %></strong></td>
           <td>
-            <%= f.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa'])%>
+            <%= f.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa']) %>
           </td>
         </tr>
         <tr>
@@ -61,7 +62,11 @@
         <tr>
           <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
           <td>
-            <%= f.decimal_field :total" %>
+            <% if @bill.new_record? %>
+                <%= f.decimal_field :total, value: @clearing.commission_final.nonzero? ? '0' : @clearing.commission_final %>
+            <% else %>
+                <%= f.decimal_field :total %>
+            <% end %>
           </td>
         </tr>
         <tr>

@@ -22,13 +22,12 @@
     <%= check_blank 'Rozliczenie', @bill.clearing.title %>
     <%= check_blank 'Numer', @bill.number %>
     <%= check_blank 'Firma', @bill.company.name %>
-    <%= check_blank('Data wyliczenia prowizji', check_blank_value(@bill.created_at.to_date)) %>
+    <%= check_blank('Data wystawienia', check_blank_value(@bill.issue_date)) %>
     <%= check_blank('Termin płatności', check_blank_value(@bill.maturity_date)) %>
     <%= check_blank('Kwota końcowa', number_with_precision(@bill.total, precision: 2, delimiter: " ")) %>
     <%= check_blank 'Forma płatności', @bill.payment_form %>
     <%= check_blank 'Tytuł usługi', @bill.title %>
     <%= check_blank 'Jednostka miary', @bill.units %>
-    <%= check_blank('Data wpłaty', check_blank_value(@bill.payment_date)) %>
     <%= check_blank 'Użytkownik wystawiający', @bill.user.name %>
     <tr>
       <th class="full" colspan="2">Dodatkowe informacje</th>

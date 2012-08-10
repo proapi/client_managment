@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     hash = Hash.new
     params.each do |key, val|
       if val.is_a? Hash
-        hash[key] = check_number_with_comma value
+        hash[key] = check_number_with_comma val
       else
         if /[0-9]+\,[0-9]+/.match(val)
           hash[key] = val.split(",").join(".")

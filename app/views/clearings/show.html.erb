@@ -17,42 +17,42 @@
 <div class="table">
   <table class="listing form" cellpadding="0" cellspacing="0">
     <tr>
-      <th class="full" colspan="2">Szczegóły rekordu rozliczenia</th>
+      <th class="full" colspan="2">Podstawowe informacje</th>
     </tr>
     <%= check_blank('Klient', @clearing.client.nil? ? 'Brak' : @clearing.client.lastname) %>
     <%= check_blank('Kraj', @clearing.country.nil? ? 'Brak' : @clearing.country.name) %>
     <%= check_blank 'Numer podatkowy', @clearing.tax_number %>
     <%= check_blank 'Rok rozliczenia', @clearing.year %>
     <%= check_blank('Data złożenia wniosku', @clearing.application_date.nil? ? 'Brak' : l(@clearing.application_date)) %>
+
+    <%= check_blank 'Konto bankowe', @clearing.bank_account_destination %>
+    <%= check_blank 'Numer konta bankowego', @clearing.bank_account_number %>
+    <%= check_blank 'Dane konta bankowego', @clearing.bank_account_data %>
+
     <%= check_blank 'Prowizja %', number_with_precision(@clearing.commission_percent, precision: 2, delimiter: " ") %>
     <%= check_blank 'Prowizja min', number_with_precision(@clearing.commission_min, precision: 2, delimiter: " ") %>
     <%= check_blank 'Waluta prowizji', @clearing.commission_currency %>
     <%= check_blank 'Wyliczona kwota zwrotu', number_with_precision(@clearing.rebate_calc, precision: 2, delimiter: " ") %>
     <%= check_blank('Data wysłania do urzędu', @clearing.office_send_date.nil? ? 'Brak' : l(@clearing.office_send_date)) %>
-    <%= check_blank 'Kwota zwrotu', number_with_precision(@clearing.rebate_final, precision: 2, delimiter: " ") %>
+    <%= check_blank 'Kwota zwrotu z decyzji', number_with_precision(@clearing.rebate_final, precision: 2, delimiter: " ") %>
     <%= check_blank('Data decyzji', @clearing.decision_date.nil? ? 'Brak' : l(@clearing.decision_date)) %>
-
-    <%= check_blank 'Prowizja końcowa', number_with_precision(@clearing.commission_final, precision: 2, delimiter: " ") %>
+    <%= check_blank 'Prowizja w walucie', number_with_precision(@clearing.commission_final, precision: 2, delimiter: " ") %>
     <%= check_blank 'Kurs waluty prowizji', number_with_precision(@clearing.exchange_rate, precision: 4, delimiter: " ") %>
     <%= check_blank('Data wyliczenia prowizji', check_blank_value(@clearing.commission_date)) %>
-
-    <%= check_blank('Data wpływu na konto', check_blank_value(@clearing.income_date)) %>
-    <%= check_blank 'Kwota wpływu na konto', number_with_precision(@clearing.income_total, precision: 2, delimiter: " ") %>
-    <%= check_blank 'Przelicznik bankowy', number_with_precision(@clearing.income_exchange_rate, precision: 4, delimiter: " ") %>
-    <%= check_blank 'Kwota do przelania dla klienta', number_with_precision(@clearing.total_to_client, precision: 2, delimiter: " ") %>
-
+    <%= check_blank('Data zapłaty', check_blank_value(@clearing.payment_date)) %>
     <tr>
-      <th class="full" colspan="2">Konta bankowe</th>
+      <th class="full" colspan="2">Uzupełniające informacje</th>
     </tr>
-    <%= check_blank 'Konto bankowe(1)', @clearing.bank_account_1 %>
-    <%= check_blank 'Konto bankowe(2)', @clearing.bank_account_2 %>
-    <%= check_blank 'Konto bankowe(3)', @clearing.bank_account_3 %>
-    <%= check_blank 'Konto do rozliczeń', @clearing.bank_account %>
-    <%= check_blank 'Przelew na konto klienta', @clearing.on_clients_account? ? "Tak" : "Nie" %>
+    <%= check_blank('Data wpływu na konto', check_blank_value(@clearing.income_date)) %>
+    <%= check_blank 'Przelicznik bankowy', number_with_precision(@clearing.income_exchange_rate, precision: 4, delimiter: " ") %>
+    <%= check_blank 'Kwota wpływu na konto', number_with_precision(@clearing.income_total, precision: 2, delimiter: " ") %>
+    <%= check_blank 'Kwota do zapłaty z rachunku', number_with_precision(@clearing.bill_amount, precision: 2, delimiter: " ") %>
+    <%= check_blank 'Kwota do przelania dla klienta', number_with_precision(@clearing.total_to_client, precision: 2, delimiter: " ") %>
     <tr>
       <th class="full" colspan="2">Inne informacje</th>
     </tr>
     <%= check_blank('Agent pośredniczący', @clearing.agent.nil? ? 'Brak' : @clearing.agent.name) %>
+    <%= check_blank('Data rozliczenia z agentem', check_blank_value(@clearing.agent_date)) %>
     <tr>
       <td>
         Przeniesiony do archiwum
@@ -81,13 +81,13 @@
         <%= check_blank 'Rozliczenie', @clearing.title %>
         <%= check_blank 'Numer', @clearing.bill.number %>
         <%= check_blank 'Firma', @clearing.bill.company.name %>
+        <%= check_blank 'Data wystawienia rachunku', @clearing.bill.issue_date %>
         <%= check_blank('Data wyliczenia prowizji', check_blank_value(@clearing.bill.created_at.to_date)) %>
         <%= check_blank('Termin płatności', check_blank_value(@clearing.bill.maturity_date)) %>
         <%= check_blank('Kwota końcowa', number_with_precision(@clearing.bill.total, precision: 2, delimiter: " ")) %>
         <%= check_blank 'Forma płatności', @clearing.bill.payment_form %>
         <%= check_blank 'Tytuł usługi', @clearing.bill.title %>
         <%= check_blank 'Jednostka miary', @clearing.bill.units %>
-        <%= check_blank('Data wpłaty', check_blank_value(@clearing.bill.payment_date)) %>
         <%= check_blank 'Użytkownik wystawiający', @clearing.bill.user.name %>
         <tr>
           <th class="full" colspan="2">Dodatkowe informacje</th>

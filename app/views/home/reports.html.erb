@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Raporty
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Raporty', {controller: 'home', action: 'reports'} %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tej sekcji możliwe jest wygenerowanie raportów w możliwych formatach' %>
+<% end %>
+
+<h3>Raport rozliczeń</h3>
+<p></p>
+
+<h3>Raport rachunków</h3>
+<p></p>

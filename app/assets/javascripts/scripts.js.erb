@@ -1,0 +1,15 @@
+$(function () {
+    //<a href="#" class="show-link" data-message="#bank_account_number"></a><a href="#" class="hide-link" data-message="#bank_account_number">//    <%# image_tag "down.png", style: 'margin: 2px; vertical-align: middle;' %></a>
+    $(".show-link").click(function () {
+        $(this.getAttribute("data-message")).show();
+        return false;
+    });
+    $(".hide-link").click(function () {
+        $(this.getAttribute("data-message")).hide();
+        return false;
+    });
+    $(".bank-radio").change(function () {
+        $("#bank_account_number").show();
+        $("#bank_account_data").show();
+    })
+});
