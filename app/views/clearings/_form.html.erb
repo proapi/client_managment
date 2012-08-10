@@ -141,6 +141,12 @@
           </th>
         </tr>
         <tr>
+          <td><strong><%= f.label :number, "Numer rachunku" %></strong></td>
+          <td>
+            <%= f.text_field :number %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= bill_form.label :company_id, "Firma wystawiająca" %></strong></td>
           <td>
             <%= bill_form.collection_select :company_id, Company.all_cached, :id, :name %>

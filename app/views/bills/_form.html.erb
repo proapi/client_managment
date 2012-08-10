@@ -17,6 +17,12 @@
           <th class="full" colspan="2">Formularz nowego rachunku</th>
         </tr>
         <tr>
+          <td><strong><%= f.label :number, "Numer rachunku" %></strong></td>
+          <td>
+            <%= f.text_field :number %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
           <td>
             <%= f.collection_select :clearing_id, Clearing.all, :id, :title %>
