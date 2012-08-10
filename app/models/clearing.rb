@@ -16,6 +16,8 @@ class Clearing < ActiveRecord::Base
   validates :user_id, presence: true
   validates :country_id, presence: true
 
+  validates_presence_of :exchange_rate if self.commission_currency != 'PLN'
+
   accepts_nested_attributes_for :bill
 
   def self.undone
@@ -29,7 +31,7 @@ class Clearing < ActiveRecord::Base
   before_save :calc_commission
 
   def calc_commission
-    if self.rebate_final > 0
+    if !self.rebate_final.nil? && self.rebate_final > 0
       if self.commission_percent == 0
         commission_calc = self.commission_min
       else
