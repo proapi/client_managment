@@ -82,7 +82,7 @@
     <tr>
       <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
       <td>
-        <%= f.select :commission_currency, options_for_select(%w(PLN EURO FUNT)) %>
+        <%= f.select :commission_currency, options_for_select(%w(PLN EURO FUNT), @clearing.commission_currency) %>
       </td>
     </tr>
     <tr>
@@ -161,13 +161,13 @@
         <tr>
           <td><strong><%= bill_form.label :payment_form, "Forma płatności" %></strong></td>
           <td>
-            <%= bill_form.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie)) %>
+            <%= bill_form.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie), @clearing.bill.payment_form) %>
           </td>
         </tr>
         <tr>
           <td><strong><%= bill_form.label :title, "Tytuł usługi" %></strong></td>
           <td>
-            <%= bill_form.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa']) %>
+            <%= bill_form.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa'], @clearing.bill.title) %>
           </td>
         </tr>
         <tr>

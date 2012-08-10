@@ -44,13 +44,13 @@
         <tr>
           <td><strong><%= f.label :payment_form, "Forma płatności" %></strong></td>
           <td>
-            <%= f.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie)) %>
+            <%= f.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie), @bill.payment_form) %>
           </td>
         </tr>
         <tr>
           <td><strong><%= f.label :title, "Tytuł usługi" %></strong></td>
           <td>
-            <%= f.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa']) %>
+            <%= f.select :title, options_for_select(['Usługa inkasa', 'Usługa biurowa'], @bill.title) %>
           </td>
         </tr>
         <tr>
@@ -62,11 +62,7 @@
         <tr>
           <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
           <td>
-            <% if @bill.new_record? %>
-                <%= f.decimal_field :total %>
-            <% else %>
-                <%= f.decimal_field :total %>
-            <% end %>
+            <%= f.decimal_field :total %>
           </td>
         </tr>
         <tr>
