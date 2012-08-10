@@ -30,6 +30,9 @@ class Clearing < ActiveRecord::Base
 
   before_save :calc_commission
 
+  #
+  # pamiętać o ręcznym wpisaniu do rozliczenia prowizji końcowej
+  #
   def calc_commission
     if !self.rebate_final.nil? && self.rebate_final > 0
       if self.commission_percent == 0
@@ -37,14 +40,17 @@ class Clearing < ActiveRecord::Base
       else
         if commission_currency == 'PLN'
           commission_calc = self.commission_percent/100 * self.rebate_final
+          if commission_calc < self.commission_min
+            commission_calc = self.commission_min
+          end
         else
           commission_calc = self.commission_percent/100 * self.exchange_rate * self.rebate_final
-        end
-        if commission_calc < self.commission_min
-          commission_calc = self.commission_min
+          if commission_calc < (self.commission_min * self.exchange_rate)
+            commission_calc = self.commission_min * self.exchange_rate
+          end
         end
       end
-      if commission_calc > 0 && self.commission_final.nil?
+      if commission_calc > 0 && commission_final.nil?
         self.commission_final = commission_calc
       end
     else
