@@ -40,14 +40,13 @@ class Clearing < ActiveRecord::Base
         self.exchange_rate = 1
       end
 
-      if self.commission_percent == 0
-        commission_calc = self.commission_min * self.exchange_rate
-      else
-        commission_calc = self.commission_percent/100 * self.exchange_rate * self.rebate_final
-        if commission_calc < (self.commission_min * self.exchange_rate)
-          commission_calc = self.commission_min * self.exchange_rate
-        end
+      commission_calc = self.commission_min * self.exchange_rate
+
+      if self.commission_percent > 0
+        commission_calc_temp = self.commission_percent/100.00 * self.exchange_rate * self.rebate_final
+        commission_calc = commission_calc_temp if commission_calc_temp > commission_calc
       end
+
       if commission_calc > 0 && commission_final.nil?
         self.commission_final = commission_calc
       else
