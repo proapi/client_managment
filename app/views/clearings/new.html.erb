@@ -7,7 +7,9 @@
 <% end %>
 
 <% content_for :help do %>
-    <% help_block 'Dodawanie nowego rekordu rozliczenia' %>
+    <% help_block 'Dodawanie nowego rekordu rozliczenia.' %>
+    <% help_block 'W momencie zmian kwotowych w rozliczeniu należy koniecznie wymazać pole prowizji w PLN, aby system mógł wyliczyć automatycznie na nowo kwotę.' %>
+    <% help_block 'Jeżeli jest wystawiony rachunek do rozliczenia, w którym dokonujemy zmian, proszę pamiętać o zastosowaniu zmian w rachunku, który jest już wystawiony.' %>
 <% end %>
 
 <% content_for :main_menu do %>

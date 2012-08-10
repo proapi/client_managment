@@ -22,7 +22,7 @@ class Bill < ActiveRecord::Base
 
   private
   def set_number
-    self.number="#{self.company.bill_number.to_i + 1}/#{self.company.short.upcase}" if self.number.empty?
+    self.number="#{self.company.bill_number.to_i + 1}/#{self.company.short.upcase}" if self.number.nil?
   end
 
   def set_number_in_company
