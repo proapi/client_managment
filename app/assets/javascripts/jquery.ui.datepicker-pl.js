@@ -23,5 +23,4 @@ jQuery(function ($) {
         showMonthAfterYear:false,
         yearSuffix:''};
     $.datepicker.setDefaults($.datepicker.regional['pl']);
-
 });

@@ -35,23 +35,23 @@ class Clearing < ActiveRecord::Base
   #
   def calc_commission
     if !self.rebate_final.nil? && self.rebate_final > 0
+
+      if commission_currency == 'PLN'
+        self.exchange_rate = 1
+      end
+
       if self.commission_percent == 0
-        commission_calc = self.commission_min
+        commission_calc = self.commission_min * self.exchange_rate
       else
-        if commission_currency == 'PLN'
-          commission_calc = self.commission_percent/100 * self.rebate_final
-          if commission_calc < self.commission_min
-            commission_calc = self.commission_min
-          end
-        else
-          commission_calc = self.commission_percent/100 * self.exchange_rate * self.rebate_final
-          if commission_calc < (self.commission_min * self.exchange_rate)
-            commission_calc = self.commission_min * self.exchange_rate
-          end
+        commission_calc = self.commission_percent/100 * self.exchange_rate * self.rebate_final
+        if commission_calc < (self.commission_min * self.exchange_rate)
+          commission_calc = self.commission_min * self.exchange_rate
         end
       end
       if commission_calc > 0 && commission_final.nil?
         self.commission_final = commission_calc
+      else
+        #commission_final pozostaje bez zmian
       end
     else
       self.commission_final = 0
@@ -69,4 +69,5 @@ class Clearing < ActiveRecord::Base
   def title
     "#{self.client.lastname} #{self.client.firstname} / #{self.country.short} / #{self.year}"
   end
+
 end
