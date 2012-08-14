@@ -55,17 +55,25 @@
         Zwrot podatku na konto firmy
       </td>
     </tr>
-    <tr id="bank_account_number" style="display:none">
-      <td><strong><%= f.label :bank_account_number, "Numer konta bankowego" %></strong></td>
-      <td>
-        <%= f.text_field :bank_account_number %>
-      </td>
+    <% if @clearing.bank_account_number.blank? %>
+        <tr id="bank_account_number" style="display:none">
+    <% else %>
+        <tr id="bank_account_number">
+    <% end %>
+    <td><strong><%= f.label :bank_account_number, "Numer konta bankowego" %></strong></td>
+    <td>
+      <%= f.text_field :bank_account_number %>
+    </td>
     </tr>
-    <tr id="bank_account_data" style="display:none">
-      <td><strong><%= f.label :bank_account_data, "Dane konta bankowego" %></strong></td>
-      <td>
-        <%= f.text_area :bank_account_data %>
-      </td>
+    <% if @clearing.bank_account_data.blank? %>
+        <tr id="bank_account_data" style="display:none">
+    <% else %>
+        <tr id="bank_account_data">
+    <% end %>
+    <td><strong><%= f.label :bank_account_data, "Dane konta bankowego" %></strong></td>
+    <td>
+      <%= f.text_area :bank_account_data %>
+    </td>
     </tr>
     <tr>
       <td><strong><%= f.label :commission_percent, "Prowizja %" %></strong></td>
@@ -94,7 +102,7 @@
     <tr>
       <td><strong><%= f.label :office_send_date, "Data wysłania do urzędu" %></strong></td>
       <td>
-        <%= f.datepicker :office_send_date %>
+        <%= f.datepicker :office_send_date, class: 'datepicker' %>
       </td>
     </tr>
     <tr>
@@ -106,7 +114,7 @@
     <tr>
       <td><strong><%= f.label :decision_date, "Data wydania decyzji" %></strong></td>
       <td>
-        <%= f.datepicker :decision_date %>
+        <%= f.datepicker :decision_date, class: 'datepicker' %>
       </td>
     </tr>
     <tr>
@@ -118,19 +126,19 @@
     <tr>
       <td><strong><%= f.label :commission_date, "Data wyliczenia prowizji" %></strong></td>
       <td>
-        <%= f.datepicker :commission_date %>
+        <%= f.datepicker :commission_date, class: 'datepicker' %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
       <td>
-        <%= f.decimal_field :exchange_rate %>
+        <%= f.text_field :exchange_rate, value: @clearing.exchange_rate.nil? ? "" : number_with_precision(@clearing.exchange_rate, :precision => 4) %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :payment_date, "Data zapłaty" %></strong></td>
       <td>
-        <%= f.datepicker :payment_date %>
+        <%= f.datepicker :payment_date, class: 'datepicker' %>
       </td>
     </tr>
 
@@ -155,13 +163,13 @@
         <tr>
           <td><strong><%= bill_form.label :issue_date, "Data wystawienia rachunku" %></strong></td>
           <td>
-            <%= bill_form.datepicker :issue_date %>
+            <%= bill_form.datepicker :issue_date, class: 'datepicker' %>
           </td>
         </tr>
         <tr>
           <td><strong><%= bill_form.label :maturity_date, "Termin płatności" %></strong></td>
           <td>
-            <%= bill_form.datepicker :maturity_date %>
+            <%= bill_form.datepicker :maturity_date, class: 'datepicker' %>
           </td>
         </tr>
         <tr>
@@ -179,7 +187,7 @@
         <tr>
           <td><strong><%= bill_form.label :units, "Jednostka miary" %></strong></td>
           <td>
-            <%= bill_form.text_field :units, value: "szt." %>
+            <%= bill_form.text_field :units, value: @clearing.bill.units.blank? ? "szt." : @clearing.bill.units %>
           </td>
         </tr>
         <tr>
@@ -203,25 +211,25 @@
     <tr>
       <td><strong><%= f.label :income_date, "Data wpływu na konto" %></strong></td>
       <td>
-        <%= f.datepicker :income_date %>
+        <%= f.datepicker :income_date, class: 'datepicker' %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :income_exchange_rate, "Przelicznik bankowy(kurs)" %></strong></td>
       <td>
-        <%= f.decimal_field :income_exchange_rate %>
+        <%= f.text_field :income_exchange_rate, value: @clearing.exchange_rate.nil? ? "" : number_with_precision(@clearing.income_exchange_rate, :precision => 4) %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :income_total, "Kwota wpływu na konto" %></strong></td>
       <td>
-        <%= f.decimal_field :income_total %>
+        <%= f.decimal_field :income_total, class: 'calculations' %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :bill_amount, "Kwota do zapłaty z rachunku" %></strong></td>
       <td>
-        <%= f.decimal_field :bill_amount %>
+        <%= f.decimal_field :bill_amount, class: 'calculations' %>
       </td>
     </tr>
     <tr>
@@ -230,7 +238,12 @@
         <%= f.decimal_field :total_to_client %>
       </td>
     </tr>
-
+    <tr>
+      <td><strong><%= f.label :to_client_date, "Data przelania klientowi" %></strong></td>
+      <td>
+        <%= f.datepicker :to_client_date, class: 'datepicker' %>
+      </td>
+    </tr>
     <tr>
       <th class="full" colspan="2">Inne informacje</th>
     </tr>
@@ -249,7 +262,7 @@
     <tr>
       <td><strong><%= f.label :agent_date, "Data rozliczenia z agentem" %></strong></td>
       <td>
-        <%= f.datepicker :agent_date %>
+        <%= f.datepicker :agent_date, class: 'datepicker' %>
       </td>
     </tr>
     <tr>

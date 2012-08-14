@@ -37,13 +37,13 @@
         <tr>
           <td><strong><%= f.label :issue_date, "Data wystawienia rachunku" %></strong></td>
           <td>
-            <%= f.datepicker :issue_date %>
+            <%= f.datepicker :issue_date, class: 'datepicker' %>
           </td>
         </tr>
         <tr>
           <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
           <td>
-            <%= f.datepicker :maturity_date %>
+            <%= f.datepicker :maturity_date, class: 'datepicker' %>
           </td>
         </tr>
 
@@ -62,7 +62,7 @@
         <tr>
           <td><strong><%= f.label :units, "Jednostka miary" %></strong></td>
           <td>
-            <%= f.text_field :units, value: "szt." %>
+            <%= f.text_field :units, value: @bill.units.blank? ? "szt." : @bill.units %>
           </td>
         </tr>
         <tr>

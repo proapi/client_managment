@@ -1,5 +1,4 @@
 $(function () {
-    //<a href="#" class="show-link" data-message="#bank_account_number"></a><a href="#" class="hide-link" data-message="#bank_account_number">//    <%# image_tag "down.png", style: 'margin: 2px; vertical-align: middle;' %></a>
     $(".show-link").click(function () {
         $(this.getAttribute("data-message")).show();
         return false;
@@ -8,12 +7,31 @@ $(function () {
         $(this.getAttribute("data-message")).hide();
         return false;
     });
+    $(".calculations").change(function () {
+        var i1 = $("#clearing_income_total").val();
+        i1 = (i1 + "").replace(',', '.');
+        var i2 = $("#clearing_bill_amount").val();
+        i2 = (i2 + "").replace(',', '.');
+        var i3 = i1 - i2;
+        i3 = (i3.toFixed(2) + "").replace('.', ',');
+        $("#clearing_total_to_client").val(i3);
+    });
     $(".bank-radio").change(function () {
         $("#bank_account_number").show();
         $("#bank_account_data").show();
-    })
-//    $(".datepicker").each(function(i, obj) {
-//        alert($(this).datepicker().datepicker.formatDate("2010-01-01") );
-//        $(this).val($(this).formatDate('dd-mm-yy', '2010-01-01'));
-//    });
+    });
+    $(".datepicker").each(function (i, obj) {
+        if ($(this).val()) {
+            $(this).val($.datepicker.formatDate('dd-mm-yy', new Date($(this).val())));
+        }
+    });
+    var original_gotoToday = $.datepicker._gotoToday;
+
+    $.datepicker._gotoToday = function (id) {
+        var target = $(id),
+                inst = this._getInst(target[0]);
+
+        original_gotoToday.call(this, id);
+        this._selectDate(id, this._formatDate(inst, inst.selectedDay, inst.drawMonth, inst.drawYear));
+    }
 });

@@ -48,6 +48,7 @@
     <%= check_blank 'Kwota wpływu na konto', number_with_precision(@clearing.income_total, precision: 2, delimiter: " ") %>
     <%= check_blank 'Kwota do zapłaty z rachunku', number_with_precision(@clearing.bill_amount, precision: 2, delimiter: " ") %>
     <%= check_blank 'Kwota do przelania dla klienta', number_with_precision(@clearing.total_to_client, precision: 2, delimiter: " ") %>
+    <%= check_blank('Data przelania klientowi', check_blank_value(@clearing.to_client_date)) %>
     <tr>
       <th class="full" colspan="2">Inne informacje</th>
     </tr>
@@ -81,8 +82,7 @@
         <%= check_blank 'Rozliczenie', @clearing.title %>
         <%= check_blank 'Numer', @clearing.bill.number %>
         <%= check_blank 'Firma', @clearing.bill.company.name %>
-        <%= check_blank 'Data wystawienia rachunku', @clearing.bill.issue_date %>
-        <%= check_blank('Data wyliczenia prowizji', check_blank_value(@clearing.bill.created_at.to_date)) %>
+        <%= check_blank('Data wystawienia rachunku', check_blank_value(@clearing.bill.issue_date)) %>
         <%= check_blank('Termin płatności', check_blank_value(@clearing.bill.maturity_date)) %>
         <%= check_blank('Kwota końcowa', number_with_precision(@clearing.bill.total, precision: 2, delimiter: " ")) %>
         <%= check_blank 'Forma płatności', @clearing.bill.payment_form %>
