@@ -110,18 +110,18 @@
         </tr>
         <tr>
           <td><strong><%= f.label :married_data, 'Informacje o żonie/mężu' %></strong></td>
-          <td><%= f.text_area :married_data %></td>
+          <td><%= f.text_area :married_data, :rows => 2 %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :children_data, 'Informacje o dzieciach' %></strong></td>
-          <td><%= f.text_area :children_data %></td>
+          <td><%= f.text_area :children_data, :rows => 2 %></td>
         </tr>
         <tr>
           <th class="full" colspan="2">Inne informacje</th>
         </tr>
         <tr>
           <td><strong><%= f.label :description, 'Opis / uwagi' %></strong></td>
-          <td><%= f.text_area :description %></td>
+          <td><%= f.text_area :description, :rows => 2 %></td>
         </tr>
         <tr>
           <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>

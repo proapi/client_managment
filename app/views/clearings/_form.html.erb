@@ -72,7 +72,7 @@
     <% end %>
     <td><strong><%= f.label :bank_account_data, "Dane konta bankowego" %></strong></td>
     <td>
-      <%= f.text_area :bank_account_data %>
+      <%= f.text_area :bank_account_data, :rows => 2 %>
     </td>
     </tr>
     <tr>
@@ -100,7 +100,13 @@
       </td>
     </tr>
     <tr>
-      <td><strong><%= f.label :office_send_date, "Data wysłania do urzędu" %></strong></td>
+      <td><strong><%= f.label :internet_send_date, "Data wysłania do urzędu elektronicznie" %></strong></td>
+      <td>
+        <%= f.datepicker :internet_send_date, class: 'datepicker' %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :office_send_date, "Data wysłania pocztą" %></strong></td>
       <td>
         <%= f.datepicker :office_send_date, class: 'datepicker' %>
       </td>
@@ -115,6 +121,12 @@
       <td><strong><%= f.label :decision_date, "Data wydania decyzji" %></strong></td>
       <td>
         <%= f.datepicker :decision_date, class: 'datepicker' %>
+      </td>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :commission_manual, "Prowizja wpisana ręcznie" %></strong></td>
+      <td>
+        <%= f.check_box :commission_manual %>
       </td>
     </tr>
     <tr>
@@ -191,6 +203,12 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= bill_form.label :total_manual, "Kwota końcowa wpisana ręcznie" %></strong></td>
+          <td>
+            <%= bill_form.check_box :total_manual %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= bill_form.label :total, "Kwota końcowa" %></strong></td>
           <td>
             <%= bill_form.decimal_field :total %>
@@ -199,7 +217,7 @@
         <tr>
           <td><strong><%= bill_form.label :comment, "Dodatkowe informacje" %></strong></td>
           <td>
-            <%= bill_form.text_area :comment %>
+            <%= bill_form.text_area :comment, :rows => 2 %>
           </td>
         </tr>
     <% end %>
@@ -250,7 +268,7 @@
     <tr>
       <td><strong><%= f.label :description, "Opis / uwagi" %></strong></td>
       <td>
-        <%= f.text_area :description %>
+        <%= f.text_area :description, :rows => 2 %>
       </td>
     </tr>
     <tr>
@@ -268,7 +286,7 @@
     <tr>
       <td><strong><%= f.label :archive, "Do archiwum" %></strong></td>
       <td>
-        <%= f.check_box :archive, :confirm => "Czy jesteś pewien, że przenieść rozliczenie do archiwum?" %>
+        <%= f.check_box :archive %>
       </td>
     </tr>
     <tr>

@@ -3,7 +3,7 @@ class Bill < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
 
-  attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number
+  attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual
 
   validates_presence_of :clearing, :company_id, :user_id, :number, :total
   before_validation :set_number

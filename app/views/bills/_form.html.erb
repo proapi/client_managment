@@ -66,6 +66,12 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= f.label :total_manual, "Kwota końcowa wpisana ręcznie" %></strong></td>
+          <td>
+            <%= f.check_box :total_manual %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
           <td>
             <%= f.decimal_field :total %>
@@ -74,7 +80,7 @@
         <tr>
           <td><strong><%= f.label :comment, "Dodatkowe informacje" %></strong></td>
           <td>
-            <%= f.text_area :comment %>
+            <%= f.text_area :comment, :rows => 2 %>
           </td>
         </tr>
         <tr>

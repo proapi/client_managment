@@ -33,7 +33,8 @@
     <%= check_blank 'Prowizja min', number_with_precision(@clearing.commission_min, precision: 2, delimiter: " ") %>
     <%= check_blank 'Waluta prowizji', @clearing.commission_currency %>
     <%= check_blank 'Wyliczona kwota zwrotu', number_with_precision(@clearing.rebate_calc, precision: 2, delimiter: " ") %>
-    <%= check_blank('Data wysłania do urzędu', @clearing.office_send_date.nil? ? 'Brak' : l(@clearing.office_send_date)) %>
+    <%= check_blank('Data wysłania do urzędu elektronicznie', @clearing.internet_send_date.nil? ? 'Brak' : l(@clearing.internet_send_date)) %>
+    <%= check_blank('Data wysłania pocztą', @clearing.office_send_date.nil? ? 'Brak' : l(@clearing.office_send_date)) %>
     <%= check_blank 'Kwota zwrotu z decyzji', number_with_precision(@clearing.rebate_final, precision: 2, delimiter: " ") %>
     <%= check_blank('Data decyzji', @clearing.decision_date.nil? ? 'Brak' : l(@clearing.decision_date)) %>
     <%= check_blank 'Prowizja w PLN', number_with_precision(@clearing.commission_final, precision: 2, delimiter: " ") %>

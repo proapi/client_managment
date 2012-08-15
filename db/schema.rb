@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814064509) do
+ActiveRecord::Schema.define(:version => 20120815091145) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20120814064509) do
     t.string   "units"
     t.decimal  "total",         :precision => 6, :scale => 2
     t.date     "issue_date"
+    t.boolean  "total_manual"
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"
@@ -114,6 +115,8 @@ ActiveRecord::Schema.define(:version => 20120814064509) do
     t.text     "bank_account_data"
     t.string   "bank_account_destination"
     t.date     "to_client_date"
+    t.date     "internet_send_date"
+    t.boolean  "commission_manual"
   end
 
   add_index "clearings", ["agent_id"], :name => "index_clearings_on_agent_id"
