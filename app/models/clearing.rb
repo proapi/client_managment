@@ -28,34 +28,34 @@ class Clearing < ActiveRecord::Base
     Rails.cache.fetch('Clearing.all') { all }
   end
 
-  before_save :calc_commission
+  #before_save :calc_commission
 
   #
   # pamiętać o ręcznym wpisaniu do rozliczenia prowizji końcowej
   #
-  def calc_commission
-    if !self.rebate_final.nil? && self.rebate_final > 0
-
-      if commission_currency == 'PLN'
-        self.exchange_rate = 1
-      end
-
-      commission_calc = self.commission_min * self.exchange_rate
-
-      if self.commission_percent > 0
-        commission_calc_temp = self.commission_percent/100.00 * self.exchange_rate * self.rebate_final
-        commission_calc = commission_calc_temp if commission_calc_temp > commission_calc
-      end
-
-      if commission_calc > 0 && commission_final.nil?
-        self.commission_final = commission_calc
-      else
-        #commission_final pozostaje bez zmian
-      end
-    else
-      self.commission_final = 0
-    end
-  end
+  #def calc_commission
+  #  if !self.rebate_final.nil? && self.rebate_final > 0
+  #
+  #    if commission_currency == 'PLN'
+  #      self.exchange_rate = 1
+  #    end
+  #
+  #    commission_calc = self.commission_min * self.exchange_rate
+  #
+  #    if self.commission_percent > 0
+  #      commission_calc_temp = self.commission_percent/100.00 * self.exchange_rate * self.rebate_final
+  #      commission_calc = commission_calc_temp if commission_calc_temp > commission_calc
+  #    end
+  #
+  #    if commission_calc > 0 && commission_final.nil?
+  #      self.commission_final = commission_calc
+  #    else
+  #      #commission_final pozostaje bez zmian
+  #    end
+  #  else
+  #    self.commission_final = 0
+  #  end
+  #end
 
   after_save :expire_all_cache
   after_destroy :expire_all_cache

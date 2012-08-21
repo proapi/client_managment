@@ -78,19 +78,19 @@
     <tr>
       <td><strong><%= f.label :commission_percent, "Prowizja %" %></strong></td>
       <td>
-        <%= f.text_field :commission_percent %>
+        <%= f.text_field :commission_percent, class: 'commission' %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :commission_min, "Prowizja minimalna" %></strong></td>
       <td>
-        <%= f.text_field :commission_min %>
+        <%= f.text_field :commission_min, class: 'commission' %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :commission_currency, "Waluta prowizji" %></strong></td>
       <td>
-        <%= f.select :commission_currency, options_for_select(%w(PLN EURO FUNT), @clearing.commission_currency) %>
+        <%= f.select(:commission_currency, options_for_select(%w(PLN EURO FUNT), @clearing.commission_currency), {}, {class: 'commission'}) %>
       </td>
     </tr>
     <tr>
@@ -114,7 +114,7 @@
     <tr>
       <td><strong><%= f.label :rebate_final, "Kwota zwrotu z decyzji" %></strong></td>
       <td>
-        <%= f.text_field :rebate_final %>
+        <%= f.text_field :rebate_final, class: 'commission' %>
       </td>
     </tr>
     <tr>
@@ -144,7 +144,7 @@
     <tr>
       <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
       <td>
-        <%= f.text_field :exchange_rate, value: @clearing.exchange_rate.nil? ? "" : number_with_precision(@clearing.exchange_rate, :precision => 4) %>
+        <%= f.text_field :exchange_rate, value: @clearing.exchange_rate.nil? ? "" : number_with_precision(@clearing.exchange_rate, :precision => 4), class: 'commission' %>
       </td>
     </tr>
     <tr>

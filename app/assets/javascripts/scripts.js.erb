@@ -8,14 +8,51 @@ $(function () {
         return false;
     });
     $(".calculations").change(function () {
-        var i1 = $("#clearing_income_total").val();
-        i1 = (i1 + "").replace(',', '.');
-        var i2 = $("#clearing_bill_amount").val();
-        i2 = (i2 + "").replace(',', '.');
-        var i3 = i1 - i2;
-        i3 = (i3.toFixed(2) + "").replace('.', ',');
-        $("#clearing_total_to_client").val(i3);
+        var income_total = $("#clearing_income_total").val();
+        income_total = (income_total + "").replace(',', '.');
+        var bill_amount = $("#clearing_bill_amount").val();
+        bill_amount = (bill_amount + "").replace(',', '.');
+        var total_to_client = income_total - bill_amount;
+        total_to_client = (total_to_client.toFixed(2) + "").replace('.', ',');
+        $("#clearing_total_to_client").val(total_to_client);
     });
+    $(".commission").change(function () {
+        var commission_manual = $("#clearing_commission_manual").is(':checked');
+        if (commission_manual == false) {
+            var commission_min = $("#clearing_commission_min").val();
+            commission_min = (commission_min + "").replace(',', '.');
+            var commission_currency = $("#clearing_commission_currency").val();
+            var commission_percent = $("#clearing_commission_percent").val();
+            commission_percent = (commission_percent + "").replace(',', '.');
+            var rebate_final = $("#clearing_rebate_final").val();
+            rebate_final = (rebate_final + "").replace(',', '.');
+            var exchange_rate = $("#clearing_exchange_rate").val();
+            exchange_rate = (exchange_rate + "").replace(',', '.');
+
+            if (commission_currency == 'PLN') {
+                exchange_rate = 1.0;
+                $("#clearing_exchange_rate").val('1,0000');
+            }
+
+            if ((commission_min) && (commission_currency) && (commission_percent) && (rebate_final) && (exchange_rate)) {
+                if ((commission_min >= 0.0) && (commission_percent >= 0.0) && (rebate_final >= 0.0)) {
+                    var commission_calc_1 = commission_min * exchange_rate;
+                    var commission_calc_2 = commission_percent / 100.00 * exchange_rate * rebate_final;
+                    var commission_calc = commission_calc_2;
+
+                    if (commission_calc_1 > commission_calc_2) {
+                        commission_calc = commission_calc_1;
+                    }
+                    commission_calc = (commission_calc.toFixed(2) + "").replace('.', ',');
+                    $("#clearing_commission_final").val(commission_calc);
+                    if ($("#clearing_bill_attributes_total_manual").is(':checked') == false) {
+                        $("#clearing_bill_attributes_total").val(commission_calc);
+                    }
+                }
+            }
+        }
+    });
+
     $(".bank-radio").change(function () {
         $("#bank_account_number").show();
         $("#bank_account_data").show();
