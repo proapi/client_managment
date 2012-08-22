@@ -26,7 +26,7 @@ Europodatki::Application.routes.draw do
       get 'history'
     end
     collection do
-      get 'autocomplete_lastname'
+      get 'autocomplete_client_lastname'
     end
     resources :clearings, only: [:new, :index]
   end

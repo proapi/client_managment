@@ -28,7 +28,7 @@
 
           Wyszukaj klienta:
           <%= form_for(:client, url: clients_path, method: :get, :html => {:class => "searchform"}) do |f| %>
-              <%= f.autocomplete_field :lastname, autocomplete_lastname_clients_path, size: 19 %>
+              <%= f.autocomplete_field :lastname, autocomplete_client_lastname_clients_path %>
           <% end %>
           <br/>
 
