@@ -7,7 +7,17 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all_cached
+    #@clients = Client.all_cached
+
+    if params[:client]
+      @search = Client.search :lastname_cont => lastname_parser(params[:client][:lastname])
+      @clients = @search.result
+      params.clear
+    else
+      @clients = Client.all_cached
+    end
+
+    redirect_to @clients.first and return if (@clients.size.eql?(1))
 
     respond_to do |format|
       format.html # index.html.erb
@@ -92,5 +102,10 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url, notice: t('flash.notice') if @clearing.destroyed? }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def lastname_parser(fullname)
+    fullname.split.first
   end
 end

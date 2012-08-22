@@ -157,6 +157,8 @@ GEM
     newrelic_rpm (3.4.0)
     nokogiri (1.5.2)
     orm_adapter (0.0.7)
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -184,6 +186,10 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (0.9.2.2)
+    ransack (0.7.0)
+      actionpack (~> 3.0)
+      activerecord (~> 3.0)
+      polyamorous (~> 0.5.0)
     rb-inotify (0.8.8)
       ffi (>= 0.5.0)
     rdoc (3.12)
@@ -284,6 +290,7 @@ DEPENDENCIES
   newrelic_rpm
   rails (= 3.2.6)
   rails3-jquery-autocomplete
+  ransack
   rb-inotify
   rspec-rails (>= 2.9.0.rc2)
   rvm-capistrano
