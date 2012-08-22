@@ -2,10 +2,12 @@ class ClientsController < ApplicationController
 
   before_filter :authenticate_user!
 
+  autocomplete :client, :lastname, :extra_data => [:firstname], :display_value => :fullname
+
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.paginate(:page => params[:page])
+    @clients = Client.all_cached
 
     respond_to do |format|
       format.html # index.html.erb

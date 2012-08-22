@@ -26,6 +26,12 @@
               <%= yield :main_menu %>
           <% end %>
 
+          Wyszukaj klienta:
+          <%= form_for(:client, url: clients_path, method: :get, :html => {:class => "searchform"}) do |f| %>
+              <%= f.autocomplete_field :lastname, autocomplete_lastname_clients_path, size: 19 %>
+          <% end %>
+          <br/>
+
           <%= link_to 'Strona główna', root_url, class: 'link' %>
           <%= link_to 'Dodaj nowego klienta', new_client_path, class: 'link' %>
           <%= link_to 'Dodaj nowe rozliczenie', new_clearing_path, class: 'link' %>

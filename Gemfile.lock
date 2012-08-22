@@ -173,6 +173,8 @@ GEM
       activesupport (= 3.2.6)
       bundler (~> 1.0)
       railties (= 3.2.6)
+    rails3-jquery-autocomplete (1.0.7)
+      rails (~> 3.0)
     railties (3.2.6)
       actionpack (= 3.2.6)
       activesupport (= 3.2.6)
@@ -281,6 +283,7 @@ DEPENDENCIES
   libnotify
   newrelic_rpm
   rails (= 3.2.6)
+  rails3-jquery-autocomplete
   rb-inotify
   rspec-rails (>= 2.9.0.rc2)
   rvm-capistrano

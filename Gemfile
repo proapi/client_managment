@@ -46,6 +46,7 @@ gem "audited-activerecord"
 gem 'jquery-datatables-rails'
 gem 'therubyracer'
 gem 'jquery_datepicker'
+gem 'rails3-jquery-autocomplete'
 gem 'guard-brakeman', group: :development
 gem 'brakeman', group: :development
 gem 'dalli', group: :production

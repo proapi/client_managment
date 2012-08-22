@@ -50,6 +50,10 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def fullname
+    self.lastname + ' ' + self.firstname
+  end
+
   private
   def check_addresses
     if mailing_address.city.blank? && !address.city.blank?
