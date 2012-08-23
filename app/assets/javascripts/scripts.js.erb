@@ -65,7 +65,7 @@ $(function () {
     });
 
     $("#bill_company_id").change(function () {
-        var company = $("#bill_company_id").val();
+        var company = $(this).val();
         if (company) {
             var number = readCookie(company);
             if (number != null) {
@@ -79,7 +79,7 @@ $(function () {
         $("#bank_account_data").show();
     });
     $(".datepicker").each(function (i, obj) {
-        if ($(this).val()) {
+        if ($.datepicker.parseDate('yy-mm-dd', $(this).val())) {
             $(this).val($.datepicker.formatDate('dd-mm-yy', new Date($(this).val())));
         }
     });

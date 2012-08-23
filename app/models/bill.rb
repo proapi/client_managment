@@ -8,7 +8,7 @@ class Bill < ActiveRecord::Base
 
   attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual
 
-  validates_presence_of :clearing, :company_id, :user_id, :total
+  validates_presence_of :clearing, :company_id, :user_id, :total, :issue_date, :maturity_date
 
   def self.all_cached
     Rails.cache.fetch('Bill.all') { all }
@@ -51,6 +51,6 @@ class Bill < ActiveRecord::Base
   end
 
   def set_number_in_company
-    self.company.update_attribute :bill_number, (Company.maximum('bill_number').to_i + 1)
+    self.company.update_attribute :bill_number, (self.company.bill_number.to_i + 1)
   end
 end
