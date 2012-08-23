@@ -66,7 +66,11 @@ class Clearing < ActiveRecord::Base
   end
 
   def title
-    "#{self.client.lastname} #{self.client.firstname} / #{self.country.short} / #{self.year}"
+    unless client.nil?
+      "#{self.client.lastname} #{self.client.firstname} / #{self.country.short} / #{self.year}"
+    else
+      'Brak'
+    end
   end
 
 end
