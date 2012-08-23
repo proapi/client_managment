@@ -16,7 +16,7 @@ class Bill < ActiveRecord::Base
   end
 
   after_save :expire_all_cache
-  before_create :set_number
+  before_validation :set_number
   after_create :set_number_in_company
   after_destroy :expire_all_cache
 

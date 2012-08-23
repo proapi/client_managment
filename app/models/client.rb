@@ -42,7 +42,7 @@ class Client < ActiveRecord::Base
       when 1
         return "Mężatka/Żonaty"
       when 2
-        return "Rozwiedziona/rozwiedziony"
+        return "Rozwiedziona/Rozwiedziony"
       when 3
         return "Wdowa/Wdowiec"
       else
