@@ -102,7 +102,7 @@
         </tr>
         <tr>
           <td><strong><%= f.label :married, 'Stan cywilny' %></strong></td>
-          <td> <%= f.select :married, options_for_select([['Panna/Kawaler', 0], ['Mężatka/Żonaty', 1], ['Rozwodnik', 2], ['Wdowa/Wdowiec', 3]], @client.married) %></td>
+          <td> <%= f.select :married, options_for_select([['Panna/Kawaler', 0], ['Mężatka/Żonaty', 1], ['Rozwiedziona/rozwiedziony', 2], ['Wdowa/Wdowiec', 3]], @client.married) %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :married_date, 'Data ślubu/rozwodu' %></strong></td>

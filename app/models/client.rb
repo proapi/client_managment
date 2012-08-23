@@ -2,11 +2,11 @@
 class Client < ActiveRecord::Base
   audited protect: false #, comment_required: true
 
-  has_one :address
-  has_one :mailing_address, class_name: 'Address'
+  has_one :address, dependent: :destroy
+  has_one :mailing_address, class_name: 'Address', dependent: :destroy
   belongs_to :user
   has_many :messages, through: :clearings
-  has_many :clearings
+  has_many :clearings, dependent: :destroy
   has_many :bills, through: :clearings
 
   attr_accessible :birthdate, :description, :email, :firstname, :lastname, :middlename, :mobile, :telephone, :user_id, :address_attributes, :mailing_address_attributes, :children_data, :married, :married_date, :married_data
@@ -42,7 +42,7 @@ class Client < ActiveRecord::Base
       when 1
         return "Mężatka/Żonaty"
       when 2
-        return "Rozwodnik"
+        return "Rozwiedziona/rozwiedziony"
       when 3
         return "Wdowa/Wdowiec"
       else

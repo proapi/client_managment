@@ -99,7 +99,7 @@ class ClientsController < ApplicationController
     @client.destroy
 
     respond_to do |format|
-      format.html { redirect_to clients_url, notice: t('flash.notice') if @clearing.destroyed? }
+      format.html { redirect_to clients_url, notice: t('flash.notice') if @client.destroyed? }
       format.json { head :no_content }
     end
   end
