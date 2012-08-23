@@ -8,15 +8,14 @@ class Bill < ActiveRecord::Base
 
   attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual
 
-  validates_presence_of :clearing, :company_id, :user_id, :number, :total
-  before_validation :set_number
+  validates_presence_of :clearing, :company_id, :user_id, :total
 
   def self.all_cached
     Rails.cache.fetch('Bill.all') { all }
   end
 
   after_save :expire_all_cache
-  before_validation :set_number
+  before_create :set_number
   after_create :set_number_in_company
   after_destroy :expire_all_cache
 
