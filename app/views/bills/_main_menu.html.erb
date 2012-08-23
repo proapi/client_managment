@@ -3,6 +3,7 @@
     <ul class="nav">
       <li><%= link_to 'Szczegóły', @bill %></li>
       <li><%= link_to 'Edycja', edit_bill_path(@bill) %></li>
+      <li><%= link_to 'Wydrukuj', bill_path(@bill, format: :pdf) %></li>
       <li><%= link_to 'Usuń', @bill, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
     </ul>
 <% end %>

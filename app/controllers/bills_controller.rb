@@ -21,6 +21,10 @@ class BillsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @bill }
+      format.pdf do
+        file = @bill.to_pdf
+        send_file file, :filename => "rachunek_#{l Date.current}.pdf", :type => "application/pdf"
+      end
     end
   end
 

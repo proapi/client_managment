@@ -36,6 +36,7 @@
           <%= content_tag :td, class: 'actions' do %>
               <%= link_to image_tag('info.png'), bill, title: "Szczegółowe informacje" %>
               <%= link_to image_tag('modify.png'), edit_bill_path(bill), title: "Edycja" %>
+              <%= link_to image_tag('print.png'), bill_path(bill, format: :pdf), title: "Drukuj" %>
               <%= link_to image_tag('delete.png'), bill, :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
           <% end %>
       <% end %>
