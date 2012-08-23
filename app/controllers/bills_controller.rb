@@ -36,10 +36,11 @@ class BillsController < ApplicationController
       @clearing = Clearing.find(params[:clearing_id])
       @bill = @clearing.build_bill
       @bill.total = @clearing.commission_final unless @clearing.commission_final.nil?
-      @bill.issue_date = Date.today
     else
       @bill = Bill.new
+      @bill.total = Clearing.without_bill.first.rebate_final unless Clearing.without_bill.first.rebate_final.nil?
     end
+    @bill.issue_date = Date.today
 
     respond_to do |format|
       format.html # new.html.erb

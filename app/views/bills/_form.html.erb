@@ -17,19 +17,29 @@
           <th class="full" colspan="2">Formularz nowego rachunku</th>
         </tr>
         <tr>
+          <td><strong><%= f.label :number_manual, "Numer rachunku wpisany ręcznie" %></strong></td>
+          <td>
+            <%= f.check_box :number_manual %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :number, "Numer rachunku" %></strong></td>
           <td>
             <% if @bill.new_record? %>
-                <%= f.text_field :number, value: "#{Company.first.bill_number.to_i + 1}/#{Company.first.short.upcase}" %>
+                <%= f.text_field :number, value: "#{Company.first.bill_number.to_i + 1}/#{Company.first.short.upcase}", readonly: true %>
             <% else %>
-                <%= f.text_field :number %>
+                <% if @bill.number_manual? %>
+                    <%= f.text_field :number %>
+                <% else %>
+                    <%= f.text_field :number, readonly: true %>
+                <% end %>
             <% end %>
           </td>
         </tr>
         <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
           <td>
-            <%= f.collection_select :clearing_id, Clearing.all, :id, :title %>
+            <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {}, {'data-message' => Clearing.generate_final_rebates} %>
           </td>
         </tr>
         <tr>
@@ -80,7 +90,11 @@
         <tr>
           <td><strong><%= f.label :total, "Kwota końcowa" %></strong></td>
           <td>
-            <%= f.decimal_field :total %>
+            <% if @bill.total_manual? %>
+                <%= f.decimal_field :total %>
+            <% else %>
+                <%= f.decimal_field :total, readonly: true %>
+            <% end %>
           </td>
         </tr>
         <tr>

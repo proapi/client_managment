@@ -64,12 +64,71 @@ $(function () {
         }
     });
 
+    $("#clearing_commission_manual").change(function () {
+        var commission_manual = $("#clearing_commission_manual").is(':checked');
+        if (!commission_manual) {
+            $("#clearing_commission_final").attr('readonly', 'true');
+        } else {
+            $("#clearing_commission_final").removeAttr('readonly');
+        }
+    });
+    $("#bill_number_manual").change(function () {
+        var number_manual = $("#bill_number_manual").is(':checked');
+        if (!number_manual) {
+            $("#bill_number").attr('readonly', 'true');
+        } else {
+            $("#bill_number").removeAttr('readonly');
+        }
+    });
+    $("#bill_total_manual").change(function () {
+        var total_manual = $("#bill_total_manual").is(':checked');
+        if (!total_manual) {
+            $("#bill_total").attr('readonly', 'true');
+        } else {
+            $("#bill_total").removeAttr('readonly');
+        }
+    });
+    $("#clearing_bill_attributes_number_manual").change(function () {
+        var number_manual = $("#clearing_bill_attributes_number_manual").is(':checked');
+        if (!number_manual) {
+            $("#clearing_bill_attributes_number").attr('readonly', 'true');
+        } else {
+            $("#clearing_bill_attributes_number").removeAttr('readonly');
+        }
+    });
+    $("#clearing_bill_attributes_total_manual").change(function () {
+        var total_manual = $("#clearing_bill_attributes_total_manual").is(':checked');
+        if (!total_manual) {
+            $("#clearing_bill_attributes_total").attr('readonly', 'true');
+        } else {
+            $("#clearing_bill_attributes_total").removeAttr('readonly');
+        }
+    });
     $("#bill_company_id").change(function () {
         var company = $(this).val();
         if (company) {
             var number = readCookie(company);
             if (number != null) {
                 $("#bill_number").val((number + "").replace('%2F', '/'));
+            }
+        }
+    });
+
+    $("#bill_clearing_id").change(function () {
+        var clearing = $(this).val();
+        if (clearing) {
+            var data_message = this.getAttribute('data-message').split(";");
+            var rebate_final = null;
+            for (i = 0; i < data_message.length; i++) {
+                if (data_message[i].split('=')[0] == clearing) {
+                    rebate_final = data_message[i].split('=')[1];
+                }
+            }
+
+            if (rebate_final != null) {
+                $("#bill_total").val((rebate_final + "").replace('.', ','));
+            } else {
+                $("#bill_total").val('');
             }
         }
     });

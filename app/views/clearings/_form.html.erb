@@ -132,7 +132,11 @@
     <tr>
       <td><strong><%= f.label :commission_final, "Prowizja w PLN" %></strong></td>
       <td>
-        <%= f.decimal_field :commission_final %>
+        <% if @clearing.commission_manual? %>
+            <%= f.decimal_field :commission_final %>
+        <% else %>
+            <%= f.decimal_field :commission_final, readonly: true %>
+        <% end %>
       </td>
     </tr>
     <tr>
@@ -161,9 +165,19 @@
           </th>
         </tr>
         <tr>
+          <td><strong><%= bill_form.label :number_manual, "Numer rachunku wpisany ręcznie" %></strong></td>
+          <td>
+            <%= bill_form.check_box :number_manual %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= bill_form.label :number, "Numer rachunku" %></strong></td>
           <td>
-            <%= bill_form.text_field :number %>
+            <% if @clearing.bill.number_manual? %>
+                <%= bill_form.text_field :number %>
+            <% else %>
+                <%= bill_form.text_field :number, readonly: true %>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -211,7 +225,11 @@
         <tr>
           <td><strong><%= bill_form.label :total, "Kwota końcowa" %></strong></td>
           <td>
-            <%= bill_form.decimal_field :total %>
+            <% if @clearing.bill.total_manual? %>
+                <%= bill_form.decimal_field :total %>
+            <% else %>
+                <%= bill_form.decimal_field :total, readonly: true %>
+            <% end %>
           </td>
         </tr>
         <tr>

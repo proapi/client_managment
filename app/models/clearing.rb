@@ -28,6 +28,18 @@ class Clearing < ActiveRecord::Base
     Rails.cache.fetch('Clearing.all') { all }
   end
 
+  def self.without_bill
+    all(include: :bill).keep_if { |c| c.bill.nil? }
+  end
+
+  def self.generate_final_rebates
+    result = ''
+    without_bill.each do |clearing|
+      result += clearing.id.to_s + '=' + clearing.rebate_final.to_s + ';' unless clearing.rebate_final.nil?
+    end
+    result
+  end
+
   #before_save :calc_commission
 
   #

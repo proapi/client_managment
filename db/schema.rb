@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815091145) do
+ActiveRecord::Schema.define(:version => 20120823135335) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20120815091145) do
   create_table "bills", :force => true do |t|
     t.integer  "clearing_id"
     t.integer  "company_id"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
     t.date     "maturity_date"
     t.string   "number"
     t.integer  "user_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20120815091145) do
     t.decimal  "total",         :precision => 6, :scale => 2
     t.date     "issue_date"
     t.boolean  "total_manual"
+    t.boolean  "number_manual",                               :default => false
   end
 
   add_index "bills", ["clearing_id"], :name => "index_bills_on_clearing_id"

@@ -6,7 +6,7 @@ class Bill < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
 
-  attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual
+  attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual, :number_manual
 
   validates_presence_of :clearing, :company_id, :user_id, :total, :issue_date, :maturity_date
 
@@ -51,6 +51,8 @@ class Bill < ActiveRecord::Base
   end
 
   def set_number_in_company
-    self.company.update_attribute :bill_number, (self.company.bill_number.to_i + 1)
+    unless self.number_manual
+      self.company.update_attribute :bill_number, (self.company.bill_number.to_i + 1)
+    end
   end
 end
