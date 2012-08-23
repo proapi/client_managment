@@ -19,7 +19,11 @@
         <tr>
           <td><strong><%= f.label :number, "Numer rachunku" %></strong></td>
           <td>
-            <%= f.text_field :number %>
+            <% if @bill.new_record? %>
+                <%= f.text_field :number, value: "#{Company.first.bill_number.to_i + 1}/#{Company.first.short.upcase}" %>
+            <% else %>
+                <%= f.text_field :number %>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -31,7 +35,9 @@
         <tr>
           <td><strong><%= f.label :company_id, "Firma wystawiająca" %></strong></td>
           <td>
-            <%= f.collection_select :company_id, Company.all_cached, :id, :name %>
+
+            <%= f.collection_select :company_id, Company.all_cached, :id, :name
+            %>
           </td>
         </tr>
         <tr>
@@ -84,7 +90,8 @@
           </td>
         </tr>
         <tr>
-          <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
+          <td><%= f.submit "Zapisz" %></td>
+          <td><%= f.submit "Zapisz i wydrukuj" %></td>
         </tr>
       </table>
     </div>

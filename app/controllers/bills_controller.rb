@@ -31,6 +31,7 @@ class BillsController < ApplicationController
   # GET /bills/new
   # GET /bills/new.json
   def new
+    create_company_cookies
     if params[:clearing_id]
       @clearing = Clearing.find(params[:clearing_id])
       @bill = @clearing.build_bill
@@ -48,6 +49,7 @@ class BillsController < ApplicationController
 
   # GET /bills/1/edit
   def edit
+    create_company_cookies
     @bill = Bill.find(params[:id])
   end
 
@@ -93,6 +95,13 @@ class BillsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to bills_url, notice: t('flash.notice') if @bill.destroyed? }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  def create_company_cookies
+    Company.all_cached.each do |company|
+      cookies[company.id] = "#{company.bill_number.to_i + 1}/#{company.short.upcase}"
     end
   end
 end
