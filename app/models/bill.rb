@@ -15,7 +15,7 @@ class Bill < ActiveRecord::Base
   end
 
   after_save :expire_all_cache
-  before_create :set_number
+  before_validation :set_number
   after_create :set_number_in_company
   after_destroy :expire_all_cache
 
@@ -47,10 +47,10 @@ class Bill < ActiveRecord::Base
 
   private
   def set_number
-    self.number="#{self.company.bill_number.to_i + 1}/#{self.company.short.upcase}" if self.number.nil?
+    self.number="#{self.company.bill_number.to_i + 1}/#{self.company.short.upcase}" if self.number.blank?
   end
 
   def set_number_in_company
-    self.company.update_attribute :bill_number, (Company.maximum('bill_number') + 1)
+    self.company.update_attribute :bill_number, (Company.maximum('bill_number').to_i + 1)
   end
 end
