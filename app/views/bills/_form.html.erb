@@ -1,7 +1,7 @@
 <%= form_for(@bill) do |f| %>
     <% if @bill.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+          <h2><%= "Wykrytych błędów: #{@bill.errors.count}" %></h2>
 
           <ul>
             <% @bill.errors.full_messages.each do |msg| %>
@@ -39,7 +39,7 @@
         <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
           <td>
-            <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {}, {'data-message' => Clearing.generate_final_rebates} %>
+            <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {include_blank: 'Brak', prompt: true}, {'data-message' => Clearing.generate_final_rebates} %>
           </td>
         </tr>
         <tr>

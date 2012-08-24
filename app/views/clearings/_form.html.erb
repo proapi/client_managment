@@ -1,7 +1,7 @@
 <%= form_for(@clearing) do |f| %>
     <% if @clearing.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@clearing.errors.count, "error") %> prohibited this clearing from being saved:</h2>
+          <h2><%= "Wykrytych błędów: #{@clearing.errors.count}"  %></h2>
 
           <ul>
             <% @clearing.errors.full_messages.each do |msg| %>

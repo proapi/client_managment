@@ -116,20 +116,20 @@ $(function () {
 
     $("#bill_clearing_id").change(function () {
         var clearing = $(this).val();
+        var rebate_final = null;
         if (clearing) {
             var data_message = this.getAttribute('data-message').split(";");
-            var rebate_final = null;
             for (i = 0; i < data_message.length; i++) {
                 if (data_message[i].split('=')[0] == clearing) {
                     rebate_final = data_message[i].split('=')[1];
                 }
             }
+        }
 
-            if (rebate_final != null) {
-                $("#bill_total").val((rebate_final + "").replace('.', ','));
-            } else {
-                $("#bill_total").val('');
-            }
+        if (rebate_final != null) {
+            $("#bill_total").val((rebate_final + "").replace('.', ','));
+        } else {
+            $("#bill_total").val('');
         }
     });
 

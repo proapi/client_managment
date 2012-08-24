@@ -38,7 +38,6 @@ class BillsController < ApplicationController
       @bill.total = @clearing.commission_final unless @clearing.commission_final.nil?
     else
       @bill = Bill.new
-      @bill.total = Clearing.without_bill.first.rebate_final unless Clearing.without_bill.first.rebate_final.nil?
     end
     @bill.issue_date = Date.today
 
