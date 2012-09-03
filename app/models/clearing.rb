@@ -16,8 +16,6 @@ class Clearing < ActiveRecord::Base
   validates :user_id, presence: true
   validates :country_id, presence: true
 
-  #validates_presence_of :exchange_rate if self.commission_currency != 'PLN'
-
   accepts_nested_attributes_for :bill
 
   def self.undone
@@ -32,42 +30,13 @@ class Clearing < ActiveRecord::Base
     all(include: :bill).keep_if { |c| c.bill.nil? }
   end
 
-  def self.generate_final_rebates
+  def self.generate_final_commissions
     result = ''
     without_bill.each do |clearing|
-      result += clearing.id.to_s + '=' + clearing.rebate_final.to_s + ';' unless clearing.rebate_final.nil?
+      result += clearing.id.to_s + '=' + clearing.commission_final.to_s + ';' unless clearing.commission_final.nil?
     end
     result
   end
-
-  #before_save :calc_commission
-
-  #
-  # pamiętać o ręcznym wpisaniu do rozliczenia prowizji końcowej
-  #
-  #def calc_commission
-  #  if !self.rebate_final.nil? && self.rebate_final > 0
-  #
-  #    if commission_currency == 'PLN'
-  #      self.exchange_rate = 1
-  #    end
-  #
-  #    commission_calc = self.commission_min * self.exchange_rate
-  #
-  #    if self.commission_percent > 0
-  #      commission_calc_temp = self.commission_percent/100.00 * self.exchange_rate * self.rebate_final
-  #      commission_calc = commission_calc_temp if commission_calc_temp > commission_calc
-  #    end
-  #
-  #    if commission_calc > 0 && commission_final.nil?
-  #      self.commission_final = commission_calc
-  #    else
-  #      #commission_final pozostaje bez zmian
-  #    end
-  #  else
-  #    self.commission_final = 0
-  #  end
-  #end
 
   after_save :expire_all_cache
   after_destroy :expire_all_cache
@@ -78,10 +47,10 @@ class Clearing < ActiveRecord::Base
   end
 
   def title
-    unless client.nil?
-      "#{self.client.lastname} #{self.client.firstname} / #{self.country.short} / #{self.year}"
-    else
+    if client.nil?
       'Brak'
+    else
+      "#{self.client.lastname} #{self.client.firstname} / #{self.country.short} / #{self.year}"
     end
   end
 

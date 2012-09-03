@@ -1,8 +1,10 @@
 <h3>Użytkownik</h3>
 <ul class="nav">
   <li><%= link_to 'Moje konto', user_path(current_user) %></li>
-  <li><%= link_to 'Edycja konta', edit_user_registration_path %></li>
-  <li><%= link_to 'Lista użytkowników', users_path %></li>
+  <li><%= link_to 'Edycja konta', edit_user_registration_url %></li>
+  <% if current_user.admin? %>
+      <li><%= link_to 'Lista użytkowników', users_path %></li>
+  <% end %>
   <li><%= link_to 'Wyloguj', destroy_user_session_path, :method => 'delete' %></li>
   <li></li>
 </ul>

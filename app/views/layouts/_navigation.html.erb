@@ -24,23 +24,22 @@
           <%= link_to 'Wiadomości', messages_path, class: 'link' %>
         </li>
         <li>
-          <%= link_to 'Raporty', {:controller => 'home', :action => 'reports'}, class: 'link' %>
+          <%= link_to 'Raporty', home_reports_path, class: 'link' %>
         </li>
-        <li>
-          <%= link_to 'Użytkownicy', users_path, class: 'link' %>
-        </li>
-        <li>
-          <%= link_to 'Administracja', {:controller => 'home', :action => 'administration'}, class: 'link' %>
-        </li>
+        <% if current_user.admin? %>
+            <li>
+              <%= link_to 'Użytkownicy', users_path, class: 'link' %>
+            </li>
+            <li>
+              <%= link_to 'Administracja', home_administration_path, class: 'link' %>
+            </li>
+        <% end %>
         <li class='logout_button'>
           <%= link_to('Wyloguj', destroy_user_session_path, :method => 'delete') %>
         </li>
     <% else %>
         <li>
           <%= link_to('Zaloguj', new_user_session_path) %>
-        </li>
-        <li>
-          <%= link_to('Rejestruj', new_user_registration_path) %>
         </li>
     <% end %>
   </ul>

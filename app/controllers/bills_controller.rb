@@ -101,7 +101,7 @@ class BillsController < ApplicationController
   private
   def create_company_cookies
     Company.all_cached.each do |company|
-      cookies[company.id] = "#{company.bill_number.to_i + 1}/#{company.short.upcase}"
+      cookies[company.id] = "#{company.bill_number.to_i + 1}/#{Date.current.year}"
     end
   end
 end

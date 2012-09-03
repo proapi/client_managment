@@ -31,16 +31,15 @@ Europodatki::Application.routes.draw do
     resources :clearings, only: [:new, :index]
   end
 
-  authenticated :user do
-    root :to => 'home#index'
-  end
+  devise_for :users
+  resources :users, :only => [:show, :index]
+
+  #authenticated :user do
+  #  root :to => 'home#index'
+  #end
 
   root :to => 'home#index'
 
-  devise_for :users
-
-  resources :users, :only => [:show, :index]
-
-  match 'home/administration' => 'home#administration'
-  match 'home/reports' => 'home#reports'
+  match 'home/administration' => 'home#administration', :as => 'home_administration'
+  match 'home/reports' => 'home#reports', :as => 'home_reports'
 end

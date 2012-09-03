@@ -18,11 +18,11 @@
         </tr>
         <tr>
           <td><strong><%= f.label :source, 'Źródło' %></strong></td>
-          <td> <%= f.select :source, options_for_select(['Telefon', 'Wiadomość e-mail', 'Spotkanie', 'List tradycyjny', 'Inne'], @message.source) %></td>
+          <td> <%= f.select :source, options_for_select(['Telefon', 'Wiadomość e-mail', 'Spotkanie', 'List tradycyjny', 'Inne'], @message.source), {prompt: true} %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :origin, 'Pochodzenie' %></strong></td>
-          <td> <%= f.select :origin, options_for_select(%w(Przychodząca Wychodząca Inna), @message.origin) %></td>
+          <td> <%= f.select :origin, options_for_select(%w(Przychodząca Wychodząca Inna), @message.origin), {prompt: true} %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :body, 'Treść' %></strong></td>
@@ -31,7 +31,7 @@
         <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z tą wiadomością" %></strong></td>
           <td>
-            <%= f.collection_select :clearing_id, Clearing.all_cached, :id, :title, :include_blank => "Brak" %>
+            <%= f.collection_select :clearing_id, Clearing.all_cached, :id, :title, {prompt: true} %>
           </td>
         </tr>
         <tr>

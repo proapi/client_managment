@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :history do %>
-    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja konta", user_path(current_user) %> / <%= link_to 'Wstecz', :back %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to "Edycja konta", edit_user_registration_path %> / <%= link_to 'Wstecz', :back %>
 <% end %>
 
 <% content_for :help do %>
@@ -40,19 +40,13 @@
           <td><%= f.password_field :password, :autocomplete => "off" %></td>
         </tr>
         <tr>
-          <td><strong><%= f.label :password_confirmation, 'Nowe hasło' %></strong></td>
+          <td><strong><%= f.label :password_confirmation, 'Potwierdzenie nowego hasła' %></strong></td>
           <td><%= f.password_field :password_confirmation %></td>
         </tr>
         <tr>
           <td><strong><%= f.label :current_password, 'Stare hasło' %></strong></td>
           <td><%= f.password_field :current_password %></td>
         </tr>
-        <% if current_user.admin? %>
-            <tr>
-              <td><strong><%= f.label :admin, 'Administrator' %></strong></td>
-              <td><%= f.check_box :admin %></td>
-            </tr>
-        <% end %>
         <tr>
           <td class="full" colspan="2"><%= f.submit "Zapisz" %></td>
         </tr>
@@ -61,4 +55,3 @@
 <% end %>
 
 <%= link_to "Usuń konto", registration_path(resource_name), :confirm => "Czy jesteś pewien?", :method => :delete %>
-<%= link_to "Wstecz", :back %>

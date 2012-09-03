@@ -55,6 +55,12 @@
     <tr>
       <td colspan="2"><%= @client.description.blank? ? "Brak" : @client.description %></td>
     </tr>
+    <tr>
+      <th class="full" colspan="2">Inne informacje</th>
+    </tr>
+    <tr>
+      <%= check_blank 'Użytkownik tworzący', @client.user.try(:name) %>
+    </tr>
   </table>
 </div>
 

@@ -19,13 +19,13 @@
     <tr>
       <td><strong><%= f.label :client_id, "Klient powiązany z rozliczeniem" %></strong></td>
       <td>
-        <%= f.collection_select :client_id, Client.all_cached, :id, :lastname %>
+        <%= f.collection_select :client_id, Client.all_cached, :id, :lastname, {prompt: true} %>
       </td>
     </tr>
     <tr>
       <td><strong><%= f.label :country_id, "Kraj rozliczenia" %></strong></td>
       <td>
-        <%= f.collection_select :country_id, Country.all_cached, :id, :name %>
+        <%= f.collection_select :country_id, Country.all_cached, :id, :name, {prompt: true} %>
       </td>
     </tr>
     <tr>
@@ -130,7 +130,7 @@
       </td>
     </tr>
     <tr>
-      <td><strong><%= f.label :commission_final, "Prowizja w PLN" %></strong></td>
+      <td><strong><%= f.label :commission_final, "Do zapłaty w PLN" %></strong></td>
       <td>
         <% if @clearing.commission_manual? %>
             <%= f.decimal_field :commission_final %>
@@ -146,7 +146,7 @@
       </td>
     </tr>
     <tr>
-      <td><strong><%= f.label :exchange_rate, "Kurs waluty" %></strong></td>
+      <td><strong><%= f.label :exchange_rate, "Kurs waluty(NBP)" %></strong></td>
       <td>
         <%= f.text_field :exchange_rate, value: @clearing.exchange_rate.nil? ? "" : number_with_precision(@clearing.exchange_rate, :precision => 4), class: 'commission' %>
       </td>

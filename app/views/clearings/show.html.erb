@@ -37,8 +37,8 @@
     <%= check_blank('Data wysłania pocztą', @clearing.office_send_date.nil? ? 'Brak' : l(@clearing.office_send_date)) %>
     <%= check_blank 'Kwota zwrotu z decyzji', number_with_precision(@clearing.rebate_final, precision: 2, delimiter: " ") %>
     <%= check_blank('Data decyzji', @clearing.decision_date.nil? ? 'Brak' : l(@clearing.decision_date)) %>
-    <%= check_blank 'Prowizja w PLN', number_with_precision(@clearing.commission_final, precision: 2, delimiter: " ") %>
-    <%= check_blank 'Kurs waluty prowizji', number_with_precision(@clearing.exchange_rate, precision: 4, delimiter: " ") %>
+    <%= check_blank 'Do zapłaty w PLN', number_with_precision(@clearing.commission_final, precision: 2, delimiter: " ") %>
+    <%= check_blank 'Kurs waluty(NBP)', number_with_precision(@clearing.exchange_rate, precision: 4, delimiter: " ") %>
     <%= check_blank('Data wyliczenia prowizji', check_blank_value(@clearing.commission_date)) %>
     <%= check_blank('Data zapłaty', check_blank_value(@clearing.payment_date)) %>
     <tr>
@@ -69,6 +69,12 @@
     </tr>
     <tr>
       <td colspan="2"><%= @clearing.description.blank? ? "Brak" : @clearing.description %></td>
+    </tr>
+    <tr>
+      <th class="full" colspan="2">Inne informacje</th>
+    </tr>
+    <tr>
+      <%= check_blank 'Użytkownik tworzący', @clearing.user.try(:name) %>
     </tr>
   </table>
 </div>

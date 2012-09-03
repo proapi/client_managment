@@ -28,8 +28,15 @@ class Bill < ActiveRecord::Base
     pdf.font("#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf")
     pdf.font_size 9
 
-    pdf.text "To jest przykładowy tekst"
-    pdf.move_down 5
+
+    pdf.text "#{self.company.address.city}, #{self.issue_date}"
+    pdf.move_down 2
+
+    table_left = pdf.make_table([["#{self.company.name}"], [], []])
+    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [], []])
+    table_data = [%w(Sprzedawca Nabywca), [table_left, table_right]]
+
+    pdf.table(table_data, header: true, column_widths: [150, 150])
 
     string = "strona <page> / <total>"
     options = {:at => [pdf.bounds.right - 150, 0],
@@ -47,7 +54,7 @@ class Bill < ActiveRecord::Base
 
   private
   def set_number
-    self.number="#{self.company.bill_number.to_i + 1}/#{self.company.short.upcase}" if self.number.blank?
+    self.number="#{self.company.bill_number.to_i + 1}/#{Date.current.year}" if self.number.blank?
   end
 
   def set_number_in_company

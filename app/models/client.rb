@@ -2,8 +2,8 @@
 class Client < ActiveRecord::Base
   audited protect: false #, comment_required: true
 
-  has_one :address, dependent: :destroy
-  has_one :mailing_address, class_name: 'Address', dependent: :destroy
+  has_one :address, dependent: :destroy, conditions: ['kind = ?', 'address']
+  has_one :mailing_address, class_name: 'Address', dependent: :destroy, conditions: ['kind = ?', 'mailing_address']
   belongs_to :user
   has_many :messages, through: :clearings
   has_many :clearings, dependent: :destroy
@@ -56,14 +56,14 @@ class Client < ActiveRecord::Base
 
   private
   def check_addresses
-    if mailing_address.city.blank? && !address.city.blank?
-      mailing_address.city = address.city
+    if self.mailing_address.city.blank? && !self.address.city.blank?
+      self.mailing_address.city = self.address.city
     end
-    if mailing_address.street.blank? && !address.street.blank?
-      mailing_address.street = address.street
+    if self.mailing_address.street.blank? && !self.address.street.blank?
+      self.mailing_address.street = self.address.street
     end
-    if mailing_address.code.blank? && !address.code.blank?
-      mailing_address.code = address.code
+    if self.mailing_address.code.blank? && !self.address.code.blank?
+      self.mailing_address.code = self.address.code
     end
   end
 

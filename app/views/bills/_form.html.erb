@@ -26,7 +26,7 @@
           <td><strong><%= f.label :number, "Numer rachunku" %></strong></td>
           <td>
             <% if @bill.new_record? %>
-                <%= f.text_field :number, value: "#{Company.first.bill_number.to_i + 1}/#{Company.first.short.upcase}", readonly: true %>
+                <%= f.text_field :number, value: "#{Company.first.bill_number.to_i + 1}/#{Date.current.year}", readonly: true %>
             <% else %>
                 <% if @bill.number_manual? %>
                     <%= f.text_field :number %>
@@ -39,7 +39,7 @@
         <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
           <td>
-            <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {include_blank: 'Brak', prompt: true}, {'data-message' => Clearing.generate_final_rebates} %>
+            <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {prompt: true}, {'data-message' => Clearing.generate_final_commissions} %>
           </td>
         </tr>
         <tr>
@@ -60,7 +60,7 @@
           <td><strong><%= f.label :maturity_date, "Termin płatności" %></strong></td>
           <td>
             <%= f.datepicker :maturity_date, class: 'datepicker' %>
-          </td>
+          </td>                                    , {prompt: true}
         </tr>
 
         <tr>
