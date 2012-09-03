@@ -57,3 +57,4 @@ gem 'ransack'
 gem 'active_attr'
 gem 'prawn', ">= 1.0.0rc1"
 gem 'numbers_and_words'
+gem 'rack-mini-profiler'

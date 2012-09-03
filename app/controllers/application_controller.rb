@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :miniprofiler
+
   #OPTIMIZE sprawdzić, czy nie można tego zrobić w szybszy sposób, bo teraz sprawdza każdą wartość w hash
   def check_number_with_comma(params)
     hash = Hash.new
@@ -16,5 +18,10 @@ class ApplicationController < ActionController::Base
       end
     end
     hash
+  end
+
+  private
+  def miniprofiler
+    Rack::MiniProfiler.authorize_request if current_user.admin?
   end
 end
