@@ -32,111 +32,12 @@ class Bill < ActiveRecord::Base
         :bold_italic => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf",
         :normal => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"})
     pdf.font("mine")
-    #pdf.font "Times-Roman"
-    pdf.font_size 9
 
-    pdf.move_down 15
-
-    pdf.text "#{self.company.address.city}, #{self.issue_date}", align: :right
-
-    pdf.move_down 25
-
-    pdf.font_size 12
-
-    pdf.text "Rachunek nr: #{self.number}", style: :bold, align: :center
-    pdf.text "Oryginał", align: :center
-
-    pdf.font_size 9
-
-    pdf.move_down 25
-
-    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.city}, #{self.company.address.code}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
-    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.city}, #{self.clearing.client.address.code}"]], width: 260, :cell_style => {:borders => [], align: :center})
-    cell_header_left = pdf.make_cell(content: "<b>Sprzedawca</b>", inline_format: true, align: :center)
-    cell_header_right = pdf.make_cell(content: "<b>Nabywca</b>", inline_format: true, align: :center)
-    table_data = [[cell_header_left, cell_header_right], [table_left, table_right]]
-    pdf.table(table_data, header: true, width: 520, position: :center)
-
-    pdf.move_down 25
-
-    table_left = pdf.make_table([["Data sprzedaży: #{helpers.localize(self.issue_date)}"], ["Termin zapłaty: #{helpers.localize(self.maturity_date)}"], ["Sposób zapłaty: #{self.payment_form}"]], width: 260, :cell_style => {:borders => [], align: :left})
-    table_right = pdf.make_table([["Bank: #{self.company.bank_name}"], ["Numer konta: #{self.company.account_number}"], [""]], width: 260, :cell_style => {:borders => [], align: :left})
-
-    pdf.table([[table_left, table_right]], width: 520, position: :center, :cell_style => {:borders => []})
-
-    pdf.move_down 25
-
-    table_data = [[pdf.make_cell(content: "<b>Lp.</b>", inline_format: true), pdf.make_cell(content: "<b>Nazwa towaru / usługi</b>", inline_format: true), pdf.make_cell(content: "<b>Ilość</b>", inline_format: true), pdf.make_cell(content: "<b>Jedn. miary</b>", inline_format: true), pdf.make_cell(content: "<b>Cena jednostki</b>", inline_format: true), pdf.make_cell(content: "<b>Wartość</b>", inline_format: true)],
-                  [pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.title}"), pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.units}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}")]]
-    pdf.table(table_data, header: true, width: 520, position: :center)
-
-    pdf.move_down 50
-
-    pdf.text "Do zapłaty: #{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}", style: :bold
-
-    pdf.move_down 25
-
-    #pdf.text "Słownie: #{123.to_words}"
-
-    pdf.move_down 90
-
-    pdf.table([[pdf.make_cell(content: "podpis odbiorcy", align: :center, :borders => []), pdf.make_cell(content: "podpis wystawcy", align: :center, :borders => [])]], header: true, width: 520, position: :center)
+    prepare_pdf pdf, "Oryginał"
 
     pdf.start_new_page
 
-    pdf.move_down 15
-
-    pdf.text "#{self.company.address.city}, #{self.issue_date}", align: :right
-
-    pdf.move_down 25
-    pdf.font_size 12
-
-    pdf.text "Rachunek nr: #{self.number}", style: :bold, align: :center
-    pdf.text "Kopia", align: :center
-
-    pdf.font_size 9
-    pdf.move_down 25
-
-    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.city}, #{self.company.address.code}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
-    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.city}, #{self.clearing.client.address.code}"]], width: 260, :cell_style => {:borders => [], align: :center})
-    cell_header_left = pdf.make_cell(content: "<b>Sprzedawca</b>", inline_format: true, align: :center)
-    cell_header_right = pdf.make_cell(content: "<b>Nabywca</b>", inline_format: true, align: :center)
-    table_data = [[cell_header_left, cell_header_right], [table_left, table_right]]
-    pdf.table(table_data, header: true, width: 520, position: :center)
-
-    pdf.move_down 25
-
-    table_left = pdf.make_table([["Data sprzedaży: #{helpers.localize(self.issue_date)}"], ["Termin zapłaty: #{helpers.localize(self.maturity_date)}"], ["Sposób zapłaty: #{self.payment_form}"]], width: 260, :cell_style => {:borders => [], align: :left})
-    table_right = pdf.make_table([["Bank: #{self.company.bank_name}"], ["Numer konta: #{self.company.account_number}"], [""]], width: 260, :cell_style => {:borders => [], align: :left})
-
-    pdf.table([[table_left, table_right]], width: 520, position: :center, :cell_style => {:borders => []})
-
-    pdf.move_down 25
-
-    table_data = [[pdf.make_cell(content: "<b>Lp.</b>", inline_format: true), pdf.make_cell(content: "<b>Nazwa towaru / usługi</b>", inline_format: true), pdf.make_cell(content: "<b>Ilość</b>", inline_format: true), pdf.make_cell(content: "<b>Jedn. miary</b>", inline_format: true), pdf.make_cell(content: "<b>Cena jednostki</b>", inline_format: true), pdf.make_cell(content: "<b>Wartość</b>", inline_format: true)],
-                  [pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.title}"), pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.units}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}")]]
-    pdf.table(table_data, header: true, width: 520, position: :center)
-
-    pdf.move_down 50
-
-    pdf.text "Do zapłaty: #{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}", style: :bold
-
-    pdf.move_down 25
-
-    #pdf.text "Słownie: #{123.to_words}"
-
-    pdf.move_down 90
-
-    pdf.table([[pdf.make_cell(content: "podpis odbiorcy", align: :center, :borders => []), pdf.make_cell(content: "podpis wystawcy", align: :center, :borders => [])]], header: true, width: 520, position: :center)
-
-
-    #string = "strona <page> / <total>"
-    #options = {:at => [pdf.bounds.right - 150, 0],
-    #           :width => 150,
-    #           :align => :right,
-    #           :start_count_at => 1,
-    #           :color => "007700"}
-    #pdf.number_pages string, options
+    prepare_pdf pdf, "Kopia"
 
     file = File.join(Rails.root, "tmp", "rachunek.pdf")
     pdf.render_file file
@@ -145,6 +46,58 @@ class Bill < ActiveRecord::Base
   end
 
   private
+  def prepare_pdf(pdf, original)
+    pdf.font_size 9
+
+    pdf.move_down 15
+
+    pdf.text "#{self.company.address.city}, #{self.issue_date}", align: :right
+
+    pdf.move_down 25
+
+    pdf.font_size 12
+
+    pdf.text "Rachunek nr: #{self.number}", style: :bold, align: :center
+    pdf.text original, align: :center
+
+    pdf.font_size 9
+
+    pdf.move_down 25
+
+    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.city}, #{self.company.address.code}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
+    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.city}, #{self.clearing.client.address.code}"]], width: 260, :cell_style => {:borders => [], align: :center})
+    cell_header_left = pdf.make_cell(content: "<b>Sprzedawca</b>", inline_format: true, align: :center)
+    cell_header_right = pdf.make_cell(content: "<b>Nabywca</b>", inline_format: true, align: :center)
+    table_data = [[cell_header_left, cell_header_right], [table_left, table_right]]
+    pdf.table(table_data, header: true, width: 520, position: :center)
+
+    pdf.move_down 25
+
+    table_left = pdf.make_table([["Data sprzedaży: #{helpers.localize(self.issue_date)}"], ["Termin zapłaty: #{helpers.localize(self.maturity_date)}"], ["Sposób zapłaty: #{self.payment_form}"]], width: 260, :cell_style => {:borders => [], align: :left})
+    table_right = pdf.make_table([["Bank: #{self.company.bank_name}"], ["Numer konta: #{self.company.account_number}"], [""]], width: 260, :cell_style => {:borders => [], align: :left})
+
+    pdf.table([[table_left, table_right]], width: 520, position: :center, :cell_style => {:borders => []})
+
+    pdf.move_down 25
+
+    table_data = [[pdf.make_cell(content: "<b>Lp.</b>", inline_format: true), pdf.make_cell(content: "<b>Nazwa towaru / usługi</b>", inline_format: true), pdf.make_cell(content: "<b>Ilość</b>", inline_format: true), pdf.make_cell(content: "<b>Jedn. miary</b>", inline_format: true), pdf.make_cell(content: "<b>Cena jednostki</b>", inline_format: true), pdf.make_cell(content: "<b>Wartość</b>", inline_format: true)],
+                  [pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.title}"), pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.units}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}")]]
+    pdf.table(table_data, header: true, width: 520, position: :center)
+
+    pdf.move_down 50
+
+    pdf.text "Do zapłaty: #{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}", style: :bold
+
+    pdf.move_down 25
+
+    #TODO słownie kwotę zrobić
+    #pdf.text "Słownie: #{123.to_words}"
+
+    pdf.move_down 90
+
+    pdf.table([[pdf.make_cell(content: "podpis odbiorcy", align: :center, :borders => []), pdf.make_cell(content: "podpis wystawcy", align: :center, :borders => [])]], header: true, width: 520, position: :center)
+  end
+
   def helpers
     ActionController::Base.helpers
   end

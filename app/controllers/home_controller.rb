@@ -20,9 +20,15 @@ class HomeController < ApplicationController
     @bills = @search.result(distinct: true)
 
     if params[:commit]
-      file = Report.bills_report_to_pdf(@bills)
-      send_file file, :filename => "raport.pdf", :type => "application/pdf"
-      return
+      if params[:commit].include? 'pdf'
+        send_file Report.bills_report_to_pdf(@bills), :filename => "raport.pdf", :type => "application/pdf"
+        return
+      end
+
+      if params[:commit].include? 'csv'
+        send_file Report.bills_report_to_csv(@bills), :filename => "raport.csv", :type => "text/plain"
+        return
+      end
     end
 
     respond_to do |format|
@@ -35,9 +41,15 @@ class HomeController < ApplicationController
     @clearings = @search.result(distinct: true)
 
     if params[:commit]
-      file = Report.clearings_report_to_pdf(@clearings)
-      send_file file, :filename => "raport.pdf", :type => "application/pdf"
-      return
+      if params[:commit].include? 'pdf'
+        send_file Report.clearings_report_to_pdf(@clearings), :filename => "raport.pdf", :type => "application/pdf"
+        return
+      end
+
+      if params[:commit].include? 'csv'
+        send_file Report.clearings_report_to_csv(@clearings), :filename => "raport.csv", :type => "text/plain"
+        return
+      end
     end
 
     respond_to do |format|
@@ -50,9 +62,15 @@ class HomeController < ApplicationController
     @clearings = @search.result(distinct: true)
 
     if params[:commit]
-      file = Report.countries_report_to_pdf(@clearings)
-      send_file file, :filename => "raport.pdf", :type => "application/pdf"
-      return
+      if params[:commit].include? 'pdf'
+        send_file Report.countries_report_to_pdf(@clearings), :filename => "raport.pdf", :type => "application/pdf"
+        return
+      end
+
+      if params[:commit].include? 'csv'
+        send_file Report.countries_report_to_csv(@clearings), :filename => "raport.csv", :type => "text/plain"
+        return
+      end
     end
 
     respond_to do |format|
