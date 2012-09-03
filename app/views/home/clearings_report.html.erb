@@ -17,12 +17,12 @@
       <legend>Rozliczenie</legend>
       <ul>
         <li>
-          <%= f.label :created_at_gteq, 'Data utworzenia od' %>
-          <%= f.datepicker :created_at_gteq %>
+          <%= f.label :application_date_gteq, 'Data rozliczenia od' %>
+          <%= f.datepicker :application_date_gteq %>
         </li>
         <li>
-          <%= f.label :created_at_lteq, 'Data utworzenia do' %>
-          <%= f.datepicker :created_at_lteq %>
+          <%= f.label :application_date_lteq, 'Data rozliczenia do' %>
+          <%= f.datepicker :application_date_lteq %>
         </li>
       </ul>
     </fieldset>
@@ -31,15 +31,15 @@
       <legend>Agent</legend>
       <ul>
         <li>
-          <%= f.label :agent_name_cont, 'Nazwa Agenta' %>
+          <%= f.label :agent_name_cont, 'Nazwa agenta' %>
           <%= f.collection_select :agent_name_cont, Agent.all_cached, :id, :name, include_blank: "Wszyscy" %>
         </li>
         <li>
-          <%= f.label :agent_date_gteq, 'Data utworzenia od' %>
+          <%= f.label :agent_date_gteq, 'Data rozliczenia z agentem od' %>
           <%= f.datepicker :agent_date_gteq %>
         </li>
         <li>
-          <%= f.label :agent_date_lteq, 'Data utworzenia do' %>
+          <%= f.label :agent_date_lteq, 'Data rozliczenia z agentem do' %>
           <%= f.datepicker :agent_date_lteq %>
         </li>
       </ul>
