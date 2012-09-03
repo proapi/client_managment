@@ -349,6 +349,8 @@ pl:
         admin: 'Administrator'
         email: 'Adres email'
         name: 'Nazwa'
+        password: 'Hasło'
+        password_confirmation: 'Potwierdzenie hasła'
         created_at: 'Data utworzenia'
         updated_at: 'Data modyfikacji'
   flash:

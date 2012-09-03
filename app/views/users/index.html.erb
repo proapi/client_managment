@@ -14,8 +14,7 @@
     <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
-          <%= content_tag :th, 'Nazwisko' %>
-          <%= content_tag :th, 'Imię' %>
+          <%= content_tag :th, 'Nazwisko i imię' %>
           <%= content_tag :th, 'E-mail' %>
           <%= content_tag :th, 'Administrator' %>
           <%= content_tag :th, 'Akcje' %>
@@ -24,13 +23,10 @@
       <tbody>
       <%= content_tag_for(:tr, @users) do |user| %>
           <%= content_tag :td, (link_to user.name, user_path(user)), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(user.name) %>
           <%= content_tag :td, check_blank_value(user.email) %>
           <%= content_tag :td, user.admin? ? 'Tak' : 'Nie' %>
           <%= content_tag :td, class: 'actions' do %>
               <%= link_to image_tag('info.png'), user_path(user), title: "Szczegółowe informacje" %>
-              <%= link_to image_tag('modify.png'), edit_user_registration_path, title: "Edycja" %>
-              <%= link_to image_tag('delete.png'), registration_path(user), :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
           <% end %>
       <% end %>
       </tbody>

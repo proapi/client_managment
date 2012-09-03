@@ -55,4 +55,5 @@ gem 'capistrano'
 gem 'rvm-capistrano'
 gem 'ransack'
 gem 'active_attr'
-gem 'prawn'
+gem 'prawn', ">= 1.0.0rc1"
+gem 'numbers_and_words'
