@@ -1,0 +1,49 @@
+<% content_for :section_header do %>
+    Raport rachunków w danym okresie
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Raporty', home_reports_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tej sekcji możliwe jest wygenerowanie raportów w możliwych formatach' %>
+<% end %>
+
+<h3>Raport rachunków w danym okresie</h3>
+
+<%= search_form_for(@search, url: home_bills_report_path) do |f| %>
+    <fieldset>
+      <legend>Rachunek</legend>
+      <ul>
+        <li>
+          <%= f.label :issue_date_gteq, 'Data wystawienia od' %>
+          <%= f.datepicker :issue_date_gteq %>
+        </li>
+        <li>
+          <%= f.label :issue_date_lteq, 'Data wystawienia do' %>
+          <%= f.datepicker :issue_date_lteq %>
+        </li>
+        <li>
+          <%= f.label :number_gteq, 'Numer rachunku od' %>
+          <%= f.text_field :number_gteq %>
+        </li>
+        <li>
+          <%= f.label :number_lteq, 'Numer rachunku do' %>
+          <%= f.text_field :number_lteq %>
+        </li>
+        <li>
+          <%= f.label :company_id_eq, 'Firma wystawiająca' %>
+          <%= f.collection_select :company_id_eq, Company.all_cached, :id, :name, include_blank: "Wszystkie" %>
+        </li>
+      </ul>
+    </fieldset>
+    <br/><br/>
+    <%= f.submit 'Generuj raport html', name: nil %>
+    <%= f.submit 'Generuj pdf' %>
+<% end %>
+<% if @bills %>
+    <br/>
+    <h3>Wyniki raportu rachunków w danym okresie</h3>
+    <%= render partial: 'bills/bills_table', locals: {bills: @bills} %>
+<% end %>

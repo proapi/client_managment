@@ -1,0 +1,56 @@
+<% content_for :section_header do %>
+    Raport rozliczeń wg agentów
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Raporty', home_reports_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tej sekcji możliwe jest wygenerowanie raportów w możliwych formatach' %>
+<% end %>
+
+<h3>Raport rozliczeń wg agentów</h3>
+
+<%= search_form_for(@search, url: home_clearings_report_path) do |f| %>
+    <fieldset>
+      <legend>Rozliczenie</legend>
+      <ul>
+        <li>
+          <%= f.label :created_at_gteq, 'Data utworzenia od' %>
+          <%= f.datepicker :created_at_gteq %>
+        </li>
+        <li>
+          <%= f.label :created_at_lteq, 'Data utworzenia do' %>
+          <%= f.datepicker :created_at_lteq %>
+        </li>
+      </ul>
+    </fieldset>
+
+    <fieldset>
+      <legend>Agent</legend>
+      <ul>
+        <li>
+          <%= f.label :agent_name_cont, 'Nazwa Agenta' %>
+          <%= f.collection_select :agent_name_cont, Agent.all_cached, :id, :name, include_blank: "Wszyscy" %>
+        </li>
+        <li>
+          <%= f.label :agent_date_gteq, 'Data utworzenia od' %>
+          <%= f.datepicker :agent_date_gteq %>
+        </li>
+        <li>
+          <%= f.label :agent_date_lteq, 'Data utworzenia do' %>
+          <%= f.datepicker :agent_date_lteq %>
+        </li>
+      </ul>
+    </fieldset>
+
+    <%= f.submit 'Generuj raport html', name: nil %>
+    <%= f.submit 'Generuj pdf' %>
+<% end %>
+
+<% if @clearings %>
+    <br/>
+    <h3>Wyniki raportu rozliczeń wg agentów</h3>
+    <%= render partial: 'clearings/clearings_table', locals: {clearings: @clearings} %>
+<% end %>

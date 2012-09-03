@@ -1,0 +1,44 @@
+<% content_for :section_header do %>
+    Raport rozliczeń w danym roku dla poszczególnych krajów
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Raporty', home_reports_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tej sekcji możliwe jest wygenerowanie raportów w możliwych formatach' %>
+<% end %>
+
+<h3>Raport rozliczeń w danym roku dla poszczególnych krajów</h3>
+
+<%= search_form_for(@search, url: home_countries_report_path) do |f| %>
+    <fieldset>
+      <legend>Rozliczenie</legend>
+      <ul>
+        <li>
+          <%= f.label :year_eq, 'Rok rozliczenia' %>
+          <%= f.text_field :year_eq %>
+        </li>
+      </ul>
+    </fieldset>
+
+    <fieldset>
+      <legend>Kraj</legend>
+      <ul>
+        <li>
+          <%= f.label :country_name_cont, 'Nazwa kraju' %>
+          <%= f.collection_select :country_name_cont, Country.all_cached, :id, :name, include_blank: "Wszystkie" %>
+        </li>
+      </ul>
+    </fieldset>
+
+    <%= f.submit 'Generuj raport html', name: nil %>
+    <%= f.submit 'Generuj pdf' %>
+<% end %>
+
+<% if @clearings %>
+    <br/>
+    <h3>Wyniki raportu rozliczeń w danym roku dla poszczególnych krajów</h3>
+    <%= render partial: 'clearings/clearings_table', locals: {clearings: @clearings} %>
+<% end %>

@@ -11,10 +11,11 @@
 <% end %>
 
 <h3>Raport rozliczeń wg agentów</h3>
-<p></p>
+<p><%= button_to 'Idź do raportu', home_clearings_report_path, method: :get %></p>
+
 
 <h3>Raport rachunków w danym okresie</h3>
-<p></p>
+<p><%= button_to 'Idź do raportu', home_bills_report_path, method: :get %></p>
 
-<h3>Raport rozliczeń w danym okresie</h3>
-<p></p>
+<h3>Raport rozliczeń w danym roku dla poszczególnych krajów</h3>
+<p><%= button_to 'Idź do raportu', home_countries_report_path, method: :get %></p>

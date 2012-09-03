@@ -38,6 +38,10 @@ class Clearing < ActiveRecord::Base
     result
   end
 
+  def month
+    self.application_date.strftime('%m')
+  end
+
   after_save :expire_all_cache
   after_destroy :expire_all_cache
 
