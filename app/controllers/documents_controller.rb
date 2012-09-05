@@ -89,7 +89,7 @@ class DocumentsController < ApplicationController
     @document.destroy
 
     respond_to do |format|
-      format.html { redirect_to documents_url, notice: t('flash.notice') if @clearing.destroyed? }
+      format.html { redirect_to documents_url, notice: t('flash.notice') if @document.destroyed? }
       format.json { head :no_content }
     end
   end

@@ -1,7 +1,7 @@
 <%= form_for(@clearing) do |f| %>
     <% if @clearing.errors.any? %>
         <div id="error_explanation">
-          <h2><%= "Wykrytych błędów: #{@clearing.errors.count}"  %></h2>
+          <h2><%= "Wykrytych błędów: #{@clearing.errors.count}" %></h2>
 
           <ul>
             <% @clearing.errors.full_messages.each do |msg| %>
@@ -151,13 +151,6 @@
         <%= f.text_field :exchange_rate, value: @clearing.exchange_rate.nil? ? "" : number_with_precision(@clearing.exchange_rate, :precision => 4), class: 'commission' %>
       </td>
     </tr>
-    <tr>
-      <td><strong><%= f.label :payment_date, "Data zapłaty" %></strong></td>
-      <td>
-        <%= f.datepicker :payment_date, class: 'datepicker' %>
-      </td>
-    </tr>
-
     <%= f.fields_for :bill do |bill_form| %>
         <tr>
           <th class="full" colspan="2">
@@ -241,6 +234,17 @@
     <% end %>
     <tr>
       <th class="full" colspan="2">
+        Data zapłaty
+      </th>
+    </tr>
+    <tr>
+      <td><strong><%= f.label :payment_date, "Data zapłaty" %></strong></td>
+      <td>
+        <%= f.datepicker :payment_date, class: 'datepicker' %>
+      </td>
+    </tr>
+    <tr>
+      <th class="full" colspan="2">
         Uzupełniające informacje
       </th>
     </tr>
@@ -292,7 +296,7 @@
     <tr>
       <td><strong><%= f.label :agent_id, "Agent pośredniczący" %></strong></td>
       <td>
-        <%= f.collection_select :agent_id, Agent.all_cached, :id, :name, include_blank: "Brak" %>
+        <%= f.collection_select :agent_id, Agent.all_cached, :id, :name, prompt: true %>
       </td>
     </tr>
     <tr>

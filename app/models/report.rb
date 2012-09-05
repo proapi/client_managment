@@ -13,7 +13,7 @@ class Report
       table_data = Array.new
       table_data << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
-        table_data << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{}", "#{}", "#{}"]
+        table_data << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
       end
       pdf.table(table_data, header: true, width: 520, position: :center)
     end
@@ -71,7 +71,7 @@ class Report
     string = CSV.generate do |csv|
       csv << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
-        csv << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{}", "#{}", "#{}"]
+        csv << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
       end
     end
 

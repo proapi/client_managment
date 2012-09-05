@@ -132,6 +132,10 @@ $(function () {
             $("#bill_total").val('');
         }
     });
+    $("#clearing_to_client_date").change(function () {
+        var clearing_to_client_date = $(this).val();
+        $("#clearing_payment_date").val(clearing_to_client_date);
+    });
 
     $(".bank-radio").change(function () {
         $("#bank_account_number").show();

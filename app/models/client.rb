@@ -68,6 +68,6 @@ class Client < ActiveRecord::Base
   end
 
   def set_identifier
-    self.identifier=(Client.maximum(:identifier).to_i + 1).to_s if self.identifier.nil?
+    self.identifier = (Client.maximum(:identifier) || 9999) + 1 if self.identifier.nil?
   end
 end
