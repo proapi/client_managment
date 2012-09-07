@@ -80,7 +80,7 @@ class CompaniesController < ApplicationController
     @company.destroy
 
     respond_to do |format|
-      format.html { redirect_to companies_url, notice: t('flash.notice') if @clearing.destroyed? }
+      format.html { redirect_to companies_url, notice: t('flash.notice') if @company.destroyed? }
       format.json { head :no_content }
     end
   end

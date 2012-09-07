@@ -1,0 +1,64 @@
+<% content_for :section_header do %>
+    Wgrywanie pliku bazy danych
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Na tej stronie znajdują się wyniki wgrywania pliku.' %>
+<% end %>
+
+<p><%= "Ilość pobranych linii: #{@tab.size}" %></p>
+<p><%= "Ilość błędów: #{@errors.size}" %></p>
+
+<h3>Klienci</h3>
+<p><%= "Ilość wgranych klientów: #{@clients.size}" %></p>
+<%= content_tag :div, class: 'table' do %>
+    <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
+      <thead>
+      <%= content_tag :tr do %>
+          <%= content_tag :th, 'Identyfikator' %>
+          <%= content_tag :th, 'Nazwisko' %>
+          <%= content_tag :th, 'Imię' %>
+          <%= content_tag :th, 'Miasto' %>
+          <%= content_tag :th, 'Telefon kom' %>
+          <%= content_tag :th, 'E-mail' %>
+          <%= content_tag :th, 'Akcje' %>
+      <% end %>
+      </thead>
+      <tbody>
+      <%= content_tag_for(:tr, @clients) do |client| %>
+          <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, check_blank_value(client.firstname) %>
+          <%= content_tag :td, check_blank_value(client.address.city) %>
+          <%= content_tag :td, check_blank_value(client.mobile) %>
+          <%= content_tag :td, check_blank_value(client.email) %>
+          <%= content_tag :td, class: 'actions' do %>
+              <%= link_to image_tag('info.png'), client, title: "Szczegółowe informacje" %>
+              <%= link_to image_tag('modify.png'), edit_client_path(client), title: "Edycja" %>
+              <%= link_to image_tag('delete.png'), client, :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+<h3>Rozliczenia</h3>
+<p><%= "Ilość wgranych rozliczeń: #{@clearings.size}" %></p>
+<p><%= render partial: 'clearings/clearings_table', locals: {clearings: @clearings} %></p>
+
+<h3>Rachunki</h3>
+<p><%= "Ilość wgranych rachunków: #{@bills.size}" %></p>
+<p><%= render partial: 'bills/bills_table', locals: {bills: @bills} %></p>
+
+<h3>Błędy</h3>
+<p>
+  <% @errors.each_with_index do |error, index| %>
+      <b><%= index+1 %></b>
+      <%= error.inspect %><br/>
+  <% end %>
+</p>
+

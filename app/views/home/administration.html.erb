@@ -25,3 +25,10 @@
 <h3>Lista agentów</h3>
 <p><%= link_to 'Dodaj nowego agenta', new_agent_path %></p>
 <%= render 'agents/agents_table' %>
+
+<h3>Wgraj plik bazy(UWAGA!!!)</h3>
+<%= form_for :file_upload, :url => {controller: 'home', action: 'file_upload'}, :html => {:multipart => true} do |f| %>
+    <%= f.file_field :my_file %>
+    <%= f.submit "Wgraj", name: nil %>
+<% end %>
+<br/><br/><br/><br/>
