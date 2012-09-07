@@ -27,8 +27,8 @@
       <legend>Kraj</legend>
       <ul>
         <li>
-          <%= f.label :country_name_cont, 'Nazwa kraju' %>
-          <%= f.collection_select :country_name_cont, Country.all_cached, :id, :name, include_blank: "Wszystkie" %>
+          <%= f.label :country_id_eq, 'Nazwa kraju' %>
+          <%= f.collection_select :country_id_eq, Country.all_cached, :id, :name, include_blank: "Wszystkie" %>
         </li>
       </ul>
     </fieldset>

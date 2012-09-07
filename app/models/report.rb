@@ -1,5 +1,6 @@
 #encoding: utf-8
 require 'prawn'
+require 'csv'
 
 class Report
   def self.bills_report_to_pdf(bills)

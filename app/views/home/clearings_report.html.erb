@@ -31,8 +31,8 @@
       <legend>Agent</legend>
       <ul>
         <li>
-          <%= f.label :agent_name_cont, 'Nazwa agenta' %>
-          <%= f.collection_select :agent_name_cont, Agent.all_cached, :id, :name, include_blank: "Wszyscy" %>
+          <%= f.label :agent_id_eq, 'Nazwa agenta' %>
+          <%= f.collection_select :agent_id_eq, Agent.all_cached, :id, :name, include_blank: "Wszyscy" %>
         </li>
         <li>
           <%= f.label :agent_date_gteq, 'Data rozliczenia z agentem od' %>
