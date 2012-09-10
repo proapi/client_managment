@@ -17,12 +17,12 @@
       <legend>Rozliczenie</legend>
       <ul>
         <li>
-          <%= f.label :application_date_gteq, 'Data rozliczenia od' %>
-          <%= f.datepicker :application_date_gteq %>
+          <%= f.label :office_send_date_gteq, 'Data rozliczenia od' %>
+          <%= f.datepicker :office_send_date_gteq %>
         </li>
         <li>
-          <%= f.label :application_date_lteq, 'Data rozliczenia do' %>
-          <%= f.datepicker :application_date_lteq %>
+          <%= f.label :office_send_date_lteq, 'Data rozliczenia do' %>
+          <%= f.datepicker :office_send_date_lteq %>
         </li>
       </ul>
     </fieldset>
@@ -41,6 +41,10 @@
         <li>
           <%= f.label :agent_date_lteq, 'Data rozliczenia z agentem do' %>
           <%= f.datepicker :agent_date_lteq %>
+        </li>
+        <li>
+          <%= f.label :agent_date_present, 'Data rozliczenia jest wypełniona' %>
+          <%= f.check_box :agent_date_present %>
         </li>
       </ul>
     </fieldset>

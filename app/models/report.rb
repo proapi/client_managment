@@ -14,7 +14,7 @@ class Report
       table_data = Array.new
       table_data << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
-        table_data << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
+        table_data << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
       end
       pdf.table(table_data, header: true, width: 520, position: :center)
     end
@@ -34,9 +34,9 @@ class Report
           pdf.text "Nazwa agenta: #{agent.nil? ? "Brak" : agent.name}"
           pdf.move_down 5
           table_data = Array.new
-          table_data << ["Nazwisko", "Imię", "Identyfikator", "Kraj", "Rok", "Numer podatkowy", "Wyliczona kota zwrotu", "Data wysłania do urzędu", "Data rozliczenia z agentem"]
+          table_data << ["Nazwisko", "Imię", "Kraj", "Rok", "Kwota zwrotu z decyzji", "Data wysłania do urzędu", "Data rozliczenia z agentem"]
           clearings_by_agent.each do |c|
-            table_data << ["#{c.client.nil? ? "Brak" : c.client.lastname}", "#{c.client.nil? ? "Brak" : c.client.firstname}", "#{c.client.nil? ? "Brak" : c.client.identifier}", "#{c.country.nil? ? "Brak" : c.country.name}", "#{c.year}", "#{c.tax_number}", "#{c.rebate_calc.nil? ? "Brak" : ActionController::Base.helpers.number_with_precision(c.rebate_calc, precision: 2, delimiter: " ")}", "#{c.office_send_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.office_send_date)}", "#{c.agent_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.agent_date)}"]
+            table_data << ["#{c.client.nil? ? "Brak" : c.client.lastname}", "#{c.client.nil? ? "Brak" : c.client.firstname}", "#{c.country.nil? ? "Brak" : c.country.name}", "#{c.year}", "#{c.rebate_final.nil? ? "Brak" : ActionController::Base.helpers.number_with_precision(c.rebate_calc, precision: 2, delimiter: " ")}", "#{c.office_send_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.office_send_date)}", "#{c.payment_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.payment_date)}", "#{c.agent_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.agent_date)}"]
           end
           pdf.table(table_data, header: true, width: 520, position: :center, :cell_style => {:size => 6})
           pdf.move_down 10
@@ -72,7 +72,7 @@ class Report
     string = CSV.generate do |csv|
       csv << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
-        csv << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.to_client_date.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
+        csv << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
       end
     end
 
@@ -89,9 +89,9 @@ class Report
         csv << ["Rok wystawienia rozliczenia:", "#{year}"]
         clearings_by_year.group_by(&:agent).sort.each do |agent, clearings_by_agent|
           csv << ["Nazwa agenta:", "#{agent.nil? ? "Brak" : agent.name}"]
-          csv << ["Nazwisko", "Imię", "Identyfikator", "Kraj", "Rok", "Numer podatkowy", "Wyliczona kota zwrotu", "Data wysłania do urzędu", "Data rozliczenia z agentem"]
+          csv << ["Nazwisko", "Imię", "Kraj", "Rok", "Kwota zwrotu z decyzji", "Data wysłania do urzędu", "Data rozliczenia z agentem"]
           clearings_by_agent.each do |c|
-            csv << ["#{c.client.nil? ? "Brak" : c.client.lastname}", "#{c.client.nil? ? "Brak" : c.client.firstname}", "#{c.client.nil? ? "Brak" : c.client.identifier}", "#{c.country.nil? ? "Brak" : c.country.name}", "#{c.year}", "#{c.tax_number}", "#{c.rebate_calc.nil? ? "Brak" : ActionController::Base.helpers.number_with_precision(c.rebate_calc, precision: 2, delimiter: " ")}", "#{c.office_send_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.office_send_date)}", "#{c.agent_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.agent_date)}"]
+            csv << ["#{c.client.nil? ? "Brak" : c.client.lastname}", "#{c.client.nil? ? "Brak" : c.client.firstname}", "#{c.country.nil? ? "Brak" : c.country.name}", "#{c.year}", "#{c.rebate_final.nil? ? "Brak" : ActionController::Base.helpers.number_with_precision(c.rebate_calc, precision: 2, delimiter: " ")}", "#{c.office_send_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.office_send_date)}", "#{c.payment_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.payment_date)}", "#{c.agent_date.nil? ? "Brak" : ActionController::Base.helpers.localize(c.agent_date)}"]
           end
         end
       end

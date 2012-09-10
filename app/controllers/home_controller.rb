@@ -86,6 +86,9 @@ class HomeController < ApplicationController
     @clients = Array.new
     @clearings = Array.new
     @bills = Array.new
+    @bills_rep = Array.new
+    @clients_rep = Array.new
+    @clearings_rep = Array.new
     @errors = Array.new
     File.open(file, 'r') do |f|
       f.readlines.each_with_index do |line, index|
@@ -98,15 +101,23 @@ class HomeController < ApplicationController
             if client.nil?
               client = create_client cells_tab
               @clients << client unless client.nil?
+            else
+              @clients_rep << client
             end
 
             clearing = check_clearing cells_tab
+            unless clearing.nil?
+              @clearings_rep << clearing
+            end
             if clearing.nil? && !client.nil?
               clearing = create_clearing(cells_tab, client) unless client.nil?
               @clearings << clearing unless clearing.nil?
             end
 
             bill = check_bill cells_tab
+            unless bill.nil?
+              @bills_rep << bill
+            end
             if bill.nil? && !clearing.nil? && !client.nil?
               bill = create_bill(cells_tab, clearing) unless clearing.nil?
               @bills << bill unless bill.nil?
@@ -123,7 +134,7 @@ class HomeController < ApplicationController
 
   private
   def check_client(cells_tab)
-    Client.where("lastname=? AND firstname=? AND birthdate=?", cells_tab[0], cells_tab[1], Date.strptime(cells_tab[5], '%d-%m-%y')).first
+    Client.where("lastname=? AND firstname=? AND birthdate=?", cells_tab[0], cells_tab[1], prepare_date(cells_tab[5], '19')).first
   end
 
   def create_client(cells_tab)
@@ -137,7 +148,7 @@ class HomeController < ApplicationController
     client.address.kind = 'address'
     client.lastname = cells_tab[0] unless cells_tab[0].empty?
     client.firstname = cells_tab[1] unless cells_tab[1].empty?
-    client.birthdate = Date.strptime(cells_tab[5], '%d-%m-%y') unless cells_tab[5].empty?
+    client.birthdate = prepare_date(cells_tab[5], '19') unless cells_tab[5].empty?
     client.telephone = cells_tab[6] unless cells_tab[6].empty?
     client.mobile = cells_tab[7] unless cells_tab[7].empty?
     client.email = cells_tab[8] unless cells_tab[8].empty?
@@ -147,34 +158,40 @@ class HomeController < ApplicationController
   end
 
   def check_clearing(cells_tab)
-    Clearing.where('tax_number=? AND year=?', cells_tab[9], cells_tab[10]).first
+    Clearing.where('tax_number=? AND year=? AND rebate_final=?', cells_tab[9], cells_tab[10], cells_tab[20]).first
   end
 
   def create_clearing(cells_tab, client)
     clearing = Clearing.new
     clearing.tax_number = cells_tab[9] unless cells_tab[9].empty?
     clearing.year = cells_tab[10] unless cells_tab[10].empty?
-    clearing.application_date = Date.strptime(cells_tab[11], '%d-%m-%y') unless cells_tab[11].empty? #data
+    clearing.application_date = prepare_date(cells_tab[11]) unless cells_tab[11].empty? #data
     clearing.commission_percent = cells_tab[12].split(',').join('.') unless cells_tab[12].empty? #liczba
     clearing.commission_min = cells_tab[13].split(',').join('.') unless cells_tab[13].empty? #liczba
     clearing.commission_currency = cells_tab[14] unless cells_tab[14].empty?
     clearing.rebate_calc = cells_tab[16].split(',').join('.') unless cells_tab[16].empty? #liczba
-    clearing.office_send_date = Date.strptime(cells_tab[17], '%d-%m-%y') unless cells_tab[17].empty? #data
-    clearing.decision_date = Date.strptime(cells_tab[19], '%d-%m-%y') unless cells_tab[19].empty? #data
+    clearing.office_send_date = prepare_date(cells_tab[17]) unless cells_tab[17].empty? #data
+    clearing.decision_date = prepare_date(cells_tab[19]) unless cells_tab[19].empty? #data
     clearing.rebate_final = cells_tab[20].split(',').join('.') unless cells_tab[20].empty? #liczba
     clearing.exchange_rate = cells_tab[21].split(',').join('.') unless cells_tab[21].empty? #liczba
-    clearing.commission_date = Date.strptime(cells_tab[22], '%d-%m-%y') unless cells_tab[22].empty? #data
+    clearing.commission_date = prepare_date(cells_tab[22]) unless cells_tab[22].empty? #data
     clearing.commission_final = cells_tab[23].split(',').join('.') unless cells_tab[23].empty? #liczba
-    clearing.payment_date = Date.strptime(cells_tab[26], '%d-%m-%y') unless cells_tab[26].empty? #data
-    clearing.income_total = cells_tab[27].split(',').join('.') unless cells_tab[27].empty? #liczba
+    clearing.payment_date = prepare_date(cells_tab[26]) unless cells_tab[26].empty? #data
+    clearing.income_total = cells_tab[27].split(',').join('.') unless cells_tab[27].empty? #liczba  WPŁYW NA KONTO WBK kolumna AB!!!
     clearing.total_to_client = cells_tab[28].split(',').join('.') unless cells_tab[28].empty? #liczba
     clearing.income_exchange_rate = cells_tab[29].split(',').join('.') unless cells_tab[29].empty? #liczba
-    clearing.agent_date = Date.strptime(cells_tab[30], '%d-%m-%y') unless cells_tab[30].empty? #data
+    clearing.agent_date = prepare_date(cells_tab[30]) unless cells_tab[30].empty? #data
     agent = Agent.where(name: cells_tab[31]).first
     if agent
       clearing.agent_id = agent.id
     else
       clearing.agent_id = Agent.where(name: 'INNY').first.id
+    end
+
+    unless cells_tab[27].empty? #columna AB
+      clearing.bill_amount = cells_tab[23].split(',').join('.') unless cells_tab[23].empty? #liczba
+      clearing.to_client_date = prepare_date(cells_tab[26]) unless cells_tab[26].empty? #data
+      clearing.bank_account_destination = 'Zwrot podatku na konto firmy'
     end
 
     clearing.client_id = client.id
@@ -204,17 +221,28 @@ class HomeController < ApplicationController
     end
 
     bill = Bill.new
-    bill.issue_date = Date.strptime(cells_tab[22], '%d-%m-%y') unless cells_tab[22].empty? #data
+    bill.issue_date = prepare_date(cells_tab[22]) unless cells_tab[22].empty? #data
     bill.total = cells_tab[23].split(',').join('.') unless cells_tab[23].empty? #liczba
-    bill.maturity_date = Date.strptime(cells_tab[24], '%d-%m-%y') unless cells_tab[24].empty? #data
+    bill.maturity_date = prepare_date(cells_tab[24]) unless cells_tab[24].empty? #data
     bill.number = cells_tab[25]
-    bill.title = 'Usługa biurowa'
+    if cells_tab[27].empty? #columna AB
+      bill.title = 'Usługa biurowa'
+      bill.payment_form = 'Przelew'
+    else
+      bill.title = 'Usługa inkasa'
+      bill.payment_form = 'Za pobraniem'
+    end
     bill.units = 'szt.'
     bill.clearing_id = clearing.id
     bill.user_id = current_user.id
     bill.company_id = company.id
 
     bill.save ? bill : nil
+  end
+
+  def prepare_date(date, sufix = '20')
+    str = String.new date
+    Date.strptime(str.insert(-3, sufix), '%d-%m-%Y')
   end
 
 end

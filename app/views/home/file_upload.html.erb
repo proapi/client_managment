@@ -45,20 +45,44 @@
       </tbody>
     </table>
 <% end %>
+<% unless @clients_rep.empty? %>
+    <p>Powtórzenia klientów:</p>
+    <ul>
+      <% @clients_rep.each do |client| %>
+          <li><%= client.inspect %></li>
+      <% end %>
+    </ul>
+<% end %>
 
 <h3>Rozliczenia</h3>
 <p><%= "Ilość wgranych rozliczeń: #{@clearings.size}" %></p>
 <p><%= render partial: 'clearings/clearings_table', locals: {clearings: @clearings} %></p>
+<% unless @clearings_rep.empty? %>
+    <p>Powtórzenia rozliczeń:</p>
+    <ul>
+      <% @clearings_rep.each do |clearing| %>
+          <li><%= clearing.inspect %></li>
+      <% end %>
+    </ul>
+<% end %>
 
 <h3>Rachunki</h3>
 <p><%= "Ilość wgranych rachunków: #{@bills.size}" %></p>
 <p><%= render partial: 'bills/bills_table', locals: {bills: @bills} %></p>
+<% unless @bills_rep.empty? %>
+    <p>Powtórzenia rachunków:</p>
+    <ul>
+      <% @bills_rep.each do |bills| %>
+          <li><%= bills.inspect %></li>
+      <% end %>
+    </ul>
+<% end %>
 
-<h3>Błędy</h3>
-<p>
-  <% @errors.each_with_index do |error, index| %>
-      <b><%= index+1 %></b>
-      <%= error.inspect %><br/>
-  <% end %>
-</p>
-
+<% unless @errors.empty? %>
+    <h3>Błędy</h3>
+    <ul>
+      <% @errors.each_with_index do |error, index| %>
+          <li><b><%= index+1 %></b><%= error.inspect %></li>
+      <% end %>
+    </ul>
+<% end %>

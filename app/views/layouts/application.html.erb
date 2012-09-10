@@ -26,10 +26,12 @@
               <%= yield :main_menu %>
           <% end %>
 
-          Wyszukaj klienta:
-          <%= form_for(:client, url: clients_path, method: :get, :html => {:class => "searchform"}) do |f| %>
-              <%= f.autocomplete_field :lastname, autocomplete_client_lastname_clients_path %>
-          <% end %>
+          <h3>Wyszukaj klienta:</h3>
+          <ul class="nav">
+            <%= form_for(:client, url: clients_path, method: :get, :html => {:class => "searchform"}) do |f| %>
+                <li><%= f.autocomplete_field :lastname, autocomplete_client_lastname_clients_path %></li>
+            <% end %>
+          </ul>
           <br/>
 
           <%= link_to 'Strona główna', root_url, class: 'link' %>
