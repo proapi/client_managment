@@ -25,7 +25,7 @@ class Clearing < ActiveRecord::Base
   end
 
   def self.all_cached
-    Rails.cache.fetch('Clearing.all') { all }
+    Rails.cache.fetch('Clearing.all') { all(include: [:client, :country, :bill]) }
   end
 
   def self.without_bill

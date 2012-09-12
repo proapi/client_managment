@@ -25,7 +25,7 @@ class Client < ActiveRecord::Base
   before_validation :set_identifier
 
   def self.all_cached
-    Rails.cache.fetch('Client.all') { all }
+    Rails.cache.fetch('Client.all') { all(include: [:address, :mailing_address]) }
   end
 
   after_save :expire_all_cache
