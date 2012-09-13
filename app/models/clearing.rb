@@ -12,7 +12,6 @@ class Clearing < ActiveRecord::Base
 
   validates :year, presence: true
   validates_format_of :year, with: %r/(^\d{4}$)|(^\d{4}\/\d{4})/
-  validates :tax_number, presence: true
   validates :client_id, presence: true
   validates :user_id, presence: true
   validates :country_id, presence: true
@@ -21,7 +20,7 @@ class Clearing < ActiveRecord::Base
   accepts_nested_attributes_for :bill
 
   def self.undone
-    where(archive: false)
+    Rails.cache.fetch('Clearing.undone') { where(archive: false) }
   end
 
   def self.all_cached

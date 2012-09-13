@@ -114,16 +114,20 @@ class HomeController < ApplicationController
               @clearings << clearing unless clearing.nil?
             end
 
-            bill = check_bill cells_tab
-            unless bill.nil?
-              @bills_rep << bill
-            end
-            if bill.nil? && !clearing.nil? && !client.nil?
-              bill = create_bill(cells_tab, clearing) unless clearing.nil?
-              @bills << bill unless bill.nil?
-            end
+            unless cells_tab[25].empty?
+              bill = check_bill cells_tab
+              unless bill.nil?
+                @bills_rep << bill
+              end
+              if bill.nil? && !clearing.nil? && !client.nil?
+                bill = create_bill(cells_tab, clearing) unless clearing.nil?
+                @bills << bill unless bill.nil?
+              end
 
-            @errors << cells_tab if bill.nil? || client.nil? || clearing.nil?
+              @errors << cells_tab if bill.nil? || client.nil? || clearing.nil?
+            else
+              @errors << cells_tab if client.nil? || clearing.nil?
+            end
           else
             @errors << cells_tab
           end
@@ -205,17 +209,18 @@ class HomeController < ApplicationController
 
   def check_bill(cells_tab)
     if cells_tab[25][0].eql?('K')
-      company = Company.where(short: 'EP KUBA').first
+      company = Company.where(short: 'EP JAKUB').first
     else
       company = Company.where(short: 'EP GRAŻYNA').first
     end
 
-    Bill.where('number=? AND company_id=?', cells_tab[25], company.id).first
+    str = String.new cells_tab[25][1..-1]
+    Bill.where('number=? AND company_id=?', str, company.id).first
   end
 
   def create_bill(cells_tab, clearing)
     if cells_tab[25][0].eql?('K')
-      company = Company.where(short: 'EP KUBA').first
+      company = Company.where(short: 'EP JAKUB').first
     else
       company = Company.where(short: 'EP GRAŻYNA').first
     end
@@ -224,7 +229,11 @@ class HomeController < ApplicationController
     bill.issue_date = prepare_date(cells_tab[22]) unless cells_tab[22].empty? #data
     bill.total = cells_tab[23].split(',').join('.') unless cells_tab[23].empty? #liczba
     bill.maturity_date = prepare_date(cells_tab[24]) unless cells_tab[24].empty? #data
-    bill.number = cells_tab[25]
+    if cells_tab[25][0].eql?('K')
+      bill.number = cells_tab[25][1..-1]
+    else
+      bill.number = cells_tab[25]
+    end
     if cells_tab[27].empty? #columna AB
       bill.title = 'Usługa biurowa'
       bill.payment_form = 'Przelew'
