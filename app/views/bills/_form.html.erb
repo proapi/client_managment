@@ -36,12 +36,22 @@
             <% end %>
           </td>
         </tr>
-        <tr>
-          <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
-          <td>
-            <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {prompt: true}, {'data-message' => Clearing.generate_final_commissions} %>
-          </td>
-        </tr>
+        <% if @bill.new_record? %>
+            <tr>
+              <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
+              <td>
+                <%= f.collection_select :clearing_id, Clearing.without_bill, :id, :title, {prompt: true}, {'data-message' => Clearing.generate_final_commissions} %>
+              </td>
+            </tr>
+        <% else %>
+            <tr>
+              <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z rachunkiem" %></strong></td>
+              <td>
+                <%= f.collection_select :clearing_id, [@bill.clearing], :id, :title, {prompt: true}, {'data-message' => Clearing.generate_final_commissions} %>
+              </td>
+            </tr>
+        <% end %>
+
         <tr>
           <td><strong><%= f.label :company_id, "Firma wystawiająca" %></strong></td>
           <td>
@@ -66,7 +76,7 @@
         <tr>
           <td><strong><%= f.label :payment_form, "Forma płatności" %></strong></td>
           <td>
-            <%= f.select :payment_form, options_for_select(%w(Gotówka Przelew Pobranie), @bill.payment_form) %>
+            <%= f.select :payment_form, options_for_select(%w(Przelew Pobranie Gotówka), @bill.payment_form) %>
           </td>
         </tr>
         <tr>
@@ -105,7 +115,6 @@
         </tr>
         <tr>
           <td><%= f.submit "Zapisz" %></td>
-          <td><%= f.submit "Zapisz i wydrukuj" %></td>
         </tr>
       </table>
     </div>

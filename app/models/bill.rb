@@ -64,8 +64,8 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 25
 
-    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.city}, #{self.company.address.code}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
-    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.city}, #{self.clearing.client.address.code}"]], width: 260, :cell_style => {:borders => [], align: :center})
+    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.code}, #{self.company.address.city}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
+    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.code}, #{self.clearing.client.address.city}"]], width: 260, :cell_style => {:borders => [], align: :center})
     cell_header_left = pdf.make_cell(content: "<b>Sprzedawca</b>", inline_format: true, align: :center)
     cell_header_right = pdf.make_cell(content: "<b>Nabywca</b>", inline_format: true, align: :center)
     table_data = [[cell_header_left, cell_header_right], [table_left, table_right]]
@@ -74,7 +74,11 @@ class Bill < ActiveRecord::Base
     pdf.move_down 25
 
     table_left = pdf.make_table([["Data sprzedaży: #{helpers.localize(self.issue_date)}"], ["Termin zapłaty: #{helpers.localize(self.maturity_date)}"], ["Sposób zapłaty: #{self.payment_form}"]], width: 260, :cell_style => {:borders => [], align: :left})
-    table_right = pdf.make_table([["Bank: #{self.company.bank_name}"], ["Numer konta: #{self.company.account_number}"], [""]], width: 260, :cell_style => {:borders => [], align: :left})
+    if self.payment_form.eql? 'Pobranie'
+      table_right = pdf.make_table([[""], [""], [""]], width: 260, :cell_style => {:borders => [], align: :left})
+    else
+      table_right = pdf.make_table([["Bank: #{self.company.bank_name}"], ["Numer konta: #{self.company.account_number}"], [""]], width: 260, :cell_style => {:borders => [], align: :left})
+    end
 
     pdf.table([[table_left, table_right]], width: 520, position: :center, :cell_style => {:borders => []})
 
@@ -103,7 +107,7 @@ class Bill < ActiveRecord::Base
   end
 
   def set_number
-    self.number="#{self.company.bill_number.to_i + 1}/#{Date.current.year}" if self.number.blank?
+    self.number = "#{self.company.bill_number.to_i + 1}/#{Date.current.year}" if self.number.blank?
   end
 
   def set_number_in_company
