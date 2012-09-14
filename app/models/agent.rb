@@ -4,7 +4,7 @@ class Agent < ActiveRecord::Base
   validates_presence_of :name
 
   def self.all_cached
-    Rails.cache.fetch('Agent.all') { all }
+    Rails.cache.fetch('Agent.all') { Agent.order('name') }
   end
 
   after_save    :expire_all_cache

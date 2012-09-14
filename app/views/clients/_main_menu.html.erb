@@ -6,6 +6,7 @@
       <li><%= link_to 'Szczegóły', @client %></li>
       <li><%= link_to 'Edycja', edit_client_path(@client) %></li>
       <li><%= link_to 'Historia', history_client_path(@client) %></li>
+      <li><%= link_to 'Koperta', home_envelope_path(:search => {:client_id => @client.id}) %></li>
       <li><%= link_to 'Usuń', @client, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
       <li></li>
     </ul>

@@ -12,7 +12,7 @@ class Bill < ActiveRecord::Base
   validates_presence_of :clearing_id, :company_id, :user_id, :total, :issue_date, :maturity_date
 
   def self.all_cached
-    Rails.cache.fetch('Bill.all') { all(include: [:company, {:clearing => [:client, :country]}]) }
+    Rails.cache.fetch('Bill.all') { Bill.includes([:company, {:clearing => [:client, :country]}]).order('number') }
   end
 
   after_save :expire_all_cache

@@ -5,7 +5,7 @@ class Country < ActiveRecord::Base
   validates_presence_of :currency, :name, :short
 
   def self.all_cached
-    Rails.cache.fetch('Country.all') { all }
+    Rails.cache.fetch('Country.all') { Country.order('name') }
   end
 
   after_save    :expire_all_cache

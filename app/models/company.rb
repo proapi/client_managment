@@ -13,7 +13,7 @@ class Company < ActiveRecord::Base
   end
 
   def self.all_cached
-    Rails.cache.fetch('Company.all') { all }
+    Rails.cache.fetch('Company.all') { Company.order('name') }
   end
 
   after_save :expire_all_cache

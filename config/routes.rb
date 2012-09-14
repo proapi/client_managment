@@ -46,4 +46,5 @@ Europodatki::Application.routes.draw do
   match 'home/clearings_report' => 'home#clearings_report', :as => 'home_clearings_report'
   match 'home/countries_report' => 'home#countries_report', :as => 'home_countries_report'
   match 'home/file_upload' => 'home#file_upload', :as => 'home_file_upload'
+  match 'home/envelope' => 'home#envelope', :as => 'home_envelope'
 end

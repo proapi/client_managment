@@ -10,6 +10,7 @@
       <% if @clearing.bill.nil? %>
           <li><%= link_to 'Wystaw rachunek', new_clearing_bill_path(@clearing) %></li>
       <% end %>
+      <li><%= link_to 'Koperta', home_envelope_path(:search => {:client_id => @clearing.client.id}) %></li>
     </ul>
 <% end %>
 <h3>Rozliczenia</h3>

@@ -3,7 +3,7 @@
 namespace :bills do
   desc "Changes all numbers into /2010 from /10"
   task :change_number => :environment do
-    puts 'Start'
+    puts 'Fix bills start'
     Bill.all.each do |bill|
       if bill.payment_form.eql?("Za pobraniem")
         bill.payment_form = "Pobranie"
@@ -23,6 +23,6 @@ namespace :bills do
       end
     end
     Bill.first.expire_all_cache
-    puts 'Stop'
+    puts 'Fix bills stop'
   end
 end

@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :clients
   has_many :clearings
+  belongs_to :company
 
   validates_presence_of :name, :email
 

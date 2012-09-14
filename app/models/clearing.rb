@@ -20,15 +20,15 @@ class Clearing < ActiveRecord::Base
   accepts_nested_attributes_for :bill
 
   def self.undone
-    Rails.cache.fetch('Clearing.undone') { where(archive: false) }
+    Rails.cache.fetch('Clearing.undone') { Clearing.includes(:client).where(archive: false).order("clients.lastname") }
   end
 
   def self.all_cached
-    Rails.cache.fetch('Clearing.all') { all(include: [:client, :country, :bill]) }
+    Rails.cache.fetch('Clearing.all') { Clearing.includes([:client, :country, :bill]).order("clients.lastname") }
   end
 
   def self.without_bill
-    all(include: :bill).keep_if { |c| c.bill.nil? }
+    Clearing.includes([:client, :country, :bill]).order("clients.lastname").keep_if { |c| c.bill.nil? }
   end
 
   def self.generate_final_commissions

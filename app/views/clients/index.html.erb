@@ -18,8 +18,8 @@
     <table class="listing jquery_datatable" cellpadding="0" cellspacing="0">
       <thead>
       <%= content_tag :tr do %>
-          <%= content_tag :th, 'Identyfikator' %>
           <%= content_tag :th, 'Nazwisko' %>
+          <%= content_tag :th, 'Identyfikator' %>
           <%= content_tag :th, 'Imię' %>
           <%= content_tag :th, 'Miasto' %>
           <%= content_tag :th, 'Telefon kom' %>
@@ -29,8 +29,8 @@
       </thead>
       <tbody>
       <%= content_tag_for(:tr, @clients) do |client| %>
-          <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
           <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
           <%= content_tag :td, check_blank_value(client.firstname) %>
           <%= content_tag :td, check_blank_value(client.address.city) %>
           <%= content_tag :td, check_blank_value(client.mobile) %>

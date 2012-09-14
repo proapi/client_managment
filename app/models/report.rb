@@ -3,6 +3,32 @@ require 'prawn'
 require 'csv'
 
 class Report
+  def self.create_envelope(client, company)
+    pdf = Prawn::Document.new(page_size: "C5")
+    pdf.font_families.update("mine" => {
+        :bold => "#{Rails.root}/app/assets/fonts/DejaVuSans-Bold.ttf",
+        :italic => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf",
+        :bold_italic => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf",
+        :normal => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"})
+    pdf.font("mine")
+    pdf.font_size 14
+
+    pdf.text_box("#{company.name}", :at => [20, 20], :width => 400, :height => 100, :rotate => 90, :rotate_around => :upper_left)
+    pdf.text_box("#{company.address.street}", :at => [45, 20], :width => 400, :height => 100, :rotate => 90, :rotate_around => :upper_left)
+    pdf.text_box("#{company.address.code}, #{company.address.city}", :at => [70, 20], :width => 400, :height => 100, :rotate => 90, :rotate_around => :upper_left)
+
+    pdf.font_size 20
+
+    pdf.text_box("#{client.fullname}", :at => [240, 300], :width => 400, :height => 100, :rotate => 90, :rotate_around => :upper_left)
+    pdf.text_box("#{client.mailing_address.street}", :at => [270, 300], :width => 400, :height => 100, :rotate => 90, :rotate_around => :upper_left)
+    pdf.text_box("#{client.mailing_address.code}, #{client.mailing_address.city}", :at => [300, 300], :width => 400, :height => 100, :rotate => 90, :rotate_around => :upper_left)
+
+    file = File.join(Rails.root, "tmp", "envelope.pdf")
+    pdf.render_file file
+
+    file
+  end
+
   def self.bills_report_to_pdf(bills)
     generate_pdf do |pdf|
       pdf.text "Raport rachunków", style: :bold

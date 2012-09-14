@@ -14,6 +14,22 @@ class HomeController < ApplicationController
     @agents = Agent.all_cached
   end
 
+  def envelope
+    if params[:search]
+      if params[:search][:client_id]
+        @client = Client.find params[:search][:client_id]
+      end
+      if params[:search][:company_id]
+        @company = Company.find params[:search][:company_id]
+      end
+
+      if @client && @company
+        send_file Report.create_envelope(@client, @company), :filename => "koperta.pdf", :type => "application/pdf"
+        return
+      end
+    end
+  end
+
   def reports
   end
 

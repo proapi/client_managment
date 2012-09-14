@@ -1,0 +1,31 @@
+<% content_for :section_header do %>
+    Wydruk koperty
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Strona główna", root_url %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'W tej sekcji możliwe jest wygenerowanie pliku do wydruku koperty' %>
+<% end %>
+
+<h3>Wybierz firmę wystawiającą kopertę</h3>
+
+<%= form_for(:search, url: home_envelope_path, method: :get) do |f| %>
+    <fieldset>
+      <legend>Koperta</legend>
+      <ul>
+        <li>
+          <%= f.label :client_id, 'Klient' %>
+          <%= f.collection_select :client_id, Client.all_cached, :id, :fullname, {selected: @client.id} %>
+        </li>
+        <li>
+          <%= f.label :company_id, 'Firma wystawiająca' %>
+          <%= f.collection_select :company_id, Company.all_cached, :id, :name, {selected: @current_user.company.id} %>
+        </li>
+      </ul>
+    </fieldset>
+    <br/><br/>
+    <%= f.submit 'Generuj kopertę', name: nil %>
+<% end %>
