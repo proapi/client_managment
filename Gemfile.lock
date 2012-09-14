@@ -161,9 +161,6 @@ GEM
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.4.0)
     nokogiri (1.5.2)
-    numbers_and_words (0.4.0)
-      activesupport
-      i18n
     orm_adapter (0.0.7)
     pdf-reader (1.2.0)
       Ascii85 (~> 1.0.0)
@@ -308,7 +305,6 @@ DEPENDENCIES
   launchy (>= 2.1.0)
   libnotify
   newrelic_rpm
-  numbers_and_words
   prawn (>= 1.0.0rc1)
   rack-mini-profiler
   rails (= 3.2.6)

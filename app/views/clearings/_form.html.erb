@@ -19,7 +19,7 @@
     <tr>
       <td><strong><%= f.label :client_id, "Klient powiązany z rozliczeniem" %></strong></td>
       <td>
-        <%= f.collection_select :client_id, Client.all_cached, :id, :lastname, {prompt: true} %>
+        <%= f.collection_select :client_id, Client.all_cached, :id, :fullname, {prompt: true} %>
       </td>
     </tr>
     <tr>
@@ -194,7 +194,7 @@
         <tr>
           <td><strong><%= bill_form.label :payment_form, "Forma płatności" %></strong></td>
           <td>
-            <%= bill_form.select :payment_form, options_for_select(%w(Przelew Pobranie Gotówka), @clearing.bill.payment_form) %>
+            <%= bill_form.select :payment_form, options_for_select(%w(Pobranie Gotówka Przelew), @clearing.bill.payment_form) %>
           </td>
         </tr>
         <tr>

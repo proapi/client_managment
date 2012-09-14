@@ -74,10 +74,11 @@ class Bill < ActiveRecord::Base
     pdf.move_down 25
 
     table_left = pdf.make_table([["Data sprzedaży: #{helpers.localize(self.issue_date)}"], ["Termin zapłaty: #{helpers.localize(self.maturity_date)}"], ["Sposób zapłaty: #{self.payment_form}"]], width: 260, :cell_style => {:borders => [], align: :left})
-    if self.payment_form.eql? 'Pobranie'
-      table_right = pdf.make_table([[""], [""], [""]], width: 260, :cell_style => {:borders => [], align: :left})
-    else
+
+    if self.payment_form.eql? 'Przelew'
       table_right = pdf.make_table([["Bank: #{self.company.bank_name}"], ["Numer konta: #{self.company.account_number}"], [""]], width: 260, :cell_style => {:borders => [], align: :left})
+    else
+      table_right = pdf.make_table([[""], [""], [""]], width: 260, :cell_style => {:borders => [], align: :left})
     end
 
     pdf.table([[table_left, table_right]], width: 520, position: :center, :cell_style => {:borders => []})
@@ -94,8 +95,7 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 25
 
-    #TODO słownie kwotę zrobić
-    #pdf.text "Słownie: #{123.to_words}"
+    pdf.text "Słownie: #{price_to_words(helpers.number_with_precision(self.total, precision: 2, delimiter: " "))}"
 
     pdf.move_down 90
 
@@ -114,5 +114,24 @@ class Bill < ActiveRecord::Base
     unless self.number_manual
       self.company.update_attribute :bill_number, (self.company.bill_number.to_i + 1)
     end
+  end
+
+  def price_to_words(price)
+    hash = %w(zer jed dwa trz czt pię sze sie osi dzi)
+    str = ""
+    grosze = false
+    price.to_s.each_char do |s|
+      if s.eql? ","
+        grosze = true
+        str += "zł*"
+      else
+        if grosze
+          str += "#{s}"
+        else
+          str += "#{hash[s.to_i]}*"
+        end
+      end
+    end
+    str += "/100"
   end
 end

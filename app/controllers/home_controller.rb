@@ -239,7 +239,7 @@ class HomeController < ApplicationController
       bill.payment_form = 'Przelew'
     else
       bill.title = 'Usługa inkasa'
-      bill.payment_form = 'Za pobraniem'
+      bill.payment_form = 'Pobranie'
     end
     bill.units = 'szt.'
     bill.clearing_id = clearing.id

@@ -76,7 +76,7 @@
         <tr>
           <td><strong><%= f.label :payment_form, "Forma płatności" %></strong></td>
           <td>
-            <%= f.select :payment_form, options_for_select(%w(Przelew Pobranie Gotówka), @bill.payment_form) %>
+            <%= f.select :payment_form, options_for_select(%w(Pobranie Gotówka Przelew), @bill.payment_form) %>
           </td>
         </tr>
         <tr>
