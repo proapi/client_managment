@@ -251,7 +251,9 @@ class HomeController < ApplicationController
 
   def prepare_date(date, sufix = '20')
     str = String.new date
-    Date.strptime(str.insert(-3, sufix), '%d-%m-%Y')
+    #FIXME: pamiętać, że dla innego kraju niż IE jest inaczej!
+    #Date.strptime(str.insert(-3, sufix), '%d-%m-%Y')
+    Date.strptime(str, '%d-%m-%Y')
   end
 
 end
