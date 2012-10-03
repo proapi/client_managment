@@ -9,10 +9,10 @@
   <li><a href="#">Contents</a></li> -->
     <% if user_signed_in? %>
         <li>
-          <%= link_to 'Strona główna', root_url %>
+          <%= link_to 'Rozliczenia w toku', root_url %>
         </li>
         <li>
-          <%= link_to 'Rozliczenia', clearings_path, class: 'link' %>
+          <%= link_to 'Wszystkie rozliczenia', clearings_path, class: 'link' %>
         </li>
         <li>
           <%= link_to 'Klienci', clients_path, class: 'link' %>

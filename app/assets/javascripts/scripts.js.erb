@@ -24,7 +24,7 @@ $(function () {
         var bill_amount = $("#clearing_bill_amount").val();
         bill_amount = (bill_amount + "").replace(',', '.');
         var total_to_client = income_total - bill_amount;
-        total_to_client = (total_to_client.toFixed(2) + "").replace('.', ',');
+        total_to_client = ((Math.round(total_to_client*100)/100).toFixed(2) + "").replace('.', ',');
         $("#clearing_total_to_client").val(total_to_client);
     });
     $(".commission").change(function () {
@@ -54,7 +54,7 @@ $(function () {
                     if (commission_calc_1 > commission_calc_2) {
                         commission_calc = commission_calc_1;
                     }
-                    commission_calc = (commission_calc.toFixed(2) + "").replace('.', ',');
+                    commission_calc = ((Math.round(commission_calc*100)/100).toFixed(2) + "").replace('.', ',');
                     $("#clearing_commission_final").val(commission_calc);
                     if ($("#clearing_bill_attributes_total_manual").is(':checked') == false) {
                         $("#clearing_bill_attributes_total").val(commission_calc);

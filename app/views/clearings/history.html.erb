@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :history do %>
-    <%= link_to "Strona główna", root_url %> / <%= link_to "Szczegóły rozliczenia", clearing_path(@clearing) %> / <%= link_to "Historia rozliczenia", history_clearing_path(@clearing) %> / <%= link_to 'Wstecz', :back %>
+    <%= link_to "Rozliczenia w toku", root_url %> / <%= link_to "Szczegóły rozliczenia", clearing_path(@clearing) %> / <%= link_to "Historia rozliczenia", history_clearing_path(@clearing) %> / <%= link_to 'Wstecz', :back %>
 <% end %>
 
 <% content_for :help do %>

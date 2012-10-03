@@ -26,7 +26,7 @@
           <td><strong><%= f.label :number, "Numer rachunku" %></strong></td>
           <td>
             <% if @bill.new_record? %>
-                <%= f.text_field :number, value: "#{Company.first.bill_number.to_i + 1}/#{Date.current.year}", readonly: true %>
+                <%= f.text_field :number, value: "#{Company.all_cached.first.bill_number.to_i + 1}/#{Date.current.year}", readonly: true %>
             <% else %>
                 <% if @bill.number_manual? %>
                     <%= f.text_field :number %>

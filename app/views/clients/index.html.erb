@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :history do %>
-    <%= link_to "Strona główna", root_url %> / <%= link_to "Lista klientów", clients_path %> / <%= link_to 'Wstecz', :back %>
+    <%= link_to "Rozliczenia w toku", root_url %> / <%= link_to "Lista klientów", clients_path %> / <%= link_to 'Wstecz', :back %>
 <% end %>
 
 <% content_for :help do %>
@@ -19,8 +19,8 @@
       <thead>
       <%= content_tag :tr do %>
           <%= content_tag :th, 'Nazwisko' %>
-          <%= content_tag :th, 'Identyfikator' %>
           <%= content_tag :th, 'Imię' %>
+          <%= content_tag :th, 'Identyfikator' %>
           <%= content_tag :th, 'Miasto' %>
           <%= content_tag :th, 'Telefon kom' %>
           <%= content_tag :th, 'E-mail' %>
@@ -30,8 +30,8 @@
       <tbody>
       <%= content_tag_for(:tr, @clients) do |client| %>
           <%= content_tag :td, (link_to client.lastname, client_path(client)), class: 'style1' %>
+          <%= content_tag :td, (link_to client.firstname, client_path(client)), class: 'style1' %>
           <%= content_tag :td, (link_to client.identifier, client_path(client)), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(client.firstname) %>
           <%= content_tag :td, check_blank_value(client.address.city) %>
           <%= content_tag :td, check_blank_value(client.mobile) %>
           <%= content_tag :td, check_blank_value(client.email) %>

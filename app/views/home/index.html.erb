@@ -1,9 +1,9 @@
 <% content_for :section_header do %>
-    Strona główna
+    Rozliczenia w toku
 <% end %>
 
 <% content_for :history do %>
-    <%= link_to "Strona główna", root_url %> / <%= link_to 'Wstecz', :back %>
+    <%= link_to "Rozliczenia w toku", root_url %> / <%= link_to 'Wstecz', :back %>
 <% end %>
 
 <% content_for :help do %>
@@ -16,7 +16,6 @@
       <%= content_tag :tr do %>
           <%= content_tag :th, 'Nazwisko' %>
           <%= content_tag :th, 'Imię' %>
-          <%= content_tag :th, 'Identyfikator' %>
           <%= content_tag :th, 'Kraj' %>
           <%= content_tag :th, 'Rok' %>
           <%= content_tag :th, 'Numer podatkowy' %>
@@ -29,10 +28,9 @@
       <%= content_tag_for(:tr, @clearings) do |clearing| %>
           <%= content_tag :td, ((link_to clearing.client.lastname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
           <%= content_tag :td, ((link_to clearing.client.firstname, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
-          <%= content_tag :td, ((link_to clearing.client.identifier, client_path(clearing.client)) unless clearing.client.nil?), class: 'style1' %>
-          <%= content_tag :td, ((link_to clearing.country.name, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
+          <%= content_tag :td, ((link_to clearing.country.short, country_path(clearing.country)) unless clearing.country.nil?), class: 'style1' %>
           <%= content_tag :td, clearing.year.nil? ? "Brak" : link_to(clearing.year, clearing), class: 'style1' %>
-          <%= content_tag :td, clearing.tax_number.nil? ? "Brak" : link_to(clearing.tax_number, clearing), class: 'style1' %>
+          <%= content_tag :td, (clearing.tax_number.empty? ? "Brak" : link_to(clearing.tax_number, clearing)), class: 'style1' %>
           <%= content_tag :td, clearing.rebate_calc.nil? ? "Brak" : number_to_currency(clearing.rebate_calc) %>
           <%= content_tag :td, clearing.office_send_date.nil? ? "Brak" : l(clearing.office_send_date) %>
           <%= content_tag :td, class: 'actions' do %>

@@ -5,22 +5,24 @@
           <%= content_tag :th, 'Nazwisko' %>
           <%= content_tag :th, 'Kraj' %>
           <%= content_tag :th, 'Rok rozliczenia' %>
-          <%= content_tag :th, 'Data złożenia wniosku' %>
+          <%= content_tag :th, 'Numer podatkowy' %>
           <%= content_tag :th, 'Data wysłania do urzędu' %>
-          <%= content_tag :th, 'Zwrot' %>
+          <%= content_tag :th, 'Wyliczony zwrot' %>
           <%= content_tag :th, 'Data decyzji' %>
+          <%= content_tag :th, 'Data zapłaty' %>
           <%= content_tag :th, 'Akcje' %>
       <% end %>
       </thead>
       <tbody>
       <%= content_tag_for(:tr, clearings) do |clearing| %>
           <%= content_tag :td, (clearing.client.nil? ? 'Brak' : link_to(clearing.client.lastname, client_path(clearing.client))), class: 'style1' %>
-          <%= content_tag :td, (clearing.country.nil? ? 'Brak' : link_to(clearing.country.name, country_path(clearing.country))), class: 'style1' %>
+          <%= content_tag :td, (clearing.country.nil? ? 'Brak' : link_to(clearing.country.short, country_path(clearing.country))), class: 'style1' %>
           <%= content_tag :td, (clearing.year.nil? ? 'Brak' : link_to(clearing.year, clearing)), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(clearing.application_date) %>
+          <%= content_tag :td, (clearing.tax_number.nil? ? 'Brak' : link_to(clearing.tax_number, clearing)), class: 'style1' %>
           <%= content_tag :td, check_blank_value(clearing.office_send_date) %>
-          <%= content_tag :td, check_blank_value(clearing.rebate_final) %>
+          <%= content_tag :td, check_blank_value(clearing.rebate_calc) %>
           <%= content_tag :td, check_blank_value(clearing.decision_date) %>
+          <%= content_tag :td, check_blank_value(clearing.payment_date) %>
           <%= content_tag :td, class: 'actions' do %>
               <%= link_to image_tag('info.png'), clearing, title: "Szczegółowe informacje" %>
               <%= link_to image_tag('modify.png'), edit_clearing_path(clearing), title: "Edycja rozliczenia" %>

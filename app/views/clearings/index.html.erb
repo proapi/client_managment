@@ -1,9 +1,9 @@
 <% content_for :section_header do %>
-    Lista rozliczeń
+    Wszystkie rozliczenia
 <% end %>
 
 <% content_for :history do %>
-    <%= link_to "Strona główna", root_url %> / <%= link_to "Lista rozliczeń", clearings_path %> / <%= link_to 'Wstecz', :back %>
+    <%= link_to "Rozliczenia w toku", root_url %> / <%= link_to "Wszystkie rozliczenia", clearings_path %> / <%= link_to 'Wstecz', :back %>
 <% end %>
 
 <% content_for :help do %>

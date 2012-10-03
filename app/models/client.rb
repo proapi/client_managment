@@ -16,7 +16,6 @@ class Client < ActiveRecord::Base
 
   validates :firstname, presence: true
   validates :lastname, presence: true
-  validates :birthdate, presence: true
   validates :identifier, presence: true
   validates_numericality_of :identifier
   validates_uniqueness_of :identifier

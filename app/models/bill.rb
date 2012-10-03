@@ -108,6 +108,8 @@ class Bill < ActiveRecord::Base
 
   def set_number
     self.number = "#{self.company.bill_number.to_i + 1}/#{Date.current.year}" if self.number.blank?
+    self.number = self.number.insert(0, '0') if self.number.to_s.size < 7
+    self.number = self.number.insert(0, '0') if self.number.to_s.size < 8
   end
 
   def set_number_in_company
