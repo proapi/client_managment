@@ -34,6 +34,11 @@ class HomeController < ApplicationController
   end
 
   def bills_report
+    if params[:q]
+      params[:q].deep_merge!("s" => "number asc")
+    else
+      params[:q] = {"s" => "number asc"}
+    end
     @search = Bill.search(params[:q])
     @bills = @search.result(distinct: true)
 
