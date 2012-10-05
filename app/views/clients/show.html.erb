@@ -28,7 +28,13 @@
     <%= check_blank 'E-mail', @client.email %>
     <tr>
       <td>Data urodzenia</td>
-      <td><strong><%= l @client.birthdate %></strong></td>
+      <td><strong>
+        <% if @client.birthdate.blank? %>
+            Brak
+        <% else %>
+            <%= l @client.birthdate %>
+        <% end %>
+      </strong></td>
     </tr>
     <tr>
       <th class="full" colspan="2">Adres zameldowania</th>
