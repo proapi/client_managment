@@ -81,7 +81,7 @@ end
 
 after "deploy:create_symlink", "deploy:resymlink"
 after "deploy:resymlink", "deploy:migration"
-after "deploy:restart", "deploy:cache_expire"
-after "deploy:cache_expire", "deploy:fix_bills"
+#after "deploy:restart", "deploy:cache_expire"
+#after "deploy:cache_expire", "deploy:fix_bills"
 #after 'deploy:update', 'deploy:resymlink'
 
