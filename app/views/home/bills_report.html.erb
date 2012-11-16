@@ -43,7 +43,7 @@
     <%= f.submit 'Generuj raport w formacie pdf' %>
     <%= f.submit 'Generuj raport w formacie csv' %>
 <% end %>
-<% if @bills %>
+<% unless @no_html %>
     <br/>
     <h3>Wyniki raportu rachunków w danym okresie</h3>
     <%= render partial: 'bills/bills_table', locals: {bills: @bills} %>

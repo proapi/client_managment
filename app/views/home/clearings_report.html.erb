@@ -54,7 +54,7 @@
     <%= f.submit 'Generuj raport w formacie csv' %>
 <% end %>
 
-<% if @clearings %>
+<% unless @no_html %>
     <br/>
     <h3>Wyniki raportu rozliczeń wg agentów</h3>
     <%= render partial: 'clearings/clearings_table', locals: {clearings: @clearings} %>

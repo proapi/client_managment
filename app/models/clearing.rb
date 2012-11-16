@@ -40,7 +40,11 @@ class Clearing < ActiveRecord::Base
   end
 
   def month
-    self.office_send_date.strftime('%m')
+    if self.office_send_date
+      self.office_send_date.strftime('%m')
+    else
+      "00"
+    end
   end
 
   after_save :expire_all_cache

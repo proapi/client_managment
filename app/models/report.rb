@@ -95,7 +95,7 @@ class Report
   end
 
   def self.bills_report_to_csv(bills)
-    string = CSV.generate do |csv|
+    string = CSV.generate(:col_sep => ";") do |csv|
       csv << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
         csv << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
@@ -103,14 +103,14 @@ class Report
     end
 
     file = File.join(Rails.root, "tmp", "raport.csv")
-    File.open(file, 'w') do |f|
-      f.write string
+    File.open(file, 'w:cp1250') do |f|
+      f.write string.encode("cp1250")
     end
     file
   end
 
   def self.clearings_report_to_csv(clearings)
-    string = CSV.generate do |csv|
+    string = CSV.generate(:col_sep => ";") do |csv|
       clearings.group_by(&:year).sort.each do |year, clearings_by_year|
         csv << ["Rok wystawienia rozliczenia:", "#{year}"]
         clearings_by_year.group_by(&:agent).sort.each do |agent, clearings_by_agent|
@@ -124,14 +124,14 @@ class Report
     end
 
     file = File.join(Rails.root, "tmp", "raport.csv")
-    File.open(file, 'w') do |f|
-      f.write string
+    File.open(file, 'w:cp1250') do |f|
+      f.write string.encode("cp1250")
     end
     file
   end
 
   def self.countries_report_to_csv(clearings)
-    string = CSV.generate do |csv|
+    string = CSV.generate(:col_sep => ";") do |csv|
       clearings.group_by(&:year).sort.each do |year, clearings_by_year|
         csv << ["Rok rozliczenia:", "#{year}"]
         clearings_by_year.group_by(&:month).sort.each do |month, clearings_by_month|
@@ -145,8 +145,8 @@ class Report
     end
 
     file = File.join(Rails.root, "tmp", "raport.csv")
-    File.open(file, 'w') do |f|
-      f.write string
+    File.open(file, 'w:cp1250') do |f|
+      f.write string.encode("cp1250")
     end
     file
   end

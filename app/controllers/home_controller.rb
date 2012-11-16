@@ -34,10 +34,12 @@ class HomeController < ApplicationController
   end
 
   def bills_report
+    @no_html = false
     if params[:q]
       params[:q].deep_merge!("s" => "number asc")
     else
       params[:q] = {"s" => "number asc"}
+      @no_html = true
     end
     @search = Bill.search(params[:q])
     @bills = @search.result(distinct: true)
@@ -60,6 +62,11 @@ class HomeController < ApplicationController
   end
 
   def clearings_report
+    @no_html = false
+    unless params[:q]
+      @no_html = true
+    end
+
     @search = Clearing.search(params[:q])
     @clearings = @search.result(distinct: true)
 
@@ -81,6 +88,11 @@ class HomeController < ApplicationController
   end
 
   def countries_report
+    @no_html = false
+    unless params[:q]
+      @no_html = true
+    end
+
     @search = Clearing.search(params[:q])
     @clearings = @search.result(distinct: true)
 
