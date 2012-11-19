@@ -10,12 +10,14 @@
     <% help_block 'W tej sekcji możliwe jest wygenerowanie raportów w możliwych formatach' %>
 <% end %>
 
-<h3>Raport rozliczeń wg agentów</h3>
+<h3>Raport rozliczeń</h3>
 <p><%= button_to 'Idź do raportu', home_clearings_report_path, method: :get %></p>
 
 
-<h3>Raport rachunków w danym okresie</h3>
+<h3>Raport rachunków</h3>
 <p><%= button_to 'Idź do raportu', home_bills_report_path, method: :get %></p>
 
+<!--
 <h3>Raport rozliczeń w danym roku dla poszczególnych krajów</h3>
-<p><%= button_to 'Idź do raportu', home_countries_report_path, method: :get %></p>
+<p><%# button_to 'Idź do raportu', home_countries_report_path, method: :get %></p>
+-->

@@ -87,31 +87,31 @@ class HomeController < ApplicationController
     end
   end
 
-  def countries_report
-    @no_html = false
-    unless params[:q]
-      @no_html = true
-    end
-
-    @search = Clearing.search(params[:q])
-    @clearings = @search.result(distinct: true)
-
-    if params[:commit]
-      if params[:commit].include? 'pdf'
-        send_file Report.countries_report_to_pdf(@clearings), :filename => "raport.pdf", :type => "application/pdf"
-        return
-      end
-
-      if params[:commit].include? 'csv'
-        send_file Report.countries_report_to_csv(@clearings), :filename => "raport.csv", :type => "text/plain"
-        return
-      end
-    end
-
-    respond_to do |format|
-      format.html
-    end
-  end
+  #def countries_report
+  #  @no_html = false
+  #  unless params[:q]
+  #    @no_html = true
+  #  end
+  #
+  #  @search = Clearing.search(params[:q])
+  #  @clearings = @search.result(distinct: true)
+  #
+  #  if params[:commit]
+  #    if params[:commit].include? 'pdf'
+  #      send_file Report.countries_report_to_pdf(@clearings), :filename => "raport.pdf", :type => "application/pdf"
+  #      return
+  #    end
+  #
+  #    if params[:commit].include? 'csv'
+  #      send_file Report.countries_report_to_csv(@clearings), :filename => "raport.csv", :type => "text/plain"
+  #      return
+  #    end
+  #  end
+  #
+  #  respond_to do |format|
+  #    format.html
+  #  end
+  #end
 
   def file_upload
     file = params[:file_upload][:my_file].tempfile

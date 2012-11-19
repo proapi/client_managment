@@ -17,12 +17,24 @@
       <legend>Rozliczenie</legend>
       <ul>
         <li>
-          <%= f.label :office_send_date_gteq, 'Data rozliczenia od' %>
+          <%= f.label :year_eq, 'Rok rozliczenia' %>
+          <%= f.text_field :year_eq %>
+        </li>
+        <li>
+          <%= f.label :office_send_date_gteq, 'Data wysłania do urzędu ' %>
           <%= f.datepicker :office_send_date_gteq %>
         </li>
         <li>
-          <%= f.label :office_send_date_lteq, 'Data rozliczenia do' %>
+          <%= f.label :office_send_date_lteq, 'Data wysłania do urzędu' %>
           <%= f.datepicker :office_send_date_lteq %>
+        </li>
+        <li>
+          <%= f.label :country_id_eq, 'Nazwa kraju' %>
+          <%= f.collection_select :country_id_eq, Country.all_cached, :id, :name, include_blank: "Wszystkie" %>
+        </li>
+        <li>
+          <%= f.label :payment_date_blank, 'Data zapłaty jest pusta' %>
+          <%= f.check_box :payment_date_blank %>
         </li>
       </ul>
     </fieldset>
@@ -43,8 +55,8 @@
           <%= f.datepicker :agent_date_lteq %>
         </li>
         <li>
-          <%= f.label :agent_date_present, 'Data rozliczenia jest wypełniona' %>
-          <%= f.check_box :agent_date_present %>
+          <%= f.label :agent_date_blank, 'Data rozliczenia z agentem jest pusta' %>
+          <%= f.check_box :agent_date_blank %>
         </li>
       </ul>
     </fieldset>
