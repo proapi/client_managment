@@ -337,6 +337,13 @@ pl:
         title: 'Tytuł'
         created_at: 'Data utworzenia'
         updated_at: 'Data modyfikacji'
+      enclosure:
+        name: 'Nazwa'
+        clearing_id: 'Rozliczenie'
+        user_id: 'Użytwkownik'
+        description: 'Opis / uwagi'
+        created_at: 'Data utworzenia'
+        updated_at: 'Data modyfikacji'
       message:
         body: 'Treść'
         clearing_id: 'Rozliczenie'

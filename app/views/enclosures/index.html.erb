@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Wszystkie załączniki
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Załączniki", root_url %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Lista wszystkich rekordów załączników w bazie danych' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render partial: 'enclosures/enclosures_table', locals: {enclosures: @enclosures} %>

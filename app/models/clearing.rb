@@ -5,6 +5,7 @@ class Clearing < ActiveRecord::Base
   belongs_to :country
   belongs_to :user
   has_many :messages, dependent: :destroy
+  has_many :enclosures, dependent: :destroy
   has_one :bill, dependent: :destroy
   belongs_to :agent
 

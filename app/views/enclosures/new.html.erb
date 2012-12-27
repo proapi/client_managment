@@ -1,0 +1,17 @@
+<% content_for :section_header do %>
+    Dodawanie nowego załącznika
+<% end %>
+
+<% content_for :history do %>
+    <%= link_to "Załączniki", root_url %> / <%= link_to "Dodawanie załącznika", new_enclosure_path %> / <%= link_to 'Wstecz', :back %>
+<% end %>
+
+<% content_for :help do %>
+    <% help_block 'Dodawanie nowego rekordu załącznika.' %>
+<% end %>
+
+<% content_for :main_menu do %>
+    <% render 'main_menu' %>
+<% end %>
+
+<%= render 'form' %>

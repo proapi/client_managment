@@ -26,6 +26,9 @@
         <li>
           <%= link_to 'Raporty', home_reports_path, class: 'link' %>
         </li>
+        <li>
+          <%= link_to 'Załączniki', enclosures_path, class: 'link' %>
+        </li>
         <% if current_user.admin? %>
             <li>
               <%= link_to 'Użytkownicy', users_path, class: 'link' %>

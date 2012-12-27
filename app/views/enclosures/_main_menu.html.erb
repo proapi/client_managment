@@ -1,0 +1,13 @@
+<% if @enclosure && !@enclosure.new_record? %>
+    <h3><%= @enclosure.name %></h3>
+    <ul class="nav">
+      <li><%= link_to 'Szczegóły', @enclosure %></li>
+      <li><%= link_to 'Edycja', edit_enclosure_path(@enclosure) %></li>
+      <li><%= link_to 'Usuń', @enclosure, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
+<% end %>
+<h3>Załączniki</h3>
+<ul class="nav">
+  <li><%= link_to 'Nowy załącznik', new_enclosure_path %></li>
+  <li><%= link_to 'Wszystkie załączniki', enclosures_path %></li>
+  <li></li>
+</ul>

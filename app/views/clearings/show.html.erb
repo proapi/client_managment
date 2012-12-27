@@ -110,3 +110,6 @@
 
 <h3>Wiadomości do rozliczenia</h3>
 <%= render partial: 'messages/messages_table', locals: {messages: @clearing.messages} %>
+
+<h3>Załączniki do rozliczenia</h3>
+<%= render partial: 'enclosures/enclosures_table', locals: {enclosures: @clearing.enclosures} %>

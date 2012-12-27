@@ -1,4 +1,6 @@
 Europodatki::Application.routes.draw do
+  resources :enclosures
+
   resources :agents
 
   resources :bills
@@ -9,6 +11,7 @@ Europodatki::Application.routes.draw do
     end
     resource :bill, only: [:new]
     resources :messages, only: [:new, :index]
+    resources :enclosures, only: [:new, :index]
   end
 
   resources :companies

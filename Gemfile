@@ -57,3 +57,4 @@ gem 'ransack'
 gem 'active_attr'
 gem 'prawn', ">= 1.0.0rc1"
 gem 'rack-mini-profiler'
+gem 'paperclip', "~> 3.0"
