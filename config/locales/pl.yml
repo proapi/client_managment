@@ -344,6 +344,7 @@ pl:
         description: 'Opis / uwagi'
         created_at: 'Data utworzenia'
         updated_at: 'Data modyfikacji'
+        attachment_file_size: 'rozmiar pliku'
       message:
         body: 'Treść'
         clearing_id: 'Rozliczenie'

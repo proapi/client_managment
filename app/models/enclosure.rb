@@ -9,7 +9,7 @@ class Enclosure < ActiveRecord::Base
   validates :name, :presence => true
   validates :clearing_id, :presence => true
   validates :user_id, :presence => true
-  validates :attachment, :attachment_presence => true
+  validates_attachment :attachment, :presence => true, :size => { :in => 0..8000.kilobytes }
 
   def self.all_cached
     Rails.cache.fetch('Enclosure.all') { all }

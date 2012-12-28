@@ -14,6 +14,7 @@ namespace :cache do
     Document.first.try :expire_all_cache
     Message.first.try :expire_all_cache
     User.first.try :expire_all_cache
+    Enclosure.first.try :expire_all_cache
     puts 'Cleaning cache completed'
   end
 end

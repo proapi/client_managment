@@ -78,3 +78,6 @@
 
 <h3>Wiadomości klienta</h3>
 <%= render partial: 'messages/messages_table', locals: {messages: @client.messages} %>
+
+<h3>Załączniki klienta(zbiorcze z rozliczeń)</h3>
+<%= render partial: 'enclosures/enclosures_table', locals: {enclosures: @client.enclosures} %>

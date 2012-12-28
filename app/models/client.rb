@@ -8,6 +8,7 @@ class Client < ActiveRecord::Base
   has_many :messages, through: :clearings
   has_many :clearings, dependent: :destroy
   has_many :bills, through: :clearings
+  has_many :enclosures, through: :clearings
 
   attr_accessible :birthdate, :description, :email, :firstname, :lastname, :middlename, :mobile, :telephone, :user_id, :address_attributes, :mailing_address_attributes, :children_data, :married, :married_date, :married_data
 
