@@ -40,7 +40,14 @@ class Report
       table_data = Array.new
       table_data << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
-        table_data << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
+        bill.clearing.income_total = bill.total if bill.clearing.income_total.nil? && bill.clearing.archive?
+        table_data << ["#{bill.clearing.client.lastname}",
+                       "#{bill.clearing.client.firstname}",
+                       "#{bill.number}",
+                       "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}",
+                       "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}",
+                       "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(0, precision: 2, delimiter: " ")}",
+                       "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
       end
       pdf.table(table_data, header: true, width: 520, position: :center)
     end
@@ -108,7 +115,14 @@ class Report
     string = CSV.generate(:col_sep => ";") do |csv|
       csv << ["Nazwisko", "Imię", "Numer rachunku", "Kwota z rachunku", "Kwota zapłacona", "Różnica kwot", "Data zapłaty"]
       bills.each do |bill|
-        csv << ["#{bill.clearing.client.lastname}", "#{bill.clearing.client.firstname}", "#{bill.number}", "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}", "#{bill.clearing.income_total.nil? ? '' : 0}", "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
+        bill.clearing.income_total = bill.total if bill.clearing.income_total.nil? && bill.clearing.archive?
+        csv << ["#{bill.clearing.client.lastname}",
+                "#{bill.clearing.client.firstname}",
+                "#{bill.number}",
+                "#{ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}",
+                "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(bill.total, precision: 2, delimiter: " ")}",
+                "#{bill.clearing.income_total.nil? ? '' : ActionController::Base.helpers.number_with_precision(0, precision: 2, delimiter: " ")}",
+                "#{bill.clearing.payment_date.nil? ? '' : ActionController::Base.helpers.localize(bill.clearing.payment_date)}"]
       end
     end
 
