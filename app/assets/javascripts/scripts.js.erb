@@ -48,7 +48,11 @@ $(function () {
             if ((commission_min) && (commission_currency) && (commission_percent) && (rebate_final) && (exchange_rate)) {
                 if ((commission_min >= 0.0) && (commission_percent >= 0.0) && (rebate_final >= 0.0)) {
                     var commission_calc_1 = commission_min * exchange_rate;
-                    var commission_calc_2 = commission_percent / 100.00 * exchange_rate * rebate_final;
+                    commission_calc_1 = (Math.round(commission_calc_1*100)/100).toFixed(2);
+                    var commission_calc_2 = commission_percent / 100.00 * rebate_final;
+                    commission_calc_2 = (Math.round(commission_calc_2*100)/100).toFixed(2);
+                    commission_calc_2 = (Math.round((commission_calc_2 * exchange_rate)*100)/100).toFixed(2);
+
                     var commission_calc = commission_calc_2;
 
                     if (commission_calc_1 > commission_calc_2) {
