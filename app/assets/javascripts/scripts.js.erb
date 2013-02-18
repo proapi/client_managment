@@ -43,6 +43,11 @@ $(function () {
             if (commission_currency == 'PLN') {
                 exchange_rate = 1.0;
                 $("#clearing_exchange_rate").val('1,0000');
+            } else {
+                if (exchange_rate == 1.0) {
+                    exchange_rate = null;
+                    $("#clearing_exchange_rate").val('');
+                }
             }
 
             if ((commission_min) && (commission_currency) && (commission_percent) && (rebate_final) && (exchange_rate)) {
@@ -64,6 +69,8 @@ $(function () {
                         $("#clearing_bill_attributes_total").val(commission_calc);
                     }
                 }
+            } else {
+                $("#clearing_commission_final").val('');
             }
         }
     });
