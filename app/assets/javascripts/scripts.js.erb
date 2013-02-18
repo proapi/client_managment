@@ -24,7 +24,7 @@ $(function () {
         var bill_amount = $("#clearing_bill_amount").val();
         bill_amount = (bill_amount + "").replace(',', '.');
         var total_to_client = income_total - bill_amount;
-        total_to_client = ((Math.round(total_to_client*100)/100).toFixed(2) + "").replace('.', ',');
+        total_to_client = ((Math.round(total_to_client * 100) / 100).toFixed(2) + "").replace('.', ',');
         $("#clearing_total_to_client").val(total_to_client);
     });
     $(".commission").change(function () {
@@ -45,25 +45,25 @@ $(function () {
                 $("#clearing_exchange_rate").val('1,0000');
             } else {
                 if (exchange_rate == 1.0) {
-                //    exchange_rate = null;
-                //    $("#clearing_exchange_rate").val('');
+                    exchange_rate = null;
+                    $("#clearing_exchange_rate").val('');
                 }
             }
 
             if ((commission_min) && (commission_currency) && (commission_percent) && (rebate_final) && (exchange_rate)) {
                 if ((commission_min >= 0.0) && (commission_percent >= 0.0) && (rebate_final >= 0.0)) {
                     var commission_calc_1 = commission_min * exchange_rate;
-                    commission_calc_1 = (Math.round(commission_calc_1*100)/100).toFixed(2);
+                    commission_calc_1 = (Math.round(commission_calc_1 * 100) / 100).toFixed(2);
                     var commission_calc_2 = commission_percent / 100.00 * rebate_final;
-                    commission_calc_2 = (Math.round(commission_calc_2*100)/100).toFixed(2);
-                    commission_calc_2 = (Math.round((commission_calc_2 * exchange_rate)*100)/100).toFixed(2);
+                    commission_calc_2 = (Math.round(commission_calc_2 * 100) / 100).toFixed(2);
+                    commission_calc_2 = (Math.round((commission_calc_2 * exchange_rate) * 100) / 100).toFixed(2);
 
                     var commission_calc = commission_calc_2;
 
-                    if (commission_calc_1 > commission_calc_2) {
+                    if ((commission_calc_1 * 100 / 100) > (commission_calc_2 * 100 / 100)) {
                         commission_calc = commission_calc_1;
                     }
-                    commission_calc = ((Math.round(commission_calc*100)/100).toFixed(2) + "").replace('.', ',');
+                    commission_calc = ((Math.round(commission_calc * 100) / 100).toFixed(2) + "").replace('.', ',');
                     $("#clearing_commission_final").val(commission_calc);
                     if ($("#clearing_bill_attributes_total_manual").is(':checked') == false) {
                         $("#clearing_bill_attributes_total").val(commission_calc);
