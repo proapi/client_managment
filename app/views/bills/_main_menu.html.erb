@@ -5,6 +5,8 @@
       <li><%= link_to 'Edycja', edit_bill_path(@bill) %></li>
       <li><%= link_to 'Wydrukuj', bill_path(@bill, format: :pdf) %></li>
       <li><%= link_to 'Usuń', @bill, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
+      <li><%= link_to 'Do klienta', @bill.client %></li>
+      <li><%= link_to 'Do rozliczenia', @bill.clearing %></li>
     </ul>
 <% end %>
 <h3>Rachunki</h3>

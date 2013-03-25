@@ -7,6 +7,8 @@ class Bill < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
 
+  delegate :client, to: :clearing, allow_nil: true
+
   attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual, :number_manual
 
   validates_presence_of :clearing_id, :company_id, :user_id, :total, :issue_date, :maturity_date
