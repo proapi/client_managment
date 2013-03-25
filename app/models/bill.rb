@@ -91,10 +91,11 @@ class Bill < ActiveRecord::Base
                   [pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.title}"), pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.units}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}")]]
     pdf.table(table_data, header: true, width: 520, position: :center)
 
-    pdf.move_down 10
+    pdf.move_down 25
 
     if self.comment
-      pdf.text "Adnotacje: #{self.comment}", style: :italic, align: :left
+      pdf.text "Adnotacje:", style: :bold_italic, align: :left
+      pdf.text "#{self.comment}", style: :italic, align: :left
     end
 
     pdf.move_down 45

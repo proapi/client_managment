@@ -98,7 +98,7 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: t('flash.notice') if @clearing.destroyed? }
+      format.html { redirect_to messages_url, notice: t('flash.notice') if @message.destroyed? }
       format.json { head :no_content }
     end
   end

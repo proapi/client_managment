@@ -4,7 +4,8 @@
       <li><%= link_to 'Szczegóły', @message %></li>
       <li><%= link_to 'Edycja', edit_message_path(@message) %></li>
       <li><%= link_to 'Usuń', @message, :confirm => "Czy jesteś pewien?", :method => :delete %></li>
-      <li></li>
+      <li><%= link_to 'Do klienta', @message.clearing.client %></li>
+      <li><%= link_to 'Do rozliczenia', @message.clearing %></li>
     </ul>
 <% end %>
 <h3>Wiadomości</h3>
