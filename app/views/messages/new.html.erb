@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :history do %>
-    <%= link_to "Rozliczenia w toku", root_url %>
+    <%= link_to "Rozliczenia w toku", root_url %> / <%= link_to "Dodawanie wiadomości", new_message_path %> / <%= link_to 'Wstecz', :back %>
 <% end %>
 
 <% content_for :help do %>
