@@ -30,6 +30,7 @@ $(function () {
     $(".commission").change(function () {
         var commission_manual = $("#clearing_commission_manual").is(':checked');
         if (commission_manual == false) {
+            var selected_country = $("#clearing_country_id>option:selected").text();
             var commission_min = $("#clearing_commission_min").val();
             commission_min = (commission_min + "").replace(',', '.');
             var commission_currency = $("#clearing_commission_currency").val();
@@ -70,7 +71,11 @@ $(function () {
                     }
                 }
             } else {
-                $("#clearing_commission_final").val('');
+                if ((commission_min) && (commission_currency) && (exchange_rate) && (selected_country == 'Irlandia' || selected_country == 'Niemcy')) {
+                    $("#clearing_commission_final").val(((Math.round(commission_min * exchange_rate * 100) / 100).toFixed(2) + "").replace('.', ','));
+                } else {
+                    $("#clearing_commission_final").val('');
+                }
             }
         }
     });

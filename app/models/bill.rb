@@ -91,7 +91,11 @@ class Bill < ActiveRecord::Base
                   [pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.title}"), pdf.make_cell(content: "1"), pdf.make_cell(content: "#{self.units}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}"), pdf.make_cell(content: "#{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}")]]
     pdf.table(table_data, header: true, width: 520, position: :center)
 
-    pdf.move_down 50
+    pdf.move_down 10
+
+    pdf.text "Rachunek nr: #{self.number}", style: :bold, align: :center
+
+    pdf.move_down 45
 
     pdf.text "Do zapłaty: #{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}", style: :bold
 
