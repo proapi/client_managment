@@ -39,6 +39,13 @@ class MessagesController < ApplicationController
       @message = Message.new
     end
 
+    if params[:client_id]
+      client = Client.find(params[:client_id])
+      @clearings = client.clearings
+    else
+      @clearings = Clearing.all_cached
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @message }
@@ -48,6 +55,7 @@ class MessagesController < ApplicationController
   # GET /messages/1/edit
   def edit
     @message = Message.find(params[:id])
+    @clearings = @message.clearing.client.clearings
   end
 
   # POST /messages

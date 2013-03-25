@@ -31,6 +31,7 @@
               <% else %>
                   <%= link_to image_tag('invoice.png'), edit_bill_path(clearing.bill), title: "Edycja rachunku" %>
               <% end %>
+              <%= link_to image_tag('message.png'), new_clearing_message_path(clearing), title: "Nowa wiadomość do rozliczenia" %>
               <%= link_to image_tag('delete.png'), clearing, :confirm => "Czy jesteś pewien?", :method => :delete, title: "Usuwanie" %>
           <% end %>
       <% end %>
