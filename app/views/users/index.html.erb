@@ -23,7 +23,11 @@
       <tbody>
       <%= content_tag_for(:tr, @users) do |user| %>
           <%= content_tag :td, (link_to user.name, user_path(user)), class: 'style1' %>
-          <%= content_tag :td, check_blank_value(user.email) %>
+          <% if user.email %>
+             <%= content_tag :td, (link_to user.email, "mailto:#{user.email}") %>
+          <% else %>
+             <%= content_tag :td, (link_to check_blank_value(user.email)) %>
+          <% end %>
           <%= content_tag :td, user.admin? ? 'Tak' : 'Nie' %>
           <%= content_tag :td, class: 'actions' do %>
               <%= link_to image_tag('info.png'), user_path(user), title: "Szczegółowe informacje" %>

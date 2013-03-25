@@ -16,7 +16,11 @@
       <th class="full" colspan="2">Szczegóły konta użytkownika</th>
     </tr>
     <%= check_blank 'Nazwisko', @user.name %>
-    <%= check_blank 'E-mail', @user.email %>
+    <% if @user.email %>
+      <%= check_blank 'E-mail', link_to(@user.email, "mailto:#{@user.email}") %>
+    <% else %>
+      <%= check_blank 'E-mail', @user.email %>
+    <% end %>
     <tr>
       <td>Administrator</td>
       <td><strong><%= @user.admin? ? 'Tak' : 'Nie' %></strong></td>
@@ -75,7 +79,11 @@
           <%= content_tag :td, client.firstname %>
           <%= content_tag :td, client.address.city %>
           <%= content_tag :td, client.mobile %>
-          <%= content_tag :td, client.email %>
+          <% if client.email %>
+            <%= content_tag :td, (link_to client.email, "mailto:#{client.email}") %>
+          <% else %>
+            <%= content_tag :td, (link_to check_blank_value(client.email)) %>
+          <% end %>
           <%= content_tag :td, class: 'actions' do %>
               <%= link_to image_tag('info.png'), client, title: "Szczegółowe informacje" %>
               <%= link_to image_tag('modify.png'), edit_client_path(client), title: "Edycja" %>

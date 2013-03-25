@@ -25,7 +25,12 @@
     <%= check_blank 'Drugie imię', @client.middlename %>
     <%= check_blank 'Telefon stacjonarny', @client.telephone %>
     <%= check_blank 'Telefon komórkowy', @client.mobile %>
-    <%= check_blank 'E-mail', @client.email %>
+    <% if @client.email %>
+      <%= check_blank 'E-mail', link_to(@client.email, "mailto:#{@client.email}") %>
+    <% else %>
+      <%= check_blank 'E-mail', @client.email %>
+    <% end %>
+
     <tr>
       <td>Data urodzenia</td>
       <td><strong>
