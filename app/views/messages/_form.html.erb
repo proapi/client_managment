@@ -31,7 +31,11 @@
         <tr>
           <td><strong><%= f.label :clearing_id, "Rozliczenie powiązane z tą wiadomością" %></strong></td>
           <td>
+            <% if @clearings %>
             <%= f.collection_select :clearing_id, @clearings, :id, :title, {prompt: true} %>
+                <% else %>
+                <%= f.collection_select :clearing_id, Clearing.all_cached, :id, :title, {prompt: true} %>
+            <% end %>
           </td>
         </tr>
         <tr>
