@@ -93,7 +93,9 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 10
 
-    pdf.text "Rachunek nr: #{self.number}", style: :bold, align: :center
+    if self.comment
+      pdf.text "Adnotacje: #{self.comment}", style: :italic, align: :left
+    end
 
     pdf.move_down 45
 
