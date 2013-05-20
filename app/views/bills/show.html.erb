@@ -25,6 +25,7 @@
     <%= check_blank('Data wystawienia', check_blank_value(@bill.issue_date)) %>
     <%= check_blank('Termin płatności', check_blank_value(@bill.maturity_date)) %>
     <%= check_blank('Kwota końcowa', number_with_precision(@bill.total, precision: 2, delimiter: " ")) %>
+    <%= check_blank 'Waluta', @bill.currency %>
     <%= check_blank 'Forma płatności', @bill.payment_form %>
     <%= check_blank 'Tytuł usługi', @bill.title %>
     <%= check_blank 'Jednostka miary', @bill.units %>

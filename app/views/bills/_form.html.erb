@@ -108,6 +108,12 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= f.label :title, "Waluta" %></strong></td>
+          <td>
+            <%= f.select :currency, options_for_select(['PLN', 'EURO', 'FUNT'], @bill.currency) %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= f.label :comment, "Dodatkowe informacje" %></strong></td>
           <td>
             <%= f.text_area :comment, :rows => 2 %>

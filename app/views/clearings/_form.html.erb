@@ -216,6 +216,12 @@
           </td>
         </tr>
         <tr>
+          <td><strong><%= bill_form.label :currency, "Waluta" %></strong></td>
+          <td>
+            <%= bill_form.select :currency, options_for_select(['PLN', 'EURO', 'FUNT'], @clearing.bill.currency) %>
+          </td>
+        </tr>
+        <tr>
           <td><strong><%= bill_form.label :total, "Kwota końcowa" %></strong></td>
           <td>
             <% if @clearing.bill.total_manual? %>

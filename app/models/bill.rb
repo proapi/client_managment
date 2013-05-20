@@ -9,9 +9,9 @@ class Bill < ActiveRecord::Base
 
   delegate :client, to: :clearing, allow_nil: true
 
-  attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual, :number_manual
+  attr_accessible :clearing_id, :company_id, :total, :maturity_date, :issue_date, :comment, :user_id, :payment_form, :title, :units, :number, :total_manual, :number_manual, :currency
 
-  validates_presence_of :clearing_id, :company_id, :user_id, :total, :issue_date, :maturity_date
+  validates_presence_of :clearing_id, :company_id, :user_id, :total, :issue_date, :maturity_date, :currency
 
   def self.all_cached
     Rails.cache.fetch('Bill.all') { Bill.includes([:company, {:clearing => [:client, :country]}]).order('number') }
@@ -93,14 +93,14 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 25
 
-    if self.comment
+    unless self.comment.empty?
       pdf.text "Adnotacje:", style: :bold_italic, align: :left
       pdf.text "#{self.comment}", style: :italic, align: :left
     end
 
     pdf.move_down 45
 
-    pdf.text "Do zapłaty: #{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")}", style: :bold
+    pdf.text "Do zapłaty: #{helpers.number_with_precision(self.total, precision: 2, delimiter: " ")} #{self.currency}", style: :bold
 
     pdf.move_down 25
 
@@ -143,6 +143,6 @@ class Bill < ActiveRecord::Base
         end
       end
     end
-    str += "/100"
+    str += "/100 + #{self.currency}"
   end
 end
