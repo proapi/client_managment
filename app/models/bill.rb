@@ -93,7 +93,7 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 25
 
-    unless self.comment.empty?
+    if self.comment && !self.comment.empty?
       pdf.text "Adnotacje:", style: :bold_italic, align: :left
       pdf.text "#{self.comment}", style: :italic, align: :left
     end
