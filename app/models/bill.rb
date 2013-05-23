@@ -143,6 +143,6 @@ class Bill < ActiveRecord::Base
         end
       end
     end
-    str += "/100 + #{self.currency}"
+    str += "/100 #{self.currency}"
   end
 end
