@@ -66,8 +66,8 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 25
 
-    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.code}, #{self.company.address.city}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
-    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.code}, #{self.clearing.client.address.city}"]], width: 260, :cell_style => {:borders => [], align: :center})
+    table_left = pdf.make_table([["#{self.company.name}"], [""], ["#{self.company.address.street}"], ["#{self.company.address.code} #{self.company.address.city}"], ["NIP #{self.company.tax_number}"]], width: 260, :cell_style => {:borders => [], align: :center})
+    table_right = pdf.make_table([["#{self.clearing.client.fullname}"], [""], ["#{self.clearing.client.address.street}"], ["#{self.clearing.client.address.code} #{self.clearing.client.address.city}"]], width: 260, :cell_style => {:borders => [], align: :center})
     cell_header_left = pdf.make_cell(content: "<b>Sprzedawca</b>", inline_format: true, align: :center)
     cell_header_right = pdf.make_cell(content: "<b>Nabywca</b>", inline_format: true, align: :center)
     table_data = [[cell_header_left, cell_header_right], [table_left, table_right]]
@@ -104,7 +104,7 @@ class Bill < ActiveRecord::Base
 
     pdf.move_down 25
 
-    pdf.text "Słownie: #{price_to_words(helpers.number_with_precision(self.total, precision: 2, delimiter: " "))}"
+    pdf.text "Słownie: #{price_to_words(helpers.number_with_precision(self.total, precision: 2, delimiter: " "), self.currency)}"
 
     pdf.move_down 90
 
@@ -127,14 +127,15 @@ class Bill < ActiveRecord::Base
     end
   end
 
-  def price_to_words(price)
+  def price_to_words(price, currency)
     hash = %w(zer jed dwa trz czt pię sze sie osi dzi)
     str = ""
     grosze = false
     price.to_s.each_char do |s|
       if s.eql? ","
         grosze = true
-        str += "zł*"
+        str += "zł*" if currency.eql? 'PLN'
+        str += "EURO*" if currency.eql? 'EURO'
       else
         if grosze
           str += "#{s}"
